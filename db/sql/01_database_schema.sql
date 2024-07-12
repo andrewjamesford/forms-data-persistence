@@ -1,25 +1,21 @@
 BEGIN TRANSACTION;
-
-CREATE TABLE product_category (
-    id SERIAL PRIMARY KEY,
-    name TEXT
+CREATE TABLE categories (
+	id SERIAL PRIMARY KEY,
+	name TEXT,
+	parent_id INT REFERENCES category(id)
 );
-
-CREATE TABLE product_image (
-    id SERIAL PRIMARY KEY,
-    name text,
-    description text
+CREATE TABLE listings (
+	id SERIAL PRIMARY KEY,
+	title text,
+	subtitle text,
+	description text,
+	listingPrice money,
+	conditionNew boolean,
+	category_id INT REFERENCES category(id),
+	photos UUID [] REFERENCES photos(image),
+	auction boolean,
+	buyNowPrice money,
+	endDate timeStamp
 );
-
-CREATE TABLE product (
-    id SERIAL PRIMARY KEY,
-    name text,
-    description text,
-    price money,
-    discount_amount money,
-    product_category_id int REFERENCES product_category(id),
-    product_image_id int REFERENCES product_image(id)
-);
-
-
+CREATE TABLE photos (image UUID PRIMARY KEY,);
 COMMIT;
