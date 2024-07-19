@@ -1,6 +1,3 @@
-
-const ErrorMessage = ({ message }) => {
-  return <div className="errorMessage">Error: {message}</div>;
-};
-
-export default ErrorMessage;
+export default function ErrorMessage() {
+	return <div className="errorMessage">Error: {message}</div>;
+}

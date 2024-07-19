@@ -1,10 +1,15 @@
+import { usePath } from "crossroad";
+
 export default function PageOne() {
+	const path = usePath();
+	const stepArray = path[0].split("/");
+	const page = stepArray[1];
 	return (
 		<>
 			<h1 className="mt-4 text-2xl font-bold">What are you listing?</h1>
 			<div className="mt-6">
 				<label
-					for="listing-title"
+					htmlFor="listing-title"
 					className="block text-sm font-medium text-gray-700"
 				>
 					Listing title
@@ -20,7 +25,7 @@ export default function PageOne() {
 			</div>
 			<div className="mt-6">
 				<label
-					for="category"
+					htmlFor="category"
 					className="block text-sm font-medium text-gray-700"
 				>
 					Category
@@ -29,6 +34,7 @@ export default function PageOne() {
 					<button
 						className="w-full px-3 py-2 text-left text-blue-600 border rounded-md"
 						type="button"
+						id="listing-category"
 					>
 						Choose category
 					</button>
@@ -39,7 +45,7 @@ export default function PageOne() {
 			</div>
 			<div className="mt-6">
 				<label
-					for="sub-title"
+					htmlFor="sub-title"
 					className="block text-sm font-medium text-gray-700"
 				>
 					Subtitle
@@ -54,12 +60,12 @@ export default function PageOne() {
 				<p className="mt-1 text-sm text-gray-500">50 characters remaining</p>
 			</div>
 			<div className="mt-6">
-				<button
-					type="button"
-					className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+				<a
+					href={`/${page}/2`}
+					className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
 				>
 					Next
-				</button>
+				</a>
 			</div>
 		</>
 	);

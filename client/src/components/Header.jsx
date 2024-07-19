@@ -15,30 +15,32 @@ const Header = () => {
 						<a href="/" className="text-sm text-gray-600">
 							Sold!
 						</a>
-						<a href="/" className="text-sm text-gray-600">
+						<a href="/state/1" className="text-sm text-gray-600">
 							React State
 						</a>
-						<a href="/" className="text-sm text-gray-600">
+						<a href="/formik/1" className="text-sm text-gray-600">
 							Formik
 						</a>
-						<a href="/" className="text-sm text-gray-600">
-							React Hook Form
+						<a href="/hook-form/1" className="text-sm text-gray-600">
+							Hook Form
 						</a>
 					</nav>
 				</div>
 				<div className="flex items-center space-x-4">
-					<input
-						placeholder="Search all of Sold!"
-						className="px-2 py-1 text-sm border rounded-md"
-						type="text"
-						control-id="ControlID-1"
-					/>
-					<a href="/" className="text-sm text-gray-600">
+					<div className="px-4">
+						<input
+							placeholder="Search all of Sold!"
+							className="px-2 py-1 text-sm border rounded-md"
+							type="text"
+							control-id="ControlID-1"
+						/>
+					</div>
+					{/* <a href="/" className="text-sm text-gray-600">
 						Watchlist
 					</a>
 					<a href="/" className="text-sm text-gray-600">
 						Favourites
-					</a>
+					</a> */}
 					<a href="/" className="text-sm text-gray-600">
 						Start a listing
 					</a>

@@ -1,11 +1,10 @@
-import BreadCrumbs from "@/components/listing-form/breadcrumbs";
-import PageOne from "@/components/listing-form/page1";
-import { useParams } from "crossroad";
-import PageTwo from "@/components/listing-form/page2";
-import PageThree from "@/components/listing-form/page3";
-import PageFive from "@/components/listing-form/page5";
-import PageFour from "@/components/listing-form/page4";
-import PageSix from "@/components/listing-form/page6";
+import BreadCrumbs from "@/components/listingForm/breadcrumbs";
+import PageOne from "@/components/listingForm/page1";
+import PageTwo from "@/components/listingForm/page2";
+import PageThree from "@/components/listingForm/page3";
+import PageFive from "@/components/listingForm/page5";
+import PageFour from "@/components/listingForm/page4";
+import PageSix from "@/components/listingForm/page6";
 
 export default function State({ step }) {
 	return (
