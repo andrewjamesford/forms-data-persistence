@@ -192,7 +192,8 @@ VALUES (
 		false,
 		0.00,
 		'2021-12-31 23:59:59'
-	) (
+	),
+	(
 		15,
 		'3D printer',
 		'Brand new 3D printer',
@@ -202,4 +203,6 @@ VALUES (
 		40,
 		'{f47b1b9e-3b7b-4b3b-8b3b-7b3b3b3b3b3b}',
 		false,
-		0
+		0,
+		'2021-12-31 23:59:59'
+	)

@@ -18,9 +18,6 @@ const Header = () => {
 						<a href="/state/1" className="text-sm text-gray-600">
 							React State
 						</a>
-						<a href="/formik/1" className="text-sm text-gray-600">
-							Formik
-						</a>
 						<a href="/hook-form/1" className="text-sm text-gray-600">
 							Hook Form
 						</a>

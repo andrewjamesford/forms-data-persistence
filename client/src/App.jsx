@@ -1,5 +1,4 @@
 import Router, { Switch, Route } from "crossroad";
-import Formik from "./routes/formik";
 import Home from "./routes/home";
 import HookForm from "./routes/hookForm";
 import NotFoundPage from "./routes/notFoundPage";
@@ -17,7 +16,6 @@ const App = () => {
 						<Router>
 							<Switch redirect="/">
 								<Route exact path="/" component={Home} />
-								<Route exact path="/formik/:step" component={Formik} />
 								<Route exact path="/hook-form/:step" component={HookForm} />
 								<Route exact path="/state/:step" component={State} />
 								<Route path="*" component={NotFoundPage} />

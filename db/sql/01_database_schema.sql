@@ -2,7 +2,7 @@ BEGIN TRANSACTION;
 CREATE TABLE categories (
 	id SERIAL PRIMARY KEY,
 	name TEXT,
-	parent_id INT REFERENCES categories(id)
+	parent_id INT
 );
 CREATE TABLE listings (
 	id SERIAL PRIMARY KEY,
