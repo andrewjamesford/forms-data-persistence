@@ -1,8 +1,6 @@
 const api = {
-	getProducts: async (sort, order) =>
-		await fetch(
-			`${import.meta.env.VITE_API_URL}/products?sortOrder=${sort}&direction=${order}`,
-		),
+	getCategories: async () =>
+		await fetch(`${import.meta.env.VITE_API_URL}/categories`),
 	getReports: async (accessToken) =>
 		await fetch(`${import.meta.env.VITE_API_URL}/reports`, {
 			headers: {

@@ -1,9 +1,41 @@
+import React, { useState, useEffect } from "react";
 import { usePath } from "crossroad";
+import api from "../../api";
 
 export default function PageOne() {
 	const path = usePath();
 	const stepArray = path[0].split("/");
 	const page = stepArray[1];
+
+	const [categories, setCategories] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await api.getCategories();
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				const result = await response.json();
+				setData(result);
+			} catch (error) {
+				setError(error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchData();
+	}, []); // Empty dependency array means this effect runs once after initial render
+
+	if (loading)
+		// Empty dependency array means this effect runs once after initial render
+
+		return <p>Loading...</p>;
+	if (error) return <p>Error: {error.message}</p>;
+
 	return (
 		<>
 			<h1 className="mt-4 text-2xl font-bold">What are you listing?</h1>
@@ -31,13 +63,21 @@ export default function PageOne() {
 					Category
 				</label>
 				<div className="mt-1">
-					<button
-						className="w-full px-3 py-2 text-left text-blue-600 border rounded-md"
-						type="button"
-						id="listing-category"
+					<select
+						tabIndex="-1"
+						placeholder="Select a category"
+						className="flex h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-[180px]"
+						// className="absolute border-0 w-1 h-1 p-0 m-[-1px] overflow-hidden clip-rect-0-0-0-0 whitespace-nowrap word-wrap-normal"
 					>
-						Choose category
-					</button>
+						{categories.map((category) => {
+							return (
+								<option key={category.id} value={category.id}>
+									{category.name}
+								</option>
+							);
+						})}
+					</select>
+
 					<p className="mt-1 text-sm text-gray-500">
 						We'll suggest a category based on your title, too.
 					</p>
