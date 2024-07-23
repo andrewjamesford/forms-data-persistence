@@ -19,7 +19,7 @@ export default function PageOne() {
 					throw new Error("Network response was not ok");
 				}
 				const result = await response.json();
-				setData(result);
+				setCategories(result.categories);
 			} catch (error) {
 				setError(error);
 			} finally {
@@ -28,12 +28,9 @@ export default function PageOne() {
 		};
 
 		fetchData();
-	}, []); // Empty dependency array means this effect runs once after initial render
+	}, []);
 
-	if (loading)
-		// Empty dependency array means this effect runs once after initial render
-
-		return <p>Loading...</p>;
+	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error.message}</p>;
 
 	return (
@@ -51,7 +48,6 @@ export default function PageOne() {
 					placeholder="e.g. iPhone 5c, Red t-shirt"
 					className="block w-full px-3 py-2 mt-1 border rounded-md"
 					type="text"
-					control-id="ControlID-2"
 				/>
 				<p className="mt-1 text-sm text-gray-500">80 characters remaining</p>
 			</div>
@@ -64,12 +60,12 @@ export default function PageOne() {
 				</label>
 				<div className="mt-1">
 					<select
-						tabIndex="-1"
+						id="category"
 						placeholder="Select a category"
-						className="flex h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-[180px]"
-						// className="absolute border-0 w-1 h-1 p-0 m-[-1px] overflow-hidden clip-rect-0-0-0-0 whitespace-nowrap word-wrap-normal"
+						className="flex h-10 pl-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 "
 					>
-						{categories.map((category) => {
+						<option value="">Select a category...</option>
+						{categories?.map((category) => {
 							return (
 								<option key={category.id} value={category.id}>
 									{category.name}
@@ -95,7 +91,6 @@ export default function PageOne() {
 					placeholder="e.g. iPhone 5c, Red t-shirt"
 					className="block w-full px-3 py-2 mt-1 border rounded-md"
 					type="text"
-					control-id="ControlID-2"
 				/>
 				<p className="mt-1 text-sm text-gray-500">50 characters remaining</p>
 			</div>

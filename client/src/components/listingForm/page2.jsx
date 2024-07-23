@@ -22,7 +22,7 @@ export default function PageTwo() {
 				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
 			</div>
 			<fieldset>
-				<legend>Condition</legend>
+				<legend className="sr-only">Condition</legend>
 				<div className="mt-6">
 					<label
 						htmlFor="category"
@@ -52,12 +52,12 @@ export default function PageTwo() {
 			</fieldset>
 
 			<div className="mt-6">
-				<button
-					type="button"
+				<a
+					href={`/${page}/3`}
 					className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
 				>
 					Next
-				</button>
+				</a>
 			</div>
 		</>
 	);

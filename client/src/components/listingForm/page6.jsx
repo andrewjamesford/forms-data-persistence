@@ -16,26 +16,35 @@ export default function PageSix() {
 				/>
 				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
 			</div>
-			<div className="mt-6">
-				<label
-					htmlFor="category"
-					className="block text-sm font-medium text-gray-700"
-				>
-					Condition
-				</label>
-				<div className="flex mt-3">
-					<input type="radio" id="new" name="condition" value="new" />
-					<label htmlFor="new" className="ml-2 text-sm text-gray-700">
-						New
+			<fieldset>
+				<legend className="sr-only">Condition</legend>
+				<div className="mt-6">
+					<label
+						htmlFor="category"
+						className="block text-sm font-medium text-gray-700"
+					>
+						Condition
+						<div className="flex mt-3">
+							<input
+								type="radio"
+								id="used"
+								name="condition"
+								value="used"
+								defaultChecked
+							/>
+							<label htmlFor="used" className="ml-2 text-sm text-gray-700">
+								Used
+							</label>
+						</div>
 					</label>
+					<div className="flex mt-3">
+						<input type="radio" id="new" name="condition" value="new" />
+						<label htmlFor="new" className="ml-2 text-sm text-gray-700">
+							New
+						</label>
+					</div>
 				</div>
-				<div className="flex mt-3">
-					<input type="radio" id="used" name="condition" value="used" />
-					<label htmlFor="used" className="ml-2 text-sm text-gray-700">
-						Used
-					</label>
-				</div>
-			</div>
+			</fieldset>
 
 			<div className="mt-6">
 				<button

@@ -3,8 +3,8 @@ const db = require("../db");
 module.exports = {
 	getCategories: async () => {
 		try {
-			const result = db.query(
-				"select c.id, c.name, c.parent_id from categories c",
+			const result = await db.query(
+				"SELECT c.id, c.name, c.parent_id FROM categories c ORDER BY c.name",
 			);
 			return result.rows;
 		} catch (error) {
