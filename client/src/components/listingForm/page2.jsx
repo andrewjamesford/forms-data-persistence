@@ -1,9 +1,18 @@
+import React, { useState } from "react";
 import { usePath } from "crossroad";
 
-export default function PageTwo() {
+export default function PageTwo({ values, setFormState }) {
 	const path = usePath();
 	const stepArray = path[0].split("/");
 	const page = stepArray[1];
+
+	const [itemDetails, setItemDetails] = useState(values);
+
+	const changeData = () => {
+		setFormState(itemDetails);
+		console.log(itemDetails);
+	};
+
 	return (
 		<>
 			<h1 className="mt-4 text-2xl font-bold">Item details</h1>
@@ -18,6 +27,11 @@ export default function PageTwo() {
 				<textarea
 					id="listing-description"
 					className="block w-full px-3 py-2 mt-1 border rounded-md"
+					value={itemDetails.description}
+					onChange={(e) => {
+						setItemDetails({ ...itemDetails, description: e.target.value });
+						changeData();
+					}}
 				/>
 				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
 			</div>
@@ -36,14 +50,28 @@ export default function PageTwo() {
 							id="used"
 							name="condition"
 							value="used"
-							defaultChecked
+							checked={itemDetails.condition === "used"}
+							onChange={(e) => {
+								setItemDetails({ ...itemDetails, condition: "used" });
+								changeData();
+							}}
 						/>
 						<label htmlFor="used" className="ml-2 text-sm text-gray-700">
 							Used
 						</label>
 					</div>
 					<div className="flex mt-3">
-						<input type="radio" id="new" name="condition" value="new" />
+						<input
+							type="radio"
+							id="new"
+							name="condition"
+							value="new"
+							checked={itemDetails.condition === "new"}
+							onChange={(e) => {
+								setItemDetails({ ...itemDetails, condition: "new" });
+								changeData();
+							}}
+						/>
 						<label htmlFor="new" className="ml-2 text-sm text-gray-700">
 							New
 						</label>

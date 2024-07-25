@@ -7,7 +7,8 @@ const categoriesRepository = require("./categories.repository");
 
 router.get("/", async (req, res, next) => {
 	try {
-		const categories = await categoriesRepository.getCategories();
+		const parentId = req?.query?.parentId || 0;
+		const categories = await categoriesRepository.getCategories(parentId);
 
 		const responseResults = {
 			categories,

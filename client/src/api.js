@@ -1,6 +1,8 @@
 const api = {
-	getCategories: async () =>
-		await fetch(`${import.meta.env.VITE_API_URL}/categories`),
+	getCategories: async (parentId = 0) =>
+		await fetch(
+			`${import.meta.env.VITE_API_URL}/categories?parentId=${parentId}`,
+		),
 	getReports: async (accessToken) =>
 		await fetch(`${import.meta.env.VITE_API_URL}/reports`, {
 			headers: {

@@ -2,7 +2,8 @@ BEGIN TRANSACTION;
 CREATE TABLE categories (
 	id SERIAL PRIMARY KEY,
 	name TEXT,
-	parent_id INT
+	parent_id INT,
+	active BOOLEAN
 );
 CREATE TABLE listings (
 	id SERIAL PRIMARY KEY,

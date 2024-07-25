@@ -1,10 +1,11 @@
 const db = require("../db");
 
 module.exports = {
-	getCategories: async () => {
+	getCategories: async (parentId, active = true) => {
 		try {
 			const result = await db.query(
-				"SELECT c.id, c.name, c.parent_id FROM categories c ORDER BY c.name",
+				"select c.id, c.name, c.parent_id from categories c where c.parent_id = $1 and c.active = $2 order by c.name",
+				[parentId, active],
 			);
 			return result.rows;
 		} catch (error) {

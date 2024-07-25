@@ -3,18 +3,11 @@ const Header = () => {
 		<>
 			<header className="flex items-center justify-between px-4 py-2 bg-white border-b">
 				<div className="flex items-center space-x-4">
-					{/* <img
-						src="/placeholder.svg"
-						alt="Logo"
-						className="h-8"
-						width="100"
-						height="32"
-						// style="aspect-ratio: 100 / 32; object-fit: cover;"
-					/> */}
-					<nav className="hidden space-x-4 md:flex">
-						<a href="/" className="text-sm text-gray-600">
-							Sold!
-						</a>
+					<a href="/" className="text-sm text-black">
+						<img src="/gavel.svg" alt="Logo" width="32" height="32" />
+						SOLD!
+					</a>
+					<nav className="hidden space-x-4 md:flex pl-8">
 						<a href="/state/1" className="text-sm text-gray-600">
 							React State
 						</a>
@@ -32,12 +25,7 @@ const Header = () => {
 							control-id="ControlID-1"
 						/>
 					</div>
-					{/* <a href="/" className="text-sm text-gray-600">
-						Watchlist
-					</a>
-					<a href="/" className="text-sm text-gray-600">
-						Favourites
-					</a> */}
+
 					<a href="/" className="text-sm text-gray-600">
 						Start a listing
 					</a>

@@ -1,9 +1,18 @@
+import React, { useState } from "react";
 import { usePath } from "crossroad";
 
-export default function PageThree() {
+export default function PageThree({ values, setFormState }) {
 	const path = usePath();
 	const stepArray = path[0].split("/");
 	const page = stepArray[1];
+
+	const [photos, setPhotos] = useState(values);
+
+	const changeData = () => {
+		setFormState(itemDetails);
+		console.log(itemDetails);
+	};
+
 	return (
 		<>
 			<h1 className="mt-4 text-2xl font-bold">Photos</h1>
@@ -41,6 +50,10 @@ export default function PageThree() {
 									type="file"
 									className="sr-only"
 									accept="image/png, image/jpeg, image/gif, image/webp"
+									onChange={(e) => {
+										setPhotos({ ...photos, file: e.target.files[0] });
+										changeData();
+									}}
 								/>
 							</label>
 							<p className="pl-1">or drag and drop</p>

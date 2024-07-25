@@ -5,17 +5,78 @@ import PageThree from "@/components/listingForm/page3";
 import PageFive from "@/components/listingForm/page5";
 import PageFour from "@/components/listingForm/page4";
 import PageSix from "@/components/listingForm/page6";
+import { useState } from "react";
 
 export default function State({ step }) {
+	const [formState, setFormState] = useState({
+		titleCategory: {
+			listingTitle: "",
+			category: 0,
+			subCategory: 0,
+			subTitle: "",
+		},
+		itemDetails: {
+			description: "",
+			condition: "used",
+		},
+		photos: {
+			files: [],
+		},
+		pricePayment: {},
+		shipping: {},
+		review: {},
+	});
 	return (
-		<div>
+		<>
 			<BreadCrumbs />
-			{step === "1" && <PageOne />}
-			{step === "2" && <PageTwo />}
-			{step === "3" && <PageThree />}
-			{step === "4" && <PageFour />}
-			{step === "5" && <PageFive />}
-			{step === "6" && <PageSix />}
-		</div>
+			{step === "1" && (
+				<PageOne
+					values={formState.titleCategory}
+					setFormState={(newTitleCategory) =>
+						setFormState({ ...formState, titleCategory: newTitleCategory })
+					}
+				/>
+			)}
+			{step === "2" && (
+				<PageTwo
+					values={formState.itemDetails}
+					setFormState={(newItemDetails) =>
+						setFormState({ ...formState, itemDetails: newItemDetails })
+					}
+				/>
+			)}
+			{step === "3" && (
+				<PageThree
+					values={formState.photos}
+					setFormState={(newPhotos) =>
+						setFormState({ ...formState, photos: newPhotos })
+					}
+				/>
+			)}
+			{step === "4" && (
+				<PageFour
+					values={formState.pricePayment}
+					setFormState={(newPricePayment) =>
+						setFormState({ ...formState, pricePayment: newPricePayment })
+					}
+				/>
+			)}
+			{step === "5" && (
+				<PageFive
+					values={formState.shipping}
+					setFormState={(newShipping) =>
+						setFormState({ ...formState, shipping: newShipping })
+					}
+				/>
+			)}
+			{step === "6" && (
+				<PageSix
+					values={formState.review}
+					setFormState={(newReview) =>
+						setFormState({ ...formState, review: newReview })
+					}
+				/>
+			)}
+		</>
 	);
 }
