@@ -17,7 +17,6 @@ export default function PageOne({ values, setFormState }) {
 
 	const changeData = () => {
 		setFormState(titleCategory);
-		console.log(titleCategory);
 	};
 
 	useEffect(() => {
@@ -82,9 +81,9 @@ export default function PageOne({ values, setFormState }) {
 							...titleCategory,
 							listingTitle: e.target.value,
 						});
-						changeData();
 					}}
 					value={titleCategory.listingTitle}
+					onBlur={changeData}
 				/>
 				<p className="mt-1 text-sm text-gray-500">80 characters remaining</p>
 			</div>
@@ -107,9 +106,9 @@ export default function PageOne({ values, setFormState }) {
 									...titleCategory,
 									category: e.target.value,
 								});
-								changeData();
 							}}
 							value={titleCategory.category}
+							onBlur={changeData}
 						>
 							<option value="">Select a category...</option>
 							{categories?.map((category) => {
@@ -146,9 +145,9 @@ export default function PageOne({ values, setFormState }) {
 									...titleCategory,
 									subCategory: e.target.value,
 								});
-								changeData();
 							}}
 							value={titleCategory.subCategory}
+							onBlur={changeData}
 						>
 							<option value="">Select a sub category...</option>
 							{subCategories?.map((category) => {
@@ -180,9 +179,9 @@ export default function PageOne({ values, setFormState }) {
 							...titleCategory,
 							subTitle: e.target.value,
 						});
-						changeData();
 					}}
 					value={titleCategory.subTitle}
+					onBlur={changeData}
 				/>
 				<p className="mt-1 text-sm text-gray-500">50 characters remaining</p>
 			</div>

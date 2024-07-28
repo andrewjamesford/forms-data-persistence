@@ -1,8 +1,17 @@
+import { useState } from "react";
+
 import { usePath } from "crossroad";
-export default function PageFour() {
+
+export default function PageFour({ values, setFormState }) {
 	const path = usePath();
 	const stepArray = path[0].split("/");
 	const page = stepArray[1];
+
+	const [pricePayment, setPricePayment] = useState(values);
+
+	const changeData = () => {
+		setFormState(pricePayment);
+	};
 	return (
 		<>
 			<h1 className="mt-4 text-2xl font-bold">Price &amp; Payment</h1>
@@ -22,6 +31,14 @@ export default function PageFour() {
 						type="number"
 						min={1}
 						step={1}
+						value={pricePayment.listingPrice}
+						onChange={(e) => {
+							setPricePayment({
+								...pricePayment,
+								listingPrice: e.target.value,
+							});
+						}}
+						onBlur={changeData}
 					/>
 				</span>
 				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
@@ -40,8 +57,16 @@ export default function PageFour() {
 						placeholder="$10.00"
 						className="block w-full px-3 py-2 mt-1 border rounded-md"
 						type="number"
-						min={1}
+						min={0}
 						step={1}
+						value={pricePayment.reservePrice}
+						onChange={(e) => {
+							setPricePayment({
+								...pricePayment,
+								reservePrice: e.target.value,
+							});
+						}}
+						onBlur={changeData}
 					/>
 				</span>
 				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
@@ -57,11 +82,18 @@ export default function PageFour() {
 					</label>
 					<div className="flex mt-3">
 						<input
-							type="radio"
+							type="checkbox"
 							id="payment-credit"
 							name="payment-type"
-							value="new"
-							defaultChecked
+							value="credit-card"
+							onChange={(e) => {
+								setPricePayment({
+									...pricePayment,
+									creditCard: !pricePayment.creditCard,
+								});
+							}}
+							onBlur={changeData}
+							checked={pricePayment.creditCard}
 						/>
 						<label
 							htmlFor="payment-credit"
@@ -72,10 +104,18 @@ export default function PageFour() {
 					</div>
 					<div className="flex mt-3">
 						<input
-							type="radio"
+							type="checkbox"
 							id="payment-bank"
 							name="payment-type"
-							value="used"
+							value="bank-transfer"
+							onChange={(e) => {
+								setPricePayment({
+									...pricePayment,
+									bankTransfer: !pricePayment.bankTransfer,
+								});
+							}}
+							onBlur={changeData}
+							checked={pricePayment.bankTransfer}
 						/>
 						<label
 							htmlFor="payment-bank"
@@ -86,10 +126,18 @@ export default function PageFour() {
 					</div>
 					<div className="flex mt-3">
 						<input
-							type="radio"
+							type="checkbox"
 							id="payment-bitcoin"
 							name="payment-type"
-							value="used"
+							value="bitcoin"
+							onChange={(e) => {
+								setPricePayment({
+									...pricePayment,
+									bitcoin: !pricePayment.bitcoin,
+								});
+							}}
+							onBlur={changeData}
+							checked={pricePayment.bitcoin}
 						/>
 						<label
 							htmlFor="payment-bitcoin"

@@ -1,50 +1,68 @@
-export default function PageSix() {
+export default function PageSix({ values }) {
 	return (
 		<>
 			<h1 className="mt-4 text-2xl font-bold">Finalise</h1>
-			<div className="mt-6">
-				<label
-					htmlFor="listing-description"
-					className="block text-sm font-medium text-gray-700"
-				>
-					Description
-				</label>
 
-				<textarea
-					id="listing-description"
-					className="block w-full px-3 py-2 mt-1 border rounded-md"
-				/>
-				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
+			<h2 className="mt-6 text-xl">Title & Category</h2>
+			<div className="mt-6">
+				<dl className="flex flex-col">
+					<dt className="text-lg font-semibold">Listing Title</dt>
+					<dd>{values.titleCategory.listingTitle}</dd>
+
+					<dt className="text-lg font-semibold">Category</dt>
+					<dd>{values.titleCategory.category}</dd>
+
+					<dt className="text-lg font-semibold">Sub Category</dt>
+					<dd>{values.titleCategory.subCategory}</dd>
+
+					<dt className="text-lg font-semibold">Sub Title</dt>
+					<dd>{values.titleCategory.subTitle}</dd>
+				</dl>
 			</div>
-			<fieldset>
-				<legend className="sr-only">Condition</legend>
-				<div className="mt-6">
-					<label
-						htmlFor="category"
-						className="block text-sm font-medium text-gray-700"
-					>
-						Condition
-						<div className="flex mt-3">
-							<input
-								type="radio"
-								id="used"
-								name="condition"
-								value="used"
-								defaultChecked
-							/>
-							<label htmlFor="used" className="ml-2 text-sm text-gray-700">
-								Used
-							</label>
-						</div>
-					</label>
-					<div className="flex mt-3">
-						<input type="radio" id="new" name="condition" value="new" />
-						<label htmlFor="new" className="ml-2 text-sm text-gray-700">
-							New
-						</label>
-					</div>
-				</div>
-			</fieldset>
+
+			<h2 className="mt-6 text-xl">Item Details</h2>
+			<div className="mt-6">
+				<dl className="flex flex-col">
+					<dt className="text-lg font-semibold">Description</dt>
+					<dd>{values.itemDetails.description}</dd>
+
+					<dt className="text-lg font-semibold">Condition</dt>
+					<dd>{values.itemDetails.condition}</dd>
+				</dl>
+			</div>
+
+			<h2 className="mt-6 text-xl">Photos</h2>
+			<div className="mt-6">
+				<dl className="flex flex-col">
+					<dt className="text-lg font-semibold">Photos</dt>
+					<dd>{values.photos.images}</dd>
+				</dl>
+			</div>
+
+			<h2 className="mt-6 text-xl">Price & Payment</h2>
+			<div className="mt-6">
+				<dl className="flex flex-col">
+					<dt className="text-lg font-semibold">Start Price</dt>
+					<dd>{values.pricePayment.listingPrice}</dd>
+
+					<dt className="text-lg font-semibold">Reserve Price</dt>
+					<dd>{values.pricePayment.reservePrice}</dd>
+
+					<dt className="text-lg font-semibold">Payment Options</dt>
+					<dd>{values.pricePayment.paymentOptions}</dd>
+				</dl>
+			</div>
+
+			<h2 className="mt-6 text-xl">Shipping & Pick-up</h2>
+			<div className="mt-6">
+				<dl className="flex flex-col">
+					<dt className="text-lg font-semibold">Pick-up</dt>
+					<dd>{values.shipping.pickUp}</dd>
+
+					<dt className="text-lg font-semibold">Shipping Options</dt>
+					<dd>{values.shipping.shippingOption}</dd>
+				</dl>
+			</div>
 
 			<div className="mt-6">
 				<button

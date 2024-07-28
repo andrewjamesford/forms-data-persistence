@@ -10,7 +10,6 @@ export default function PageTwo({ values, setFormState }) {
 
 	const changeData = () => {
 		setFormState(itemDetails);
-		console.log(itemDetails);
 	};
 
 	return (
@@ -30,8 +29,8 @@ export default function PageTwo({ values, setFormState }) {
 					value={itemDetails.description}
 					onChange={(e) => {
 						setItemDetails({ ...itemDetails, description: e.target.value });
-						changeData();
 					}}
+					onBlur={changeData}
 				/>
 				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
 			</div>
@@ -53,8 +52,8 @@ export default function PageTwo({ values, setFormState }) {
 							checked={itemDetails.condition === "used"}
 							onChange={(e) => {
 								setItemDetails({ ...itemDetails, condition: "used" });
-								changeData();
 							}}
+							onBlur={changeData}
 						/>
 						<label htmlFor="used" className="ml-2 text-sm text-gray-700">
 							Used
@@ -69,8 +68,8 @@ export default function PageTwo({ values, setFormState }) {
 							checked={itemDetails.condition === "new"}
 							onChange={(e) => {
 								setItemDetails({ ...itemDetails, condition: "new" });
-								changeData();
 							}}
+							onBlur={changeData}
 						/>
 						<label htmlFor="new" className="ml-2 text-sm text-gray-700">
 							New

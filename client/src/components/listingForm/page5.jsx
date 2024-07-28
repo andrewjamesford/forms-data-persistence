@@ -1,8 +1,16 @@
 import { usePath } from "crossroad";
-export default function PageFive() {
+import { useState } from "react";
+
+export default function PageFive({ values, setFormState }) {
 	const path = usePath();
 	const stepArray = path[0].split("/");
 	const page = stepArray[1];
+
+	const [shipping, setShipping] = useState(values);
+
+	const changeData = () => {
+		setFormState(shipping);
+	};
 	return (
 		<>
 			<h1 className="mt-4 text-2xl font-bold">Shipping & pick-up</h1>
@@ -22,7 +30,11 @@ export default function PageFive() {
 							id="pick-up-true"
 							name="pick-up"
 							value="true"
-							defaultChecked
+							checked={shipping.pickUp === true}
+							onChange={(e) => {
+								setShipping({ ...shipping, pickUp: true });
+							}}
+							onBlur={changeData}
 						/>
 						<label
 							htmlFor="pick-up-true"
@@ -37,7 +49,11 @@ export default function PageFive() {
 							id="pick-up-false"
 							name="pick-up"
 							value="false"
-							defaultChecked
+							checked={shipping.pickUp === false}
+							onChange={(e) => {
+								setShipping({ ...shipping, pickUp: false });
+							}}
+							onBlur={changeData}
 						/>
 						<label
 							htmlFor="pick-up-false"
@@ -65,7 +81,11 @@ export default function PageFive() {
 							id="shipping-option-courier"
 							name="shipping-option"
 							value="courier"
-							defaultChecked
+							checked={shipping.shippingOption === "courier"}
+							onChange={(e) => {
+								setShipping({ ...shipping, shippingOption: "courier" });
+							}}
+							onBlur={changeData}
 						/>
 						<label
 							htmlFor="shipping-option-courier"
@@ -78,15 +98,20 @@ export default function PageFive() {
 					<div className="flex mt-3">
 						<input
 							type="radio"
-							id="shipping-option-free"
+							id="shipping-option-post"
 							name="shipping-option"
-							value="free"
+							value="post"
+							checked={shipping.shippingOption === "post"}
+							onChange={(e) => {
+								setShipping({ ...shipping, shippingOption: "post" });
+							}}
+							onBlur={changeData}
 						/>
 						<label
 							htmlFor="shipping-option-free"
 							className="ml-2 text-sm text-gray-700"
 						>
-							Free delivery in Aotearoa
+							Post
 						</label>
 					</div>
 				</div>

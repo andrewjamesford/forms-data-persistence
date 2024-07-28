@@ -9,8 +9,7 @@ export default function PageThree({ values, setFormState }) {
 	const [photos, setPhotos] = useState(values);
 
 	const changeData = () => {
-		setFormState(itemDetails);
-		console.log(itemDetails);
+		setFormState(photos);
 	};
 
 	return (
@@ -51,9 +50,9 @@ export default function PageThree({ values, setFormState }) {
 									className="sr-only"
 									accept="image/png, image/jpeg, image/gif, image/webp"
 									onChange={(e) => {
-										setPhotos({ ...photos, file: e.target.files[0] });
-										changeData();
+										setPhotos({ ...photos, images: e.target.files[0] });
 									}}
+									onBlur={changeData}
 								/>
 							</label>
 							<p className="pl-1">or drag and drop</p>

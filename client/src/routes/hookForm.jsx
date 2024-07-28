@@ -1,12 +1,16 @@
-import BreadCrumbs from "@/components/listingForm/breadCrumbs";
-import PageOne from "@/components/listingForm/page1";
-import PageTwo from "@/components/listingForm/page2";
-import PageThree from "@/components/listingForm/page3";
-import PageFive from "@/components/listingForm/page5";
-import PageFour from "@/components/listingForm/page4";
-import PageSix from "@/components/listingForm/page6";
+import { useState } from "react";
+
+import BreadCrumbs from "../components/listingForm/breadCrumbs";
+import PageOne from "../components/listingForm/page1"; // titleCategory
+import PageTwo from "../components/listingForm/page2"; // itemDetails
+import PageThree from "../components/listingForm/page3"; // photos
+import PageFour from "../components/listingForm/page4"; // pricePayment
+import PageFive from "../components/listingForm/page5"; // shipping
+import PageSix from "../components/listingForm/page6"; // review
 
 export default function HookForm({ step }) {
+	
+
 	return (
 		<div>
 			<BreadCrumbs />

@@ -28,7 +28,7 @@ export default function BreadCrumbs() {
 			</a>
 			<span>&gt;</span>
 			<a href={`/${page}/6`} className={step === "6" ? "font-semibold" : ""}>
-				Finalise
+				Review
 			</a>
 		</nav>
 	);

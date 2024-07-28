@@ -1,11 +1,12 @@
-import BreadCrumbs from "@/components/listingForm/breadCrumbs";
-import PageOne from "@/components/listingForm/page1";
-import PageTwo from "@/components/listingForm/page2";
-import PageThree from "@/components/listingForm/page3";
-import PageFive from "@/components/listingForm/page5";
-import PageFour from "@/components/listingForm/page4";
-import PageSix from "@/components/listingForm/page6";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import BreadCrumbs from "../components/listingForm/breadCrumbs";
+import PageOne from "../components/listingForm/page1"; // titleCategory
+import PageTwo from "../components/listingForm/page2"; // itemDetails
+import PageThree from "../components/listingForm/page3"; // photos
+import PageFour from "../components/listingForm/page4"; // pricePayment
+import PageFive from "../components/listingForm/page5"; // shipping
+import PageSix from "../components/listingForm/page6"; // review
 
 export default function State({ step }) {
 	const [formState, setFormState] = useState({
@@ -20,12 +21,21 @@ export default function State({ step }) {
 			condition: "used",
 		},
 		photos: {
-			files: [],
+			images: [],
 		},
-		pricePayment: {},
-		shipping: {},
-		review: {},
+		pricePayment: {
+			listingPrice: 0,
+			reservePrice: 0,
+			creditCard: false,
+			bankTransfer: false,
+			bitcoin: false,
+		},
+		shipping: {
+			pickUp: true,
+			shippingOption: "post",
+		},
 	});
+
 	return (
 		<>
 			<BreadCrumbs />
@@ -69,14 +79,7 @@ export default function State({ step }) {
 					}
 				/>
 			)}
-			{step === "6" && (
-				<PageSix
-					values={formState.review}
-					setFormState={(newReview) =>
-						setFormState({ ...formState, review: newReview })
-					}
-				/>
-			)}
+			{step === "6" && <PageSix values={formState} />}
 		</>
 	);
 }
