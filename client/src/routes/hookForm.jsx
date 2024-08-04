@@ -9,7 +9,32 @@ import PageFive from "../components/listingForm/page5"; // shipping
 import PageSix from "../components/listingForm/page6"; // review
 
 export default function HookForm({ step }) {
-	
+	const [formState, setFormState] = useState({
+		titleCategory: {
+			listingTitle: "",
+			category: 0,
+			subCategory: 0,
+			subTitle: "",
+		},
+		itemDetails: {
+			description: "",
+			condition: "used",
+		},
+		photos: {
+			images: [],
+		},
+		pricePayment: {
+			listingPrice: 0,
+			reservePrice: 0,
+			creditCard: false,
+			bankTransfer: false,
+			bitcoin: false,
+		},
+		shipping: {
+			pickUp: true,
+			shippingOption: "post",
+		},
+	});
 
 	return (
 		<div>

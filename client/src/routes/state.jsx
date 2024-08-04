@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import BreadCrumbs from "../components/listingForm/breadCrumbs";
 import PageOne from "../components/listingForm/page1"; // titleCategory

@@ -3,9 +3,9 @@ export default function PageSix({ values }) {
 		<>
 			<h1 className="mt-4 text-2xl font-bold">Finalise</h1>
 
-			<h2 className="mt-6 text-xl">Title & Category</h2>
+			<h2 className="mt-6 text-xl font-bold">Title & Category</h2>
 			<div className="mt-6">
-				<dl className="flex flex-col">
+				<dl className="grid md:grid-cols-2">
 					<dt className="text-lg font-semibold">Listing Title</dt>
 					<dd>{values.titleCategory.listingTitle}</dd>
 
@@ -20,9 +20,9 @@ export default function PageSix({ values }) {
 				</dl>
 			</div>
 
-			<h2 className="mt-6 text-xl">Item Details</h2>
+			<h2 className="mt-6 text-xl font-bold">Item Details</h2>
 			<div className="mt-6">
-				<dl className="flex flex-col">
+				<dl className="grid md:grid-cols-2">
 					<dt className="text-lg font-semibold">Description</dt>
 					<dd>{values.itemDetails.description}</dd>
 
@@ -31,17 +31,17 @@ export default function PageSix({ values }) {
 				</dl>
 			</div>
 
-			<h2 className="mt-6 text-xl">Photos</h2>
+			<h2 className="mt-6 text-xl font-bold">Photos</h2>
 			<div className="mt-6">
-				<dl className="flex flex-col">
+				<dl className="grid md:grid-cols-2">
 					<dt className="text-lg font-semibold">Photos</dt>
 					<dd>{values.photos.images}</dd>
 				</dl>
 			</div>
 
-			<h2 className="mt-6 text-xl">Price & Payment</h2>
+			<h2 className="mt-6 text-xl font-bold">Price & Payment</h2>
 			<div className="mt-6">
-				<dl className="flex flex-col">
+				<dl className="grid md:grid-cols-2">
 					<dt className="text-lg font-semibold">Start Price</dt>
 					<dd>{values.pricePayment.listingPrice}</dd>
 
@@ -53,9 +53,9 @@ export default function PageSix({ values }) {
 				</dl>
 			</div>
 
-			<h2 className="mt-6 text-xl">Shipping & Pick-up</h2>
+			<h2 className="mt-6 text-xl font-bold">Shipping & Pick-up</h2>
 			<div className="mt-6">
-				<dl className="flex flex-col">
+				<dl className="grid md:grid-cols-2">
 					<dt className="text-lg font-semibold">Pick-up</dt>
 					<dd>{values.shipping.pickUp}</dd>
 
