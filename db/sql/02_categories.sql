@@ -1,4 +1,4 @@
-INSERT INTO categories (id, name, parent_id, active)
+INSERT INTO categories (id, category_name, parent_id, active)
 VALUES (1, 'Antiques & collectables', 0, true),
 	(2, 'Baby gear', 0, false),
 	(3, 'Books', 0, false),
@@ -30,7 +30,7 @@ VALUES (1, 'Antiques & collectables', 0, true),
 	(29, 'Food & drink', 1, true),
 	(30, 'Furniture & woodenware', 1, true),
 	(31, 'Jewellery', 1, true),
-	(32, 'Militaria', 1, true),
+	(32, 'Military', 1, true),
 	(33, 'Movie & TV memorabilia', 1, true),
 	(34, 'Museum pieces & artifacts', 1, true),
 	(35, 'New Zealand & Maori', 1, true),

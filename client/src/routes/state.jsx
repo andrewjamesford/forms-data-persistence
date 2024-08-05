@@ -9,35 +9,12 @@ import PageFour from "../components/listingForm/page4"; // pricePayment
 import PageFive from "../components/listingForm/page5"; // shipping
 import PageSix from "../components/listingForm/page6"; // review
 
+import listingFormObject from "../utils";
+
 export default function State({ step }) {
 	const [url, setUrl] = useUrl();
 
-	const [formState, setFormState] = useState({
-		titleCategory: {
-			listingTitle: "",
-			category: 0,
-			subCategory: 0,
-			subTitle: "",
-		},
-		itemDetails: {
-			description: "",
-			condition: "used",
-		},
-		photos: {
-			images: [],
-		},
-		pricePayment: {
-			listingPrice: "",
-			reservePrice: "",
-			creditCard: false,
-			bankTransfer: false,
-			bitcoin: false,
-		},
-		shipping: {
-			pickUp: true,
-			shippingOption: "post",
-		},
-	});
+	const [formState, setFormState] = useState(listingFormObject);
 
 	const addListing = async () => {
 		const response = await api.addListing(formState);

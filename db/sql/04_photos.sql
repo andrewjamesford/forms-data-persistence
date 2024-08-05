@@ -1,16 +1,9 @@
-INSERT INTO photos (image)
-VALUES ('a5b1dcad-ba10-4705-953c-82b462e77a2f'),
-	('c0431d00-abb4-408b-a337-739f03f9e452'),
-	('c29298d5-8e19-40b5-a76a-8fd1ae2e1041'),
-	('22de2bed-1d01-4b4c-b9eb-30c5a06be46f'),
-	('4cdd6c52-6330-40b8-b2d1-747b8362bf3b'),
-	('650c23e7-02ce-4b92-8812-66c8476b2964'),
-	('a11dbc1d-61af-4cce-876b-7661bdb009f9'),
-	('c215cedc-88b9-43c9-bb09-82d429b01a40'),
-	('ce1cf693-6768-485f-92f2-aec4b3af61aa'),
-	('9aeefd98-cfb1-4152-9f98-346387433fb6'),
-	('107e6b24-0703-42c8-a639-be807c21e74d'),
-	('61fc63dd-f4ef-42a6-bde0-c98412bd7e67'),
-	('e4c488c1-5a28-409e-ad38-ec6e45dc99f5'),
-	('ba6416c1-4458-495c-a4f8-35b839e916c1'),
-	('c70ce624-044a-4c1a-b8ad-390957125cd5');
+INSERT INTO photos (id, photo_desc)
+VALUES (
+		'a5b1dcad-ba10-4705-953c-82b462e77a2f',
+		'Beautiful antique clock'
+	),
+	(
+		'c0431d00-abb4-408b-a337-739f03f9e452',
+		'Fully functional vintage Acer computer XT 8086'
+	);

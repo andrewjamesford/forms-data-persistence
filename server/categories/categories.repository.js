@@ -4,7 +4,7 @@ module.exports = {
 	getCategories: async (parentId, active = true) => {
 		try {
 			const result = await db.query(
-				"select c.id, c.name, c.parent_id from categories c where c.parent_id = $1 and c.active = $2 order by c.name",
+				"SELECT c.id, c.name, c.parent_id FROM categories c WHERE c.parent_id = $1 AND c.active = $2 ORDER BY c.name",
 				[parentId, active],
 			);
 			return result.rows;

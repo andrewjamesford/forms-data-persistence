@@ -4,7 +4,7 @@ module.exports = {
 	getListings: async () => {
 		try {
 			const result = await db.query(
-				`select l.id, l.title, l.subtitle, l.description, l.listingprice, l.conditionnew, c."name" as category from listings l inner join categories c on c.id = l.category_id 
+				`SELECT l.id, l.title, l.sub_title, l.listing_description, l.listing_price, l.condition_new, c."name" AS category FROM listings l INNER JOIN categories c ON c.id = l.category_id 
         `,
 			);
 			return result.rows;
@@ -15,20 +15,25 @@ module.exports = {
 	addListing: async (listingDetails) => {
 		try {
 			const result = await db.query(
-				`insert into listings (title, subtitle, description, listingprice, conditionnew, category_id, parent_id)
+				`INSERT INTO listings (title, category_id, sub_title, end_date, listing_description, condition_new, images, hero_image, listing_price, reserve_price, credit_card_payment, bank_transfer_payment, bitcoin_payment, pick_up, shipping_option)
 VALUES ($1, $2, $3, $4, $5, $6, $7);
         `,
 				[
-					listingDetails.titleCategory.listingTitle,
-					listingDetails.titleCategory.parent_id,
-					listingDetails.titleCategory.category,
+					listingDetails.titleCategory.title,
+					listingDetails.titleCategory.categoryId,
 					listingDetails.titleCategory.subTitle,
-					listingDetails.itemDetails.description,
-					listingDetails.pricePayment.listingprice,
-					listingDetails.pricePayment.reservePrice,
-					listingDetails.itemDetails.condition,
+					listingDetails.titleCategory.endDate,
+					listingDetails.itemDetails.listingDescription,
+					listingDetails.itemDetails.conditionNew,
 					listingDetails.photos.images,
-					listingDetails.parent_id,
+					listingDetails.photos.heroImage,
+					listingDetails.pricePayment.listingPrice,
+					listingDetails.pricePayment.reservePrice,
+					listingDetails.pricePayment.creditCardPayment,
+					listingDetails.pricePayment.bankTransferPayment,
+					listingDetails.pricePayment.bitcoinPayment,
+					listingDetails.shipping.pickUp,
+					listingDetails.shipping.shippingOption,
 				],
 			);
 			return result.rows;
