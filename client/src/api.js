@@ -2,13 +2,25 @@ const api = {
 	getCategories: async (parentId = 0) =>
 		await fetch(
 			`${import.meta.env.VITE_API_URL}/categories?parentId=${parentId}`,
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+			},
 		),
-	getReports: async (accessToken) =>
-		await fetch(`${import.meta.env.VITE_API_URL}/reports`, {
+	getListings: async () =>
+		await fetch(`${import.meta.env.VITE_API_URL}/listings`, {
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${accessToken}`,
 			},
+		}),
+	addListing: async (listing) =>
+		await fetch(`${import.meta.env.VITE_API_URL}/listings`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: { listing: JSON.stringify({ listing }) },
 		}),
 };
 

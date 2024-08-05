@@ -8,14 +8,14 @@ CREATE TABLE categories (
 CREATE TABLE listings (
 	id SERIAL PRIMARY KEY,
 	title text,
-	subtitle text,
+	category_id INT REFERENCES categories(id),
+	sub_category_id INT REFERENCES categories(id),
+	sub_title text,
 	description text,
 	listingPrice money,
+	reservePrice money,
 	conditionNew boolean,
-	category_id INT REFERENCES categories(id),
 	photos UUID [],
-	auction boolean,
-	buyNowPrice money,
 	endDate timeStamp
 );
 CREATE TABLE photos (image UUID PRIMARY KEY, description text);

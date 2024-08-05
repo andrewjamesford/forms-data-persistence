@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useUrl } from "crossroad";
 
 import BreadCrumbs from "../components/breadCrumbs";
 import PageOne from "../components/listingForm/page1"; // titleCategory
@@ -9,6 +10,8 @@ import PageFive from "../components/listingForm/page5"; // shipping
 import PageSix from "../components/listingForm/page6"; // review
 
 export default function State({ step }) {
+	const [url, setUrl] = useUrl();
+
 	const [formState, setFormState] = useState({
 		titleCategory: {
 			listingTitle: "",
@@ -35,6 +38,21 @@ export default function State({ step }) {
 			shippingOption: "post",
 		},
 	});
+
+	const addListing = async () => {
+		const response = await api.addListing(formState);
+
+		if (!response.ok) {
+			throw new Error("Error adding listing");
+		}
+		const result = await response.json();
+
+		if (result.error) {
+			throw new Error(result.error);
+		}
+		// redirect to listing page
+		setUrl("/");
+	};
 
 	return (
 		<>
@@ -79,7 +97,7 @@ export default function State({ step }) {
 					}
 				/>
 			)}
-			{step === "6" && <PageSix values={formState} />}
+			{step === "6" && <PageSix values={formState} addListing={addListing} />}
 		</>
 	);
 }
