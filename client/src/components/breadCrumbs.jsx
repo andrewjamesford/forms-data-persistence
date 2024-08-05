@@ -6,7 +6,7 @@ export default function BreadCrumbs() {
 	const step = stepArray[2];
 	const page = stepArray[1];
 	return (
-		<nav className="grid md:flex items-center md:space-x-2 text-sm text-gray-600">
+		<nav className="invisible md:visible flex items-center space-x-2 text-sm text-gray-600">
 			<div>
 				<a href={`/${page}/1`} className={step === "1" ? "font-semibold" : ""}>
 					Title &amp; Category

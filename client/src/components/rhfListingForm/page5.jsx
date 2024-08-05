@@ -1,35 +1,18 @@
+import { usePath } from "crossroad";
 import { useState } from "react";
-import { usePath, useUrl } from "crossroad";
 
 export default function PageFive({ values, setFormState }) {
 	const path = usePath();
 	const stepArray = path[0].split("/");
 	const page = stepArray[1];
-	const step = Number.parseInt(stepArray[2]) || 1;
 
 	const [shipping, setShipping] = useState(values);
-	const [url, setUrl] = useUrl();
 
 	const changeData = () => {
 		setFormState(shipping);
 	};
-
-	const nextForm = () => {
-		setUrl(`/${page}/${step + 1}`);
-	};
-
-	const previousForm = () => {
-		changeData();
-		setUrl(`/${page}/${step - 1}`);
-	};
-
-	const handleSubmit = () => {
-		changeData();
-		nextForm();
-	};
-
 	return (
-		<form onSubmit={handleSubmit}>
+		<>
 			<h1 className="mt-4 text-2xl font-bold">Shipping & pick-up</h1>
 			<fieldset>
 				<legend className="sr-only">Pick up?</legend>
@@ -134,22 +117,14 @@ export default function PageFive({ values, setFormState }) {
 				</div>
 			</fieldset>
 
-			<div className="mt-6 grid md:grid-flow-col md:w-1/2 gap-2">
-				<button
-					type="button"
-					onClick={previousForm}
-					className="items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-primary/30 h-10 px-4 py-2"
-				>
-					Previous
-				</button>
-
-				<button
-					type="submit"
-					className="items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+			<div className="mt-6">
+				<a
+					href={`/${page}/6`}
+					className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
 				>
 					Next
-				</button>
+				</a>
 			</div>
-		</form>
+		</>
 	);
 }

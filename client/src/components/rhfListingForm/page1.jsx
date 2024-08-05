@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { usePath, useUrl } from "crossroad";
+import { usePath } from "crossroad";
 import api from "../../api";
 
 export default function PageOne({ values, setFormState }) {
 	const path = usePath();
 	const stepArray = path[0].split("/");
 	const page = stepArray[1];
-	const step = Number.parseInt(stepArray[2]) || 1;
 
 	const [titleCategory, setTitleCategory] = useState(values);
-	const [url, setUrl] = useUrl();
 
 	const [categories, setCategories] = useState(0);
 	const [subCategories, setSubCategories] = useState(0);
@@ -21,21 +19,12 @@ export default function PageOne({ values, setFormState }) {
 		setFormState(titleCategory);
 	};
 
-	const nextForm = () => {
-		setUrl(`/${page}/${step + 1}`);
-	};
-
-	const handleSubmit = () => {
-		changeData();
-		nextForm();
-	};
-
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const response = await api.getCategories();
 				if (!response.ok) {
-					throw new Error("Error retrieving categories");
+					throw new Error("Network response was not ok");
 				}
 				const result = await response.json();
 				setCategories(result.categories);
@@ -52,17 +41,13 @@ export default function PageOne({ values, setFormState }) {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const parentId = titleCategory?.category || 0;
-				if (Number.parseInt(parentId) === 0) {
-					setSubCategories([]);
-					return;
-				}
+				const parentId = titleCategory.category || 0;
 				const response = await api.getCategories(parentId);
 				if (!response.ok) {
 					throw new Error("Network response was not ok");
 				}
 				const result = await response.json();
-				setSubCategories(result?.categories);
+				setSubCategories(result.categories);
 			} catch (error) {
 				setError(error);
 			} finally {
@@ -77,7 +62,7 @@ export default function PageOne({ values, setFormState }) {
 	if (error) return <p>Error: {error.message}</p>;
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<>
 			<h1 className="mt-4 text-2xl font-bold">What are you listing?</h1>
 			<div className="mt-6">
 				<label
@@ -99,8 +84,6 @@ export default function PageOne({ values, setFormState }) {
 					}}
 					value={titleCategory.listingTitle}
 					onBlur={changeData}
-					required={true}
-					maxLength={80}
 				/>
 				<p className="mt-1 text-sm text-gray-500">80 characters remaining</p>
 			</div>
@@ -119,18 +102,15 @@ export default function PageOne({ values, setFormState }) {
 							placeholder="Select a category"
 							className="flex h-10 pl-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 "
 							onChange={(e) => {
-								const value = Number.parseInt(e.target.value) || 0;
 								setTitleCategory({
 									...titleCategory,
-									category: value,
-									subCategory: 0,
+									category: e.target.value,
 								});
 							}}
 							value={titleCategory.category}
 							onBlur={changeData}
-							required={true}
 						>
-							<option>Select a category...</option>
+							<option value="">Select a category...</option>
 							{categories?.map((category) => {
 								return (
 									<option key={category.id} value={category.id}>
@@ -147,7 +127,7 @@ export default function PageOne({ values, setFormState }) {
 				</div>
 			)}
 
-			{subCategories && Number.parseInt(titleCategory?.category) !== 0 && (
+			{subCategories && titleCategory.category !== 0 && (
 				<div className="mt-6">
 					<label
 						htmlFor="category-sub"
@@ -168,7 +148,6 @@ export default function PageOne({ values, setFormState }) {
 							}}
 							value={titleCategory.subCategory}
 							onBlur={changeData}
-							required={true}
 						>
 							<option value="">Select a sub category...</option>
 							{subCategories?.map((category) => {
@@ -203,19 +182,17 @@ export default function PageOne({ values, setFormState }) {
 					}}
 					value={titleCategory.subTitle}
 					onBlur={changeData}
-					maxLength={50}
 				/>
 				<p className="mt-1 text-sm text-gray-500">50 characters remaining</p>
 			</div>
-			<div className="mt-6 grid md:grid-flow-col md:w-1/4 gap-2">
-				<button
-					type="submit"
-					onClick={changeData}
+			<div className="mt-6">
+				<a
+					href={`/${page}/2`}
 					className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
 				>
-					Next{" "}
-				</button>
+					Next
+				</a>
 			</div>
-		</form>
+		</>
 	);
 }

@@ -1,53 +1,19 @@
 import { useState } from "react";
 
-import { usePath, useUrl } from "crossroad";
+import { usePath } from "crossroad";
 
 export default function PageFour({ values, setFormState }) {
 	const path = usePath();
 	const stepArray = path[0].split("/");
 	const page = stepArray[1];
-	const step = Number.parseInt(stepArray[2]) || 1;
 
 	const [pricePayment, setPricePayment] = useState(values);
-	const [url, setUrl] = useUrl();
-	const [checkRequired, setCheckRequired] = useState(true);
 
 	const changeData = () => {
 		setFormState(pricePayment);
 	};
-
-	const checkPaymentRequired = () => {
-		// Check if at least one payment option is selected
-		if (
-			pricePayment.creditCard ||
-			pricePayment.bankTransfer ||
-			pricePayment.bitcoin
-		) {
-			setCheckRequired(false);
-		} else {
-			setCheckRequired(true);
-		}
-	};
-
-	const nextForm = () => {
-		setUrl(`/${page}/${step + 1}`);
-	};
-
-	const previousForm = () => {
-		changeData();
-		setUrl(`/${page}/${step - 1}`);
-	};
-
-	const handleSubmit = () => {
-		console.log("pricePaymnet=", pricePayment, checkRequired);
-		
-		changeData();
-		nextForm();
-	};
-	console.log("pricePaymnet=", pricePayment, checkRequired);
-
 	return (
-		<form onSubmit={handleSubmit}>
+		<>
 			<h1 className="mt-4 text-2xl font-bold">Price &amp; Payment</h1>
 			<div className="mt-6">
 				<label
@@ -66,7 +32,6 @@ export default function PageFour({ values, setFormState }) {
 						min={1}
 						step={1}
 						value={pricePayment.listingPrice}
-						required={true}
 						onChange={(e) => {
 							setPricePayment({
 								...pricePayment,
@@ -126,11 +91,9 @@ export default function PageFour({ values, setFormState }) {
 									...pricePayment,
 									creditCard: !pricePayment.creditCard,
 								});
-								checkPaymentRequired();
 							}}
 							onBlur={changeData}
 							checked={pricePayment.creditCard}
-							required={checkRequired}
 						/>
 						<label
 							htmlFor="payment-credit"
@@ -150,11 +113,9 @@ export default function PageFour({ values, setFormState }) {
 									...pricePayment,
 									bankTransfer: !pricePayment.bankTransfer,
 								});
-								checkPaymentRequired();
 							}}
 							onBlur={changeData}
 							checked={pricePayment.bankTransfer}
-							required={checkRequired}
 						/>
 						<label
 							htmlFor="payment-bank"
@@ -174,11 +135,9 @@ export default function PageFour({ values, setFormState }) {
 									...pricePayment,
 									bitcoin: !pricePayment.bitcoin,
 								});
-								checkPaymentRequired();
 							}}
 							onBlur={changeData}
 							checked={pricePayment.bitcoin}
-							required={checkRequired}
 						/>
 						<label
 							htmlFor="payment-bitcoin"
@@ -190,22 +149,14 @@ export default function PageFour({ values, setFormState }) {
 				</div>
 			</fieldset>
 
-			<div className="mt-6 grid md:grid-flow-col md:w-1/2 gap-2">
-				<button
-					type="button"
-					onClick={previousForm}
-					className="items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-primary/30 h-10 px-4 py-2"
-				>
-					Previous
-				</button>
-
-				<button
-					type="submit"
-					className="items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+			<div className="mt-6">
+				<a
+					href={`/${page}/5`}
+					className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
 				>
 					Next
-				</button>
+				</a>
 			</div>
-		</form>
+		</>
 	);
 }

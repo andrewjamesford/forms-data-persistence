@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import BreadCrumbs from "../components/listingForm/breadCrumbs";
+import BreadCrumbs from "../components/breadCrumbs";
 import PageOne from "../components/listingForm/page1"; // titleCategory
 import PageTwo from "../components/listingForm/page2"; // itemDetails
 import PageThree from "../components/listingForm/page3"; // photos
@@ -24,8 +24,8 @@ export default function State({ step }) {
 			images: [],
 		},
 		pricePayment: {
-			listingPrice: 0,
-			reservePrice: 0,
+			listingPrice: "",
+			reservePrice: "",
 			creditCard: false,
 			bankTransfer: false,
 			bitcoin: false,
