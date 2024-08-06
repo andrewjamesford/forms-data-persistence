@@ -102,7 +102,7 @@ export default function PageOne({ values, setFormState }) {
 					required={true}
 					maxLength={80}
 				/>
-				<p className="mt-1 text-sm text-gray-500">80 characters remaining</p>
+				<p className="mt-1 text-sm text-gray-500">80 characters max</p>
 			</div>
 
 			{categories && (
@@ -117,7 +117,7 @@ export default function PageOne({ values, setFormState }) {
 						<select
 							id="category"
 							placeholder="Select a category"
-							className="flex h-10 pl-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 "
+							className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 "
 							onChange={(e) => {
 								const value = Number.parseInt(e.target.value) || 0;
 								setTitleCategory({
@@ -134,7 +134,7 @@ export default function PageOne({ values, setFormState }) {
 							{categories?.map((category) => {
 								return (
 									<option key={category.id} value={category.id}>
-										{category.name}
+										{category.category_name}
 									</option>
 								);
 							})}
@@ -159,7 +159,7 @@ export default function PageOne({ values, setFormState }) {
 						<select
 							id="category-sub"
 							placeholder="Select a sub category"
-							className="flex h-10 pl-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 "
+							className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 "
 							onChange={(e) => {
 								setTitleCategory({
 									...titleCategory,
@@ -174,7 +174,7 @@ export default function PageOne({ values, setFormState }) {
 							{subCategories?.map((category) => {
 								return (
 									<option key={category.id} value={category.id}>
-										{category.name}
+										{category.category_name}
 									</option>
 								);
 							})}
@@ -205,8 +205,33 @@ export default function PageOne({ values, setFormState }) {
 					onBlur={changeData}
 					maxLength={50}
 				/>
-				<p className="mt-1 text-sm text-gray-500">50 characters remaining</p>
+				<p className="mt-1 text-sm text-gray-500">50 characters max</p>
 			</div>
+
+			<div className="mt-6">
+				<label
+					htmlFor="end-date"
+					className="block text-sm font-medium text-gray-700"
+				>
+					End date
+				</label>
+				<input
+					id="end-date"
+					className="block w-full px-3 py-2 mt-1 border rounded-md text-black focus:ring-primary focus:border-primary focus:bg-transparent"
+					type="date"
+					onChange={(e) => {
+						setTitleCategory({
+							...titleCategory,
+							endDate: e.target.value,
+						});
+					}}
+					value={titleCategory.endDate}
+					onBlur={changeData}
+					required={true}
+					datatype="date"
+				/>
+			</div>
+
 			<div className="mt-6 grid md:grid-flow-col md:w-1/4 gap-2">
 				<button
 					type="submit"
