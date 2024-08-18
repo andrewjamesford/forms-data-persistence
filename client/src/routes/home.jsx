@@ -5,11 +5,11 @@ export default function Home() {
 			<p>
 				This project will demonstrate creating a multi page form with data
 				persistence using the following:
-				<ul>
-					<li>React useState</li>
-					<li>React Hook Form</li>
-				</ul>
 			</p>
+			<ul>
+				<li>React useState</li>
+				<li>React Hook Form</li>
+			</ul>
 		</>
 	);
 }

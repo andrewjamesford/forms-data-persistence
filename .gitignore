@@ -3,3 +3,4 @@ package-lock.json
 .env
 client/.env
 server/.env
+.aider*

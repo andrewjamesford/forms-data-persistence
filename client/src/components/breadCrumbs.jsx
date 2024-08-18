@@ -1,46 +1,42 @@
 import { usePath } from "crossroad";
 
+function NavItem({ href, isActive, children }) {
+	return (
+		<div>
+			<a href={href} className={isActive ? "font-semibold" : ""}>
+				{children}
+			</a>
+			<span>&nbsp;&gt;</span>
+		</div>
+	);
+}
+
 export default function BreadCrumbs() {
 	const path = usePath();
 	const stepArray = path[0].split("/");
 	const step = stepArray[2];
 	const page = stepArray[1];
+
+	const steps = [
+		{ href: `/${page}/1`, label: "Title & Category" },
+		{ href: `/${page}/2`, label: "Item Details" },
+		{ href: `/${page}/3`, label: "Photos" },
+		{ href: `/${page}/4`, label: "Price & Payment" },
+		{ href: `/${page}/5`, label: "Shipping & Pick-up" },
+		{ href: `/${page}/6`, label: "Review & Submit" },
+	];
+
 	return (
 		<nav className="invisible md:visible flex items-center space-x-2 text-sm text-gray-600">
-			<div>
-				<a href={`/${page}/1`} className={step === "1" ? "font-semibold" : ""}>
-					Title &amp; Category
-				</a>
-				<span>&nbsp;&gt;</span>
-			</div>
-
-			<div>
-				<a href={`/${page}/2`} className={step === "2" ? "font-semibold" : ""}>
-					Item Details
-				</a>
-				<span>&nbsp;&gt;</span>
-			</div>
-			<div>
-				<a href={`/${page}/3`} className={step === "3" ? "font-semibold" : ""}>
-					Photos
-				</a>
-				<span>&nbsp;&gt;</span>
-			</div>
-			<div>
-				<a href={`/${page}/4`} className={step === "4" ? "font-semibold" : ""}>
-					Price &amp; Payment
-				</a>
-				<span>&nbsp;&gt;</span>
-			</div>
-			<div>
-				<a href={`/${page}/5`} className={step === "5" ? "font-semibold" : ""}>
-					Shipping &amp; Pick-up
-				</a>
-				<span>&nbsp;&gt;</span>
-			</div>
-			<a href={`/${page}/6`} className={step === "6" ? "font-semibold" : ""}>
-				Review
-			</a>
+			{steps.map((item, index) => (
+				<NavItem
+					key={item.label}
+					href={item.href}
+					isActive={step === (index + 1).toString()}
+				>
+					{item.label}
+				</NavItem>
+			))}
 		</nav>
 	);
 }
