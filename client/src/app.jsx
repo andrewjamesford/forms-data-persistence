@@ -11,17 +11,17 @@ const App = () => {
     <div className="w-full flex flex-column place-content-center bg-gray-100">
       <div className="w-11/12 max-w-7xl min-h-screen">
         <div className="min-h-screen bg-gray-100">
-          <Header />
-          <main className="px-4 py-8 bg-white">
-            <Router>
+          <Router>
+            <Header />
+            <main className="px-4 py-8 bg-white">
               <Switch redirect="/">
                 <Route exact path="/" component={Home} />
                 <Route exact path="/hook-form/:step" component={HookForm} />
                 <Route exact path="/state/:step" component={State} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
-            </Router>
-          </main>
+            </main>
+          </Router>
         </div>
         <Footer />
       </div>

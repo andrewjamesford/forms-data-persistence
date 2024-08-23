@@ -5,21 +5,23 @@ import api from "../../api";
 
 export default function PageOne({ values, setFormState }) {
   const path = usePath();
-  const stepArray = path[0].split("/");
-  const page = stepArray[1];
+  const stepArray = path[0]?.split("/");
+  const page = stepArray[1] || "hook-form";
   const step = Number.parseInt(stepArray[2]) || 1;
 
   const [titleCategory, setTitleCategory] = useState(values);
   const [, setUrl] = useUrl();
 
-  const [categories, setCategories] = useState(0);
-  const [subCategories, setSubCategories] = useState(0);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const nextForm = () => {
-    setUrl(`/${page}/${step + 1}`);
+    if (page && step) {
+      setUrl(`/${page}/${step + 1}`);
+    }
   };
 
   const {
@@ -44,7 +46,9 @@ export default function PageOne({ values, setFormState }) {
           throw new Error("Error retrieving categories");
         }
         const result = await response.json();
-        setCategories(result.categories);
+        if (result?.categories) {
+          setCategories(result.categories);
+        }
       } catch (error) {
         setError(error);
       } finally {
@@ -124,13 +128,11 @@ export default function PageOne({ values, setFormState }) {
           }}
         >
           <option>Select a category...</option>
-          {categories?.map((category) => {
-            return (
-              <option key={category.id} value={category.id}>
-                {category.category_name}
-              </option>
-            );
-          })}
+          {categories?.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.category_name}
+            </option>
+          ))}
         </select>
         {errors.titleCategory?.category && (
           <span className="text-sm text-red-500">This field is required</span>
@@ -180,6 +182,22 @@ export default function PageOne({ values, setFormState }) {
           <span className="text-sm text-red-500">This field is required</span>
         )}
       </div>
+
+      <div className="mt-6">
+        <label
+          htmlFor="end-date"
+          className="block text-sm font-medium text-gray-700"
+        >
+          End date
+        </label>
+        <input
+          id="end-date"
+          className="block w-full px-3 py-2 mt-1 border rounded-md text-black focus:ring-primary focus:border-primary focus:bg-transparent"
+          type="date"
+          {...register("titleCategory.endDate", { required: true })}
+        />
+      </div>
+
       <div className="mt-6 grid md:grid-flow-col md:w-1/4 gap-2">
         <button
           type="submit"

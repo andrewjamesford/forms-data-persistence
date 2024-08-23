@@ -4,15 +4,15 @@ import api from "../../api";
 
 export default function PageOne({ values, setFormState }) {
   const path = usePath();
-  const stepArray = path[0].split("/");
-  const page = stepArray[1];
+  const stepArray = path[0]?.split("/");
+  const page = stepArray[1] || "state";
   const step = Number.parseInt(stepArray[2]) || 1;
 
   const [titleCategory, setTitleCategory] = useState(values);
   const [, setUrl] = useUrl();
 
-  const [categories, setCategories] = useState(0);
-  const [subCategories, setSubCategories] = useState(0);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,7 +22,9 @@ export default function PageOne({ values, setFormState }) {
   };
 
   const nextForm = () => {
-    setUrl(`/${page}/${step + 1}`);
+    if (page && step) {
+      setUrl(`/${page}/${step + 1}`);
+    }
   };
 
   const handleSubmit = () => {

@@ -1,5 +1,9 @@
+import { usePath } from "crossroad";
+
 export default function Header() {
-  const path = "/state/1";
+  const path = usePath();
+  const stepArray = path[0]?.split("/");
+  const page = stepArray[1] || "";
 
   return (
     <>
@@ -23,7 +27,9 @@ export default function Header() {
           <a
             href="/state/1"
             className={
-              path === "/state/1" ? "font-bold" : "text-sm text-gray-600"
+              page === "state"
+                ? "font-bold text-sm text-gray-600"
+                : "text-sm text-gray-600"
             }
           >
             React State
@@ -31,7 +37,9 @@ export default function Header() {
           <a
             href="/hook-form/1"
             className={
-              path === "/hook-form/1" ? "font-bold" : "text-sm text-gray-600"
+              page === "hook-form"
+                ? "font-bold text-sm text-gray-600"
+                : "text-sm text-gray-600"
             }
           >
             Hook Form
