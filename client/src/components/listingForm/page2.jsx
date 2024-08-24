@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { usePath, useUrl } from "crossroad";
+import { Helmet } from "react-helmet";
 
 export default function PageTwo({ values, setFormState }) {
 	const path = usePath();
@@ -30,6 +31,9 @@ export default function PageTwo({ values, setFormState }) {
 
 	return (
 		<form onSubmit={handleSubmit}>
+			<Helmet>
+				<title>React State Form - Item Details</title>
+			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Item details</h1>
 			<div className="mt-6">
 				<label
@@ -48,6 +52,7 @@ export default function PageTwo({ values, setFormState }) {
 					}}
 					onBlur={changeData}
 					required={true}
+					maxLength={500}
 				/>
 				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
 			</div>

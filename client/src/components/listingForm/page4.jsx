@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Helmet } from "react-helmet";
 import { usePath, useUrl } from "crossroad";
 
 export default function PageFour({ values, setFormState }) {
@@ -39,15 +39,15 @@ export default function PageFour({ values, setFormState }) {
 	};
 
 	const handleSubmit = () => {
-		console.log("pricePaymnet=", pricePayment, checkRequired);
-		
 		changeData();
 		nextForm();
 	};
-	console.log("pricePaymnet=", pricePayment, checkRequired);
 
 	return (
 		<form onSubmit={handleSubmit}>
+			<Helmet>
+				<title>React State Form - Price & Payment</title>
+			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Price &amp; Payment</h1>
 			<div className="mt-6">
 				<label

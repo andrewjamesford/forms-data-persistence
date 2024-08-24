@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { usePath, useUrl } from "crossroad";
+import { Helmet } from "react-helmet";
 
 export default function PageThree({ values, setFormState }) {
 	const path = usePath();
@@ -30,6 +31,9 @@ export default function PageThree({ values, setFormState }) {
 
 	return (
 		<form onSubmit={handleSubmit}>
+			<Helmet>
+				<title>React State Form - Photos</title>
+			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Photos</h1>
 			<div className="mt-6">
 				<label

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet";
 
 import { usePath } from "crossroad";
 
@@ -14,6 +16,9 @@ export default function PageFour({ values, setFormState }) {
 	};
 	return (
 		<>
+			<Helmet>
+				<title>React Hook Form - Price & Payment</title>
+			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Price &amp; Payment</h1>
 			<div className="mt-6">
 				<label

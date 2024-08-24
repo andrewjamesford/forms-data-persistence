@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { usePath } from "crossroad";
+import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet";
 
 export default function PageThree({ values, setFormState }) {
 	const path = usePath();
@@ -14,6 +16,9 @@ export default function PageThree({ values, setFormState }) {
 
 	return (
 		<>
+			<Helmet>
+				<title>React Hook Form - Photos</title>
+			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Photos</h1>
 			<div className="mt-6">
 				<label

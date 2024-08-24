@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { usePath } from "crossroad";
+import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet";
 
 export default function PageTwo({ values, setFormState }) {
 	const path = usePath();
@@ -14,6 +16,9 @@ export default function PageTwo({ values, setFormState }) {
 
 	return (
 		<>
+			<Helmet>
+				<title>React State Form - Item Details</title>
+			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Item details</h1>
 			<div className="mt-6">
 				<label
@@ -26,13 +31,16 @@ export default function PageTwo({ values, setFormState }) {
 				<textarea
 					id="listing-description"
 					className="block w-full px-3 py-2 mt-1 border rounded-md"
-					value={itemDetails.description}
-					onChange={(e) => {
-						setItemDetails({ ...itemDetails, description: e.target.value });
-					}}
-					onBlur={changeData}
+					{...register("itemDetails.description", {
+						maxLength: 500,
+						required: true,
+					})}
 				/>
-				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
+				{errors.itemDetails?.description && (
+					<span className="text-sm text-red-500">
+						This field is required and must be less than 500 characters
+					</span>
+				)}
 			</div>
 			<fieldset>
 				<legend className="sr-only">Condition</legend>
@@ -49,11 +57,7 @@ export default function PageTwo({ values, setFormState }) {
 							id="used"
 							name="condition"
 							value="used"
-							checked={itemDetails.condition === "used"}
-							onChange={(e) => {
-								setItemDetails({ ...itemDetails, condition: "used" });
-							}}
-							onBlur={changeData}
+							{...register("itemDetails.condition", { required: true })}
 						/>
 						<label htmlFor="used" className="ml-2 text-sm text-gray-700">
 							Used
@@ -65,11 +69,7 @@ export default function PageTwo({ values, setFormState }) {
 							id="new"
 							name="condition"
 							value="new"
-							checked={itemDetails.condition === "new"}
-							onChange={(e) => {
-								setItemDetails({ ...itemDetails, condition: "new" });
-							}}
-							onBlur={changeData}
+							{...register("itemDetails.condition", { required: true })}
 						/>
 						<label htmlFor="new" className="ml-2 text-sm text-gray-700">
 							New

@@ -47,7 +47,6 @@ router.post(
 	async (req, res, next) => {
 		try {
 			const { listing } = req.body;
-			console.log("listing", listing);
 
 			const addListingResponse = await reportRepository.addListing(listing);
 

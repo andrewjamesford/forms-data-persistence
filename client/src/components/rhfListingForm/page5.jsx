@@ -1,5 +1,7 @@
 import { usePath } from "crossroad";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet";
 
 export default function PageFive({ values, setFormState }) {
 	const path = usePath();
@@ -13,6 +15,9 @@ export default function PageFive({ values, setFormState }) {
 	};
 	return (
 		<>
+			<Helmet>
+				<title>React Hook Form - Shipping & Pickup</title>
+			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Shipping & pick-up</h1>
 			<fieldset>
 				<legend className="sr-only">Pick up?</legend>
