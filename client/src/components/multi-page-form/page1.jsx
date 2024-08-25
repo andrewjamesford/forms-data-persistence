@@ -174,7 +174,7 @@ export default function PageOne({ values, setFormState }) {
 							<select
 								id="category-sub"
 								placeholder="Select a sub category"
-								className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50  placeholder:italic"
+								className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 placeholder:italic"
 								onChange={(e) => {
 									setTitleCategory({
 										...titleCategory,
@@ -211,7 +211,7 @@ export default function PageOne({ values, setFormState }) {
 				<input
 					id="sub-title"
 					placeholder="e.g. iPhone 5c, Red t-shirt"
-					className="block w-full px-3 py-2 mt-1 border rounded-md"
+					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic"
 					type="text"
 					onChange={(e) => {
 						setTitleCategory({
@@ -235,7 +235,7 @@ export default function PageOne({ values, setFormState }) {
 				</label>
 				<input
 					id="end-date"
-					className="block w-full px-3 py-2 mt-1 border rounded-md text-black focus:ring-primary focus:border-primary focus:bg-transparent "
+					className="block w-full px-3 py-2 mt-1 border rounded-md text-black focus:ring-primary focus:border-primary focus:bg-transparent placeholder:italic"
 					type="date"
 					onChange={(e) => {
 						setTitleCategory({

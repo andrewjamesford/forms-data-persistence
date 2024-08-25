@@ -54,7 +54,6 @@ export default function PageTwo({ values, setFormState }) {
 					maxLength={500}
 					minLength={10}
 				/>
-				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
 			</div>
 			<fieldset>
 				<legend className="sr-only">Condition</legend>

@@ -1,6 +1,11 @@
 import { Helmet } from "react-helmet";
+import { usePath } from "crossroad";
+
+import { getPageAndPath } from "../../utils";
 
 export default function PageSix({ values, addListing }) {
+	const path = usePath();
+	const { page, step } = getPageAndPath(path);
 	return (
 		<>
 			<Helmet>
@@ -8,64 +13,83 @@ export default function PageSix({ values, addListing }) {
 			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Finalise</h1>
 
-			<h2 className="mt-6 text-xl font-bold">Title & Category</h2>
+			<h2 className="mt-6 text-xl font-bold">
+				<a href={`/${page}/1`}>Title & Category</a>
+			</h2>
 			<div className="mt-6">
 				<dl className="grid md:grid-cols-2">
 					<dt className="text-lg font-semibold">Listing Title</dt>
-					<dd>{values.titleCategory.listingTitle}</dd>
+					<dd className="capitalize">{values.titleCategory.listingTitle}</dd>
 
 					<dt className="text-lg font-semibold">Category</dt>
-					<dd>{values.titleCategory.category}</dd>
+					<dd className="capitalize">{values.titleCategory.category}</dd>
 
 					<dt className="text-lg font-semibold">Sub Category</dt>
-					<dd>{values.titleCategory.subCategory}</dd>
+					<dd className="capitalize">{values.titleCategory.subCategory}</dd>
 
 					<dt className="text-lg font-semibold">Sub Title</dt>
-					<dd>{values.titleCategory.subTitle}</dd>
+					<dd className="capitalize">{values.titleCategory.subTitle}</dd>
 				</dl>
 			</div>
 
-			<h2 className="mt-6 text-xl font-bold">Item Details</h2>
+			<h2 className="mt-6 text-xl font-bold">
+				<a href={`/${page}/2`}>Item Details</a>
+			</h2>
 			<div className="mt-6">
 				<dl className="grid md:grid-cols-2">
 					<dt className="text-lg font-semibold">Description</dt>
-					<dd>{values.itemDetails.description}</dd>
+					<dd className="capitalize">{values.itemDetails.description}</dd>
 
 					<dt className="text-lg font-semibold">Condition</dt>
-					<dd>{values.itemDetails.condition}</dd>
+					<dd className="capitalize">{values.itemDetails.condition}</dd>
 				</dl>
 			</div>
 
-			<h2 className="mt-6 text-xl font-bold">Photos</h2>
+			<h2 className="mt-6 text-xl font-bold">
+				<a href={`/${page}/3`}>Photos</a>
+			</h2>
 			<div className="mt-6">
 				<dl className="grid md:grid-cols-2">
 					<dt className="text-lg font-semibold">Photos</dt>
-					<dd>{values.photos.images}</dd>
+					<dd className="flex flex-wrap gap-2">
+						{values.photos.images.map((image) => (
+							<img
+								key={image.name}
+								src={URL.createObjectURL(image)}
+								alt={image.name}
+								className="w-20 h-20 object-cover rounded-lg border"
+							/>
+						))}
+					</dd>
 				</dl>
 			</div>
 
-			<h2 className="mt-6 text-xl font-bold">Price & Payment</h2>
+			<h2 className="mt-6 text-xl font-bold">
+				<a href={`/${page}/4`}>Price & Payment</a>
+			</h2>
 			<div className="mt-6">
 				<dl className="grid md:grid-cols-2">
 					<dt className="text-lg font-semibold">Start Price</dt>
-					<dd>{values.pricePayment.listingPrice}</dd>
+					<dd className="capitalize">{values.pricePayment.listingPrice}</dd>
 
 					<dt className="text-lg font-semibold">Reserve Price</dt>
-					<dd>{values.pricePayment.reservePrice}</dd>
+					<dd className="capitalize">{values.pricePayment.reservePrice}</dd>
 
 					<dt className="text-lg font-semibold">Payment Options</dt>
-					<dd>{values.pricePayment.paymentOptions}</dd>
+					<dd className="capitalize">{values.pricePayment.paymentOptions}</dd>
 				</dl>
 			</div>
 
-			<h2 className="mt-6 text-xl font-bold">Shipping & Pick-up</h2>
+			<h2 className="mt-6 text-xl font-bold">
+				<a href={`/${page}/5`}>Shipping & Pick-up</a>
+			</h2>
 			<div className="mt-6">
 				<dl className="grid md:grid-cols-2">
 					<dt className="text-lg font-semibold">Pick-up</dt>
-					<dd>{values.shipping.pickUp}</dd>
+					<dd className="capitalize">{values.shipping.pickUp}</dd>
 
 					<dt className="text-lg font-semibold">Shipping Options</dt>
-					<dd>{values.shipping.shippingOption}</dd>
+					<dd className="capitalize">{values.shipping.shippingOption}</dd>
 				</dl>
 			</div>
 

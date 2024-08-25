@@ -60,7 +60,7 @@ export default function PageFour({ values, setFormState }) {
 					<input
 						id="listing-price"
 						placeholder="$10.00"
-						className="block w-full px-3 py-2 mt-1 border rounded-md"
+						className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic"
 						type="number"
 						min={1}
 						step={1}
@@ -75,7 +75,6 @@ export default function PageFour({ values, setFormState }) {
 						onBlur={changeData}
 					/>
 				</span>
-				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
 			</div>
 			<div className="mt-6">
 				<label
@@ -89,7 +88,7 @@ export default function PageFour({ values, setFormState }) {
 					<input
 						id="listing-reserve"
 						placeholder="$10.00"
-						className="block w-full px-3 py-2 mt-1 border rounded-md"
+						className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic"
 						type="number"
 						min={0}
 						step={1}
@@ -103,7 +102,6 @@ export default function PageFour({ values, setFormState }) {
 						onBlur={changeData}
 					/>
 				</span>
-				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
 			</div>
 			<fieldset>
 				<legend className="sr-only">Payment options</legend>
@@ -120,7 +118,7 @@ export default function PageFour({ values, setFormState }) {
 							id="payment-credit"
 							name="payment-type"
 							value="credit-card"
-							onChange={(e) => {
+							onChange={() => {
 								setPricePayment({
 									...pricePayment,
 									creditCard: !pricePayment.creditCard,
@@ -144,7 +142,7 @@ export default function PageFour({ values, setFormState }) {
 							id="payment-bank"
 							name="payment-type"
 							value="bank-transfer"
-							onChange={(e) => {
+							onChange={() => {
 								setPricePayment({
 									...pricePayment,
 									bankTransfer: !pricePayment.bankTransfer,
@@ -168,7 +166,7 @@ export default function PageFour({ values, setFormState }) {
 							id="payment-bitcoin"
 							name="payment-type"
 							value="bitcoin"
-							onChange={(e) => {
+							onChange={() => {
 								setPricePayment({
 									...pricePayment,
 									bitcoin: !pricePayment.bitcoin,

@@ -59,7 +59,7 @@ export default function PageThree({ values, setFormState }) {
 						<div className="mt-4 flex text-sm leading-6 text-gray-600">
 							<label
 								htmlFor="file-upload"
-								className="relative cursor-pointer rounded-md bg-white font-semibold text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+								className="relative cursor-pointer rounded-md bg-white font-semibold text-accent-foreground focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
 							>
 								<span>Upload a file</span>
 								<input
@@ -69,23 +69,57 @@ export default function PageThree({ values, setFormState }) {
 									className="sr-only"
 									accept="image/png, image/jpeg, image/gif, image/webp"
 									onChange={(e) => {
-										setPhotos({ ...photos, images: e.target.files[0] });
+										const filesArray = Array.from(e.target.files);
+										const filesArrayLimited = filesArray.slice(0, 20);
+
+										setPhotos({ ...photos, images: filesArrayLimited });
 									}}
 									onBlur={changeData}
+									multiple
 								/>
 							</label>
 							<p className="pl-1">or drag and drop</p>
+							{photos.images && <p className="pl-1">{photos.images.name}</p>}
 						</div>
 						<p className="text-xs leading-5 text-gray-600">
 							PNG, JPG, GIF up to 10MB
 						</p>
 					</div>
 				</div>
-				<p className="mt-1 text-sm text-gray-500">
-					<a href="/" className="text-blue-600 underline">
-						Photo policy & Guidelines
-					</a>
-				</p>
+				<div className="mt-6 flex flex-wrap gap-4">
+					{photos.images.map((image, index) => (
+						<div key={image.name} className="relative rounded-md">
+							<img
+								src={URL.createObjectURL(image)}
+								alt=""
+								className="object-cover w-20 h-20 border rounded-lg relative left-1 top-1"
+							/>
+							<button
+								type="button"
+								className="absolute top-0 left-0 p-0.5 bg-black rounded-full shadow-lg cursor-pointer text-white"
+								onClick={() => {
+									const newImages = photos.images.filter((_, i) => i !== index);
+									setPhotos({ ...photos, images: newImages });
+								}}
+							>
+								<svg
+									className="h-3 w-3"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<title>Remove</title>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M6 18L18 6M6 6l12 12"
+									/>
+								</svg>
+							</button>
+						</div>
+					))}
+				</div>
 			</div>
 
 			<div className="mt-6 grid md:grid-flow-col md:w-1/2 gap-2">
