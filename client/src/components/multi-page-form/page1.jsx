@@ -1,14 +1,17 @@
 import { usePath, useUrl } from "crossroad";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-
+import { getPageAndPath } from "../../utils";
 import api from "../../api";
 
 export default function PageOne({ values, setFormState }) {
 	const path = usePath();
-	const stepArray = path[0]?.split("/");
-	const page = stepArray[1] || "state";
-	const step = Number.parseInt(stepArray[2]) || 1;
+	const { page, step } = getPageAndPath(path);
+	const today = new Date().toISOString().split("T")[0];
+	const fortnightInSecs = 14 * 24 * 60 * 60 * 1000;
+	const fortnight = new Date(new Date().getTime() + fortnightInSecs)
+		.toISOString()
+		.split("T")[0];
 
 	const [titleCategory, setTitleCategory] = useState(values);
 	const [, setUrl] = useUrl();
@@ -96,7 +99,7 @@ export default function PageOne({ values, setFormState }) {
 				<input
 					id="listing-title"
 					placeholder="e.g. iPhone 5c, Red t-shirt"
-					className="block w-full px-3 py-2 mt-1 border rounded-md"
+					className="block w-full px-3 py-2 mt-1 border rounded-md invalid:text-red-600 placeholder:italic"
 					type="text"
 					onChange={(e) => {
 						setTitleCategory({
@@ -108,8 +111,9 @@ export default function PageOne({ values, setFormState }) {
 					onBlur={changeData}
 					required={true}
 					maxLength={80}
+					minLength={3}
 				/>
-				<p className="mt-1 text-sm text-gray-500">80 characters max</p>
+				<p className="mt-1 text-sm text-gray-500 ">80 characters max</p>
 			</div>
 
 			{categories && (
@@ -124,7 +128,7 @@ export default function PageOne({ values, setFormState }) {
 						<select
 							id="category"
 							placeholder="Select a category"
-							className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 "
+							className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 placeholder:italic"
 							onChange={(e) => {
 								const value = Number.parseInt(e.target.value) || 0;
 								setTitleCategory({
@@ -136,8 +140,11 @@ export default function PageOne({ values, setFormState }) {
 							value={titleCategory.category}
 							onBlur={changeData}
 							required={true}
+							pattern="\d+"
 						>
-							<option>Select a category...</option>
+							<option value="" className="text-muted-foreground italic">
+								Select a category...
+							</option>
 							{categories?.map((category) => {
 								return (
 									<option key={category.id} value={category.id}>
@@ -153,42 +160,46 @@ export default function PageOne({ values, setFormState }) {
 					</div>
 				</div>
 			)}
-
-			{subCategories && Number.parseInt(titleCategory?.category) !== 0 && (
-				<div className="mt-6">
-					<label
-						htmlFor="category-sub"
-						className="block text-sm font-medium text-gray-700"
-					>
-						Sub Category
-					</label>
-					<div className="mt-1">
-						<select
-							id="category-sub"
-							placeholder="Select a sub category"
-							className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 "
-							onChange={(e) => {
-								setTitleCategory({
-									...titleCategory,
-									subCategory: e.target.value,
-								});
-							}}
-							value={titleCategory.subCategory}
-							onBlur={changeData}
-							required={true}
+			{subCategories &&
+				subCategories.length > 0 &&
+				Number.parseInt(titleCategory?.category) !== 0 && (
+					<div className="mt-6">
+						<label
+							htmlFor="category-sub"
+							className="block text-sm font-medium text-gray-700"
 						>
-							<option value="">Select a sub category...</option>
-							{subCategories?.map((category) => {
-								return (
-									<option key={category.id} value={category.id}>
-										{category.category_name}
-									</option>
-								);
-							})}
-						</select>
+							Sub Category
+						</label>
+						<div className="mt-1">
+							<select
+								id="category-sub"
+								placeholder="Select a sub category"
+								className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50  placeholder:italic"
+								onChange={(e) => {
+									setTitleCategory({
+										...titleCategory,
+										subCategory: e.target.value,
+									});
+								}}
+								value={titleCategory.subCategory}
+								onBlur={changeData}
+								required={true}
+								pattern="\d+"
+							>
+								<option value="" className="text-muted-foreground italic">
+									Select a sub category...
+								</option>
+								{subCategories?.map((category) => {
+									return (
+										<option key={category.id} value={category.id}>
+											{category.category_name}
+										</option>
+									);
+								})}
+							</select>
+						</div>
 					</div>
-				</div>
-			)}
+				)}
 
 			<div className="mt-6">
 				<label
@@ -224,7 +235,7 @@ export default function PageOne({ values, setFormState }) {
 				</label>
 				<input
 					id="end-date"
-					className="block w-full px-3 py-2 mt-1 border rounded-md text-black focus:ring-primary focus:border-primary focus:bg-transparent"
+					className="block w-full px-3 py-2 mt-1 border rounded-md text-black focus:ring-primary focus:border-primary focus:bg-transparent "
 					type="date"
 					onChange={(e) => {
 						setTitleCategory({
@@ -235,7 +246,10 @@ export default function PageOne({ values, setFormState }) {
 					value={titleCategory.endDate}
 					onBlur={changeData}
 					required={true}
+					pattern="\d{4}-\d{2}-\d{2}"
 					datatype="date"
+					min={today}
+					max={fortnight}
 				/>
 			</div>
 

@@ -12,7 +12,7 @@ CREATE TABLE listings (
 	sub_title varchar(50),
 	end_date timeStamp,
 	listing_description text,
-	condition_new boolean,
+	condition boolean,
 	images UUID [],
 	hero_image int,
 	listing_price money,

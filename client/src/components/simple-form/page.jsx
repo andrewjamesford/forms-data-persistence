@@ -8,8 +8,9 @@ export default function () {
 		<>
 			<form onSubmit={handleSubmit}>
 				<Helmet>
-					<title>React State Form - Title & Category</title>
+					<title>Simple Form</title>
 				</Helmet>
+				<h1 className="mt-4 text-2xl font-bold">What are you listing?</h1>
 			</form>
 		</>
 	);

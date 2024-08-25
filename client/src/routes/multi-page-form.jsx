@@ -10,7 +10,7 @@ import PageFour from "../components/multi-page-form/page4"; // pricePayment
 import PageFive from "../components/multi-page-form/page5"; // shipping
 import PageSix from "../components/multi-page-form/page6"; // review
 
-import multiFormSchema from "../utils";
+import { multiFormSchema } from "../utils";
 
 export default function State({ step }) {
 	const [url, setUrl] = useUrl();

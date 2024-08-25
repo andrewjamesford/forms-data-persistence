@@ -1,3 +1,4 @@
-export default function SimpleForm() {
-	return <div>Simple Form</div>;
+import SimpleForm from "../components/simple-form/page";
+export default function () {
+	return <SimpleForm />;
 }

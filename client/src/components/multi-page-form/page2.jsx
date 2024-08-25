@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { usePath, useUrl } from "crossroad";
 import { Helmet } from "react-helmet";
+import { getPageAndPath } from "../../utils";
 
 export default function PageTwo({ values, setFormState }) {
 	const path = usePath();
-	const stepArray = path[0].split("/");
-	const page = stepArray[1];
-	const step = Number.parseInt(stepArray[2]) || 1;
+	const { page, step } = getPageAndPath(path);
 
 	const [itemDetails, setItemDetails] = useState(values);
 	const [url, setUrl] = useUrl();
@@ -45,7 +44,7 @@ export default function PageTwo({ values, setFormState }) {
 
 				<textarea
 					id="listing-description"
-					className="block w-full px-3 py-2 mt-1 border rounded-md"
+					className="block w-full px-3 py-2 mt-1 border rounded-md invalid:text-red-600"
 					value={itemDetails.description}
 					onChange={(e) => {
 						setItemDetails({ ...itemDetails, description: e.target.value });
@@ -53,6 +52,7 @@ export default function PageTwo({ values, setFormState }) {
 					onBlur={changeData}
 					required={true}
 					maxLength={500}
+					minLength={10}
 				/>
 				{/* <p className="mt-1 text-sm text-gray-500">80 characters remaining</p> */}
 			</div>

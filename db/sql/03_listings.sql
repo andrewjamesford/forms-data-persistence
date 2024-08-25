@@ -5,7 +5,7 @@ INSERT INTO listings (
 		sub_title,
 		end_date,
 		listing_description,
-		condition_new,
+		condition,
 		images,
 		hero_image,
 		listing_price,

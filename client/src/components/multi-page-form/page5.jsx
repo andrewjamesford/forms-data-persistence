@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { usePath, useUrl } from "crossroad";
 import { Helmet } from "react-helmet";
+import { getPageAndPath } from "../../utils";
 
 export default function PageFive({ values, setFormState }) {
 	const path = usePath();
-	const stepArray = path[0].split("/");
-	const page = stepArray[1];
-	const step = Number.parseInt(stepArray[2]) || 1;
+	const { page, step } = getPageAndPath(path);
 
 	const [shipping, setShipping] = useState(values);
 	const [url, setUrl] = useUrl();

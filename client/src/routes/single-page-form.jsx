@@ -1,3 +1,5 @@
-export default function SinglePageForm() {
-	return <h1>Single Page Form</h1>;
+import SinglePageForm from "../components/single-page-form/page";
+
+export default function () {
+	return <SinglePageForm />;
 }
