@@ -1,4 +1,4 @@
-const listingFormObject = {
+const multiFormSchema = {
 	titleCategory: {
 		title: "",
 		categoryId: 0,
@@ -26,4 +26,4 @@ const listingFormObject = {
 	},
 };
 
-export default listingFormObject;
+export default multiFormSchema;

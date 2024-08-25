@@ -1,8 +1,7 @@
 import Router, { Switch, Route } from "crossroad";
 import Home from "./routes/home";
-import HookForm from "./routes/hookForm";
 import NotFoundPage from "./routes/notFoundPage";
-import State from "./routes/state";
+import MultiPageForm from "./routes/multi-page-form";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import { Helmet } from "react-helmet";
@@ -21,8 +20,7 @@ const App = () => {
 						<main className="px-4 py-8 bg-white">
 							<Switch redirect="/">
 								<Route exact path="/" component={Home} />
-								<Route exact path="/hook-form/:step" component={HookForm} />
-								<Route exact path="/state/:step" component={State} />
+								<Route exact path="/multi/:step" component={MultiPageForm} />
 								<Route path="*" component={NotFoundPage} />
 							</Switch>
 						</main>
