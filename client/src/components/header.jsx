@@ -25,14 +25,14 @@ export default function Header() {
 				</div>
 				<div className="flex flex-col text-center md:flex-row md:text-left gap-4 py-2 md:py-4">
 					<a
-						href="/multi/1"
+						href="/simple/"
 						className={
-							page === "multi"
+							page === "simple"
 								? "font-bold text-sm text-gray-600"
 								: "text-sm text-gray-600"
 						}
 					>
-						Multi Page Form
+						Simple Form
 					</a>
 					<a
 						href="/single/"
@@ -44,8 +44,15 @@ export default function Header() {
 					>
 						Single Page Form
 					</a>
-					<a href="/" className="text-sm text-gray-600">
-						Start a listing
+					<a
+						href="/multi/1"
+						className={
+							page === "multi"
+								? "font-bold text-sm text-gray-600"
+								: "text-sm text-gray-600"
+						}
+					>
+						Multi Page Form
 					</a>
 					<a href="/" className="text-sm text-gray-600">
 						My Sold!

@@ -2,6 +2,8 @@ import Router, { Switch, Route } from "crossroad";
 import Home from "./routes/home";
 import NotFoundPage from "./routes/notFoundPage";
 import MultiPageForm from "./routes/multi-page-form";
+import SinglePageForm from "./routes/single-page-form.jsx";
+import SimpleForm from "./routes/simple-form";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import { Helmet } from "react-helmet";
@@ -20,6 +22,8 @@ const App = () => {
 						<main className="px-4 py-8 bg-white">
 							<Switch redirect="/">
 								<Route exact path="/" component={Home} />
+								<Route exact path="/simple/" component={SimpleForm} />
+								<Route exact path="/single/" component={SinglePageForm} />
 								<Route exact path="/multi/:step" component={MultiPageForm} />
 								<Route path="*" component={NotFoundPage} />
 							</Switch>
