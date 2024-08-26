@@ -1,29 +1,31 @@
 {
-	"name": "forms-data-persistence/server",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"dev": "nodemon --inspect=0.0.0.0:9229 index.js",
-		"start": "node index.js",
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"check": "biome check --write ./*.js",
-		"format": "biome format --write ./*.js",
-		"report": "biome check --reporter=summary --log-level=warn ./"
-	},
-	"author": "Andrew Ford",
-	"license": "GPL-3.0-only",
-	"dependencies": {
-		"cors": "^2.8.5",
-		"dotenv": "^16.4.5",
-		"express": "^4.19.2",
-		"helmet": "^7.1.0",
-		"joi": "^17.13.3",
-		"pg": "^8.12.0"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "1.8.2",
-		"globals": "^15.2.0",
-		"nodemon": "^3.1.0"
-	}
+  "name": "forms-data-persistence-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --inspect=0.0.0.0:9229 index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check": "biome check --write ./*.js",
+    "format": "biome format --write ./*.js",
+    "report": "biome check --reporter=summary --log-level=warn ./",
+    "httptest": "httpyac send -a ./*.http"
+  },
+  "author": "Andrew Ford",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "joi": "^17.13.3",
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.2",
+    "globals": "^15.2.0",
+    "httpyac": "^6.15.1",
+    "nodemon": "^3.1.0"
+  }
 }
