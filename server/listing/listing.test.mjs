@@ -1,8 +1,8 @@
-const path = require("path");
-const jestOpenAPI = require("jest-openapi").default;
+import path from "path";
+import jestOpenAPI from "jest-openapi";
 
 jest.mock("../middleware/authorizationMiddleware");
-const db = require("../db");
+import db from "../db";
 
 jestOpenAPI(path.join(__dirname, "../apispec.yaml"));
 
@@ -17,7 +17,9 @@ describe("GIVEN that the GET /reports route exists", () => {
 
   test.todo("WHEN the user is not authenticated THEN return status 401");
 
-  test.todo("WHEN the user is authenticated but does not have the right permissions THEN return status 403");
+  test.todo(
+    "WHEN the user is authenticated but does not have the right permissions THEN return status 403",
+  );
 
   test.todo("WHEN the user is authenticated THEN return status 200");
 });

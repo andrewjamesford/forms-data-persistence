@@ -2,13 +2,14 @@
   "name": "forms-data-persistence-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.mjs",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon --inspect=0.0.0.0:9229 index.js",
-    "start": "node index.js",
+    "dev": "nodemon --inspect=0.0.0.0:9229 index.mjs",
+    "start": "node --input-type=module index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "check": "biome check --write ./*.js",
-    "format": "biome format --write ./*.js",
+    "check": "biome check --write ./*.*js",
+    "format": "biome format --write ./*.*js",
     "report": "biome check --reporter=summary --log-level=warn ./",
     "httptest": "httpyac send -a ./*.http"
   },
@@ -27,5 +28,8 @@
     "globals": "^15.2.0",
     "httpyac": "^6.15.1",
     "nodemon": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
