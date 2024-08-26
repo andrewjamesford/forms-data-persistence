@@ -1,11 +1,11 @@
 import express from "express";
 const router = express.Router();
-import categoriesRepository from "./categories.repository.mjs";
+import { getCategories } from "./categories.repository.mjs";
 
 router.get("/", async (req, res, next) => {
   try {
     const parentId = req?.query?.parentId || 0;
-    const categories = await categoriesRepository.getCategories(parentId);
+    const categories = await getCategories(parentId);
 
     const responseResults = {
       categories,

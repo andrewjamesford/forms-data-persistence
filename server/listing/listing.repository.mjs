@@ -1,4 +1,4 @@
-import * as db from "../db.cjs";
+import db from "../db.cjs";
 
 export const getListings = async () => {
   try {
