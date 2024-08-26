@@ -3,18 +3,18 @@ const router = express.Router();
 import { getCategories } from "./categories.repository.mjs";
 
 router.get("/", async (req, res, next) => {
-  try {
-    const parentId = req?.query?.parentId || 0;
-    const categories = await getCategories(parentId);
+	try {
+		const parentId = req?.query?.parentId || 0;
+		const categories = await getCategories(parentId);
 
-    const responseResults = {
-      categories,
-    };
+		const responseResults = {
+			categories,
+		};
 
-    return res.json(responseResults);
-  } catch (err) {
-    next(err);
-  }
+		return res.json(responseResults);
+	} catch (err) {
+		next(err);
+	}
 });
 
 export default router;

@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import jestOpenAPI from "jest-openapi";
 
 jestOpenAPI(path.join(__dirname, "../apispec.yaml"));

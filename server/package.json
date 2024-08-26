@@ -8,10 +8,10 @@
     "dev": "nodemon --inspect=0.0.0.0:9229 index.mjs",
     "start": "node --input-type=module index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "check": "biome check --write ./*.*js",
-    "format": "biome format --write ./*.*js",
+    "check": "biome check --write ./**/*.*js",
+    "format": "biome format --write ./**/*.*js",
     "report": "biome check --reporter=summary --log-level=warn ./",
-    "httptest": "httpyac send -a ./*.http"
+    "httptest": "httpyac send -a ./http/*.http"
   },
   "author": "Andrew Ford",
   "license": "GPL-3.0-only",
