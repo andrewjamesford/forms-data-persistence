@@ -3,7 +3,7 @@ import db from "../db.cjs";
 export const getListings = async () => {
 	try {
 		const result = db.query(
-			`SELECT l.id, l.title, l.sub_title, l.listing_description, l.listing_price, l.condition_new, c."name" AS category FROM listings l INNER JOIN categories c ON c.id = l.category_id
+			`SELECT l.id, l.title, l.sub_title, l.listing_description, l.listing_price, l.condition_new, c.category_name AS category FROM listings l INNER JOIN categories c ON c.id = l.category_id
       `,
 		);
 		return result.rows;

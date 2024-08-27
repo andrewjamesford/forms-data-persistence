@@ -3,7 +3,32 @@ Host: localhost:5001
 Content-Type: application/json
 
 {
-	"title": "My Listing",
-	"description": "This is a great listing!",
-	"price": 100
+    "titleCategory": {
+    	"listingTitle": "My Listing",
+    	"category": 1,
+        "subCategory": 1,
+    	"subTitle": "This is a great listing!",
+	},
+	"itemDetails": {
+	   "description": "This is a great listing!",
+	   "condition": "New",
+	},
+	"photos": {
+    	"images": [
+            {
+                "photo": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+            }
+        ]
+    },
+    "pricePayment": {
+    	"listingPrice": 100,
+    	"reservePrice": "USD",
+    	"creditCard": "true",
+       	"bankTransfer": "false",
+        "bitCoin": "false",
+    },
+    "shipping": {
+        "pickUp": "true",
+        "shippingOption": "post"
+    }
 }
