@@ -45,7 +45,7 @@ export default function PageFour({ values, setFormState }) {
 	return (
 		<form onSubmit={handleSubmit}>
 			<Helmet>
-				<title>React State Form - Price & Payment</title>
+				<title>Multi Page Form - Price & Payment</title>
 			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Price &amp; Payment</h1>
 			<div className="mt-6">

@@ -31,7 +31,7 @@ export default function PageTwo({ values, setFormState }) {
 	return (
 		<form onSubmit={handleSubmit}>
 			<Helmet>
-				<title>React State Form - Item Details</title>
+				<title>Multi Page Form - Item Details</title>
 			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Item details</h1>
 			<div className="mt-6">

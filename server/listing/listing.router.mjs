@@ -43,7 +43,7 @@ const addListingSchema = Joi.object().keys({
 
 router.post(
 	"/",
-	bodyValidationMiddleware(addListingSchema),
+	// bodyValidationMiddleware(addListingSchema),
 	async (req, res, next) => {
 		try {
 			const { listing } = req.body;

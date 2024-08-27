@@ -1,6 +1,7 @@
 import { useUrl } from "crossroad";
 import { useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import api from "../api";
 
 import BreadCrumbs from "../components/breadCrumbs";
 import PageOne from "../components/multi-page-form/page1"; // titleCategory
@@ -18,7 +19,7 @@ export default function State({ step }) {
 	const [formState, setFormState] = useState(multiFormSchema);
 
 	const addListing = async () => {
-		const response = await api.addListing(formState);
+		const response = await api.addListing(JSON.stringify(formState));
 
 		if (!response.ok) {
 			throw new Error("Error adding listing");

@@ -9,7 +9,7 @@ export default function PageSix({ values, addListing }) {
 	return (
 		<>
 			<Helmet>
-				<title>React State Form - Review & Submit</title>
+				<title>Multi Page Form - Review & Submit</title>
 			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Finalise</h1>
 

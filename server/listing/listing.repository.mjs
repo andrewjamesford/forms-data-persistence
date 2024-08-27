@@ -1,8 +1,8 @@
-import db from "../db.cjs";
+import { query } from "../db.cjs";
 
 export const getListings = async () => {
 	try {
-		const result = db.query(
+		const result = await query(
 			`SELECT l.id, l.title, l.sub_title, l.listing_description, l.listing_price, l.condition_new, c.category_name AS category FROM listings l INNER JOIN categories c ON c.id = l.category_id
       `,
 		);
@@ -14,7 +14,7 @@ export const getListings = async () => {
 
 export const addListing = async (listingDetails) => {
 	try {
-		const result = db.query(
+		const result = await query(
 			`INSERT INTO listings (title, category_id, sub_title, end_date, listing_description, condition_new, images, hero_image, listing_price, reserve_price, credit_card_payment, bank_transfer_payment, bitcoin_payment, pick_up, shipping_option)
 VALUES ($1, $2, $3, $4, $5, $6, $7);
       `,

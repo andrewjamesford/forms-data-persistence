@@ -86,7 +86,7 @@ export default function PageOne({ values, setFormState }) {
 	return (
 		<form onSubmit={handleSubmit}>
 			<Helmet>
-				<title>React State Form - Title & Category</title>
+				<title>Multi Page Form - Title & Category</title>
 			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">What are you listing?</h1>
 			<div className="mt-6">
