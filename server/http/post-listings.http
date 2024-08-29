@@ -3,29 +3,31 @@ Host: localhost:5001
 Content-Type: application/json
 
 {
-    "titleCategory": {
-        "title": "This is my title",
-        "categoryId": 1,
-        "subTitle": "afasfsdf",
-        "endDate": "2024-09-02",
-    },
-    "itemDetails": {
-        "condition": "used",
-        "description": "test 1235 "
-    },
-    "photos": {
-        "images": [],
-        "heroImage": 0
-    },
-    "pricePayment": {
-        "listingPrice": "10",
-        "reservePrice": "10",
-        "creditCardPayment": false,
-        "bankTransferPayment": false,
-        "bitcoinPayment": false,
-    },
-    "shipping": {
-        "pickUp": true,
-        "shippingOption": "post"
-    }
+	"listing": {
+		"titleCategory": {
+			"title": "This is my title",
+			"categoryId": 24,
+			"subTitle": "afasfsdf",
+			"endDate": "2024-09-02"
+		},
+		"itemDetails": {
+			"condition": false,
+			"description": "test 1235"
+		},
+		"photos": {
+			"images": [],
+			"heroImage": 0
+		},
+		"pricePayment": {
+			"listingPrice": "10",
+			"reservePrice": "10",
+			"creditCardPayment": false,
+			"bankTransferPayment": false,
+			"bitcoinPayment": false
+		},
+		"shipping": {
+			"pickUp": true,
+			"shippingOption": "post"
+		}
+	}
 }

@@ -14,30 +14,65 @@ export const getListings = async () => {
 
 export const addListing = async (listingDetails) => {
 	try {
+		const { titleCategory, itemDetails, photos, pricePayment, shipping } =
+			listingDetails;
+
+		const {
+			title = "",
+			categoryId = 0,
+			subTitle = "",
+			endDate,
+		} = titleCategory;
+
+		const { condition = false, description = "" } = itemDetails;
+
+		const { images = [], heroImage = 0 } = photos;
+
+		const {
+			listingPrice = "",
+			reservePrice = "",
+			creditCardPayment = false,
+			bankTransferPayment = false,
+			bitcoinPayment = false,
+		} = pricePayment;
+
+		const { pickUp = true, shippingOption = "post" } = shipping;
+
 		const result = await query(
-			`INSERT INTO listings (title, category_id, sub_title, end_date, listing_description, condition_new, images, hero_image, listing_price, reserve_price, credit_card_payment, bank_transfer_payment, bitcoin_payment, pick_up, shipping_option)
-								VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);
+			`INSERT INTO listings (
+			title, 
+			category_id, 
+			sub_title, 
+			end_date, 
+			listing_description, 
+			condition_new, 
+			images, 
+			hero_image, 
+			listing_price, 
+			reserve_price, 
+			credit_card_payment, 
+			bank_transfer_payment, 
+			bitcoin_payment, 
+			pick_up, 
+			shipping_option)
+			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15);
       `,
 			[
-				listingDetails.titleCategory.title,
-				listingDetails.titleCategory.categoryId,
-				listingDetails.titleCategory.subTitle,
-				listingDetails.titleCategory.endDate,
-
-				listingDetails.itemDetails.condition,
-				listingDetails.itemDetails.description,
-
-				listingDetails.photos.images,
-				listingDetails.photos.heroImage,
-
-				listingDetails.pricePayment.listingPrice,
-				listingDetails.pricePayment.reservePrice,
-				listingDetails.pricePayment.creditCardPayment,
-				listingDetails.pricePayment.bankTransferPayment,
-				listingDetails.pricePayment.bitcoinPayment,
-
-				listingDetails.shipping.pickUp,
-				listingDetails.shipping.shippingOption,
+				title,
+				categoryId,
+				subTitle,
+				endDate,
+				description,
+				condition,
+				images,
+				heroImage,
+				listingPrice,
+				reservePrice,
+				creditCardPayment,
+				bankTransferPayment,
+				bitcoinPayment,
+				pickUp,
+				shippingOption,
 			],
 		);
 		return result.rows ?? [];

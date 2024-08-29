@@ -1,11 +1,10 @@
 INSERT INTO listings (
-		id,
 		title,
 		category_id,
 		sub_title,
 		end_date,
 		listing_description,
-		condition,
+		condition_new,
 		images,
 		hero_image,
 		listing_price,
@@ -17,7 +16,6 @@ INSERT INTO listings (
 		shipping_option
 	)
 VALUES (
-		1,
 		'Antique clock',
 		24,
 		'Beautiful antique clock',
@@ -35,7 +33,6 @@ VALUES (
 		'courier'
 	),
 	(
-		2,
 		'Vintage computer',
 		57,
 		'Fully functional vintage Acer computer XT 8086',

@@ -7,7 +7,7 @@ export const listingSchema = {
 	},
 	itemDetails: {
 		description: "",
-		condition: "used",
+		condition: false,
 	},
 	photos: {
 		images: [],

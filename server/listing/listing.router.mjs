@@ -16,40 +16,41 @@ router.get("/", async (req, res, next) => {
 });
 
 const addListingSchema = Joi.object().keys({
-	titleCategory: Joi.object({
-		title: Joi.string().required(),
-		categoryId: Joi.number().greater(0).required(),
-		subTitle: Joi.string(),
-		endDate: Joi.date().greater("now").less("14 days").required(),
-	}).required(),
-	itemDetails: Joi.object({
-		description: Joi.string().required(),
-		condition: Joi.string().required(),
-	}).required(),
-	photos: Joi.object({
-		images: Joi.array().items(Joi.string()),
-		heroImage: Joi.number().required(),
-	}).required(),
-	pricePayment: Joi.object({
-		listingPrice: Joi.string().required(),
-		reservePrice: Joi.string().required(),
-		creditCardPayment: Joi.boolean().required(),
-		bankTransferPayment: Joi.boolean().required(),
-		bitcoinPayment: Joi.boolean().required(),
-		
-	}).required(),
-	shipping: Joi.object({
-		pickUp: Joi.boolean().required(),
-		shippingOption: Joi.string().required(),
+	listing: Joi.object({
+		titleCategory: Joi.object({
+			title: Joi.string().required(),
+			categoryId: Joi.number().greater(0).required(),
+			subTitle: Joi.string(),
+			endDate: Joi.date().greater("now").required(),
+		}).required(),
+		itemDetails: Joi.object({
+			description: Joi.string().required(),
+			condition: Joi.boolean().required(),
+		}).required(),
+		photos: Joi.object({
+			images: Joi.array().items(Joi.string()),
+			heroImage: Joi.number().required(),
+		}).required(),
+		pricePayment: Joi.object({
+			listingPrice: Joi.string().required(),
+			reservePrice: Joi.string().required(),
+			creditCardPayment: Joi.boolean().required(),
+			bankTransferPayment: Joi.boolean().required(),
+			bitcoinPayment: Joi.boolean().required(),
+		}).required(),
+		shipping: Joi.object({
+			pickUp: Joi.boolean().required(),
+			shippingOption: Joi.string().required(),
+		}).required(),
 	}).required(),
 });
 
 router.post(
 	"/",
-	// bodyValidationMiddleware(addListingSchema),
+	bodyValidationMiddleware(addListingSchema),
 	async (req, res, next) => {
 		try {
-			const listing = req.body;
+			const listing = req.body.listing;
 
 			const addListingResponse = await addListing(listing);
 

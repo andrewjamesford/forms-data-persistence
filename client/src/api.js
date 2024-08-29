@@ -20,7 +20,7 @@ const api = {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: { listing: JSON.stringify({ listing }) },
+			body: { listing: listing },
 		}),
 };
 
