@@ -8,7 +8,7 @@ export default function PageFour({ values, setFormState }) {
 	const { page, step } = getPageAndPath(path);
 
 	const [pricePayment, setPricePayment] = useState(values);
-	const [url, setUrl] = useUrl();
+	const [, setUrl] = useUrl();
 	const [checkRequired, setCheckRequired] = useState(true);
 
 	const changeData = () => {

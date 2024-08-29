@@ -8,7 +8,7 @@ export default function PageTwo({ values, setFormState }) {
 	const { page, step } = getPageAndPath(path);
 
 	const [itemDetails, setItemDetails] = useState(values);
-	const [url, setUrl] = useUrl();
+	const [, setUrl] = useUrl();
 
 	const changeData = () => {
 		setFormState(itemDetails);
@@ -47,7 +47,8 @@ export default function PageTwo({ values, setFormState }) {
 					className="block w-full px-3 py-2 mt-1 border rounded-md invalid:text-red-600"
 					value={itemDetails.description}
 					onChange={(e) => {
-						setItemDetails({ ...itemDetails, description: e.target.value });
+						const value = e.target.value ?? "";
+						setItemDetails({ ...itemDetails, description: value });
 					}}
 					onBlur={changeData}
 					required={true}
@@ -71,7 +72,7 @@ export default function PageTwo({ values, setFormState }) {
 							name="condition"
 							value="used"
 							checked={itemDetails.condition === "used"}
-							onChange={(e) => {
+							onChange={() => {
 								setItemDetails({ ...itemDetails, condition: "used" });
 							}}
 							onBlur={changeData}
@@ -87,7 +88,7 @@ export default function PageTwo({ values, setFormState }) {
 							name="condition"
 							value="new"
 							checked={itemDetails.condition === "new"}
-							onChange={(e) => {
+							onChange={() => {
 								setItemDetails({ ...itemDetails, condition: "new" });
 							}}
 							onBlur={changeData}

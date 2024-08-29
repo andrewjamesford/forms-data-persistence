@@ -3,6 +3,7 @@ const router = express.Router();
 import Joi from "joi";
 import bodyValidationMiddleware from "../middleware/bodyValidationMiddleware.mjs";
 import { addListing, getListings } from "./listing.repository.mjs";
+import { end } from "../db.cjs";
 
 router.get("/", async (req, res, next) => {
 	try {
@@ -16,10 +17,10 @@ router.get("/", async (req, res, next) => {
 
 const addListingSchema = Joi.object().keys({
 	titleCategory: Joi.object({
-		listingTitle: Joi.string().required(),
-		category: Joi.number().greater(0).required(),
-		subCategory: Joi.number().greater(0).required(),
+		title: Joi.string().required(),
+		categoryId: Joi.number().greater(0).required(),
 		subTitle: Joi.string(),
+		endDate: Joi.date().greater("now").less("14 days").required(),
 	}).required(),
 	itemDetails: Joi.object({
 		description: Joi.string().required(),
@@ -27,13 +28,14 @@ const addListingSchema = Joi.object().keys({
 	}).required(),
 	photos: Joi.object({
 		images: Joi.array().items(Joi.string()),
+		heroImage: Joi.number().required(),
 	}).required(),
 	pricePayment: Joi.object({
 		listingPrice: Joi.string().required(),
 		reservePrice: Joi.string().required(),
-		creditCard: Joi.boolean().required(),
-		bankTransfer: Joi.boolean().required(),
-		bitcoin: Joi.boolean().required(),
+		creditCardPayment: Joi.boolean().required(),
+		bankTransferPayment: Joi.boolean().required(),
+		bitcoinPayment: Joi.boolean().required(),
 	}).required(),
 	shipping: Joi.object({
 		pickUp: Joi.boolean().required(),
@@ -46,7 +48,7 @@ router.post(
 	// bodyValidationMiddleware(addListingSchema),
 	async (req, res, next) => {
 		try {
-			const { listing } = req.body;
+			const listing = req.body;
 
 			const addListingResponse = await addListing(listing);
 

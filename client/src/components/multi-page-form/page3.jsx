@@ -73,6 +73,7 @@ export default function PageThree({ values, setFormState }) {
 										const filesArrayLimited = filesArray.slice(0, 20);
 
 										setPhotos({ ...photos, images: filesArrayLimited });
+										setFormState({ ...photos, images: filesArrayLimited });
 									}}
 									onBlur={changeData}
 									multiple

@@ -18,6 +18,8 @@ export default function PageOne({ values, setFormState }) {
 
 	const [categories, setCategories] = useState([]);
 	const [subCategories, setSubCategories] = useState([]);
+	const [categoryId, setCategoryId] = useState(0);
+	const [subCategoryId, setSubCategoryId] = useState(0);
 
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -102,12 +104,13 @@ export default function PageOne({ values, setFormState }) {
 					className="block w-full px-3 py-2 mt-1 border rounded-md invalid:text-red-600 placeholder:italic"
 					type="text"
 					onChange={(e) => {
+						const value = e.target.value ?? "";
 						setTitleCategory({
 							...titleCategory,
-							listingTitle: e.target.value,
+							title: value,
 						});
 					}}
-					value={titleCategory.listingTitle}
+					value={titleCategory.title}
 					onBlur={changeData}
 					required={true}
 					maxLength={80}
@@ -133,11 +136,11 @@ export default function PageOne({ values, setFormState }) {
 								const value = Number.parseInt(e.target.value) || 0;
 								setTitleCategory({
 									...titleCategory,
-									category: value,
-									subCategory: 0,
+									categoryId: value,
 								});
+								setCategoryId(value);
 							}}
-							value={titleCategory.category}
+							value={titleCategory.categoryId}
 							onBlur={changeData}
 							required={true}
 							pattern="\d+"
@@ -176,12 +179,14 @@ export default function PageOne({ values, setFormState }) {
 								placeholder="Select a sub category"
 								className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 placeholder:italic"
 								onChange={(e) => {
+									const value = e.target.value || "";
 									setTitleCategory({
 										...titleCategory,
-										subCategory: e.target.value,
+										categoryId: value,
 									});
+									setSubCategoryId(value);
 								}}
-								value={titleCategory.subCategory}
+								value={subCategoryId}
 								onBlur={changeData}
 								required={true}
 								pattern="\d+"
@@ -214,9 +219,10 @@ export default function PageOne({ values, setFormState }) {
 					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic"
 					type="text"
 					onChange={(e) => {
+						const value = e.target.value ?? "";
 						setTitleCategory({
 							...titleCategory,
-							subTitle: e.target.value,
+							subTitle: value,
 						});
 					}}
 					value={titleCategory.subTitle}
@@ -238,9 +244,10 @@ export default function PageOne({ values, setFormState }) {
 					className="block w-full px-3 py-2 mt-1 border rounded-md text-black focus:ring-primary focus:border-primary focus:bg-transparent placeholder:italic"
 					type="date"
 					onChange={(e) => {
+						const value = e.target.value ?? "";
 						setTitleCategory({
 							...titleCategory,
-							endDate: e.target.value,
+							endDate: value,
 						});
 					}}
 					value={titleCategory.endDate}
@@ -259,7 +266,7 @@ export default function PageOne({ values, setFormState }) {
 					onClick={changeData}
 					className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
 				>
-					Next{" "}
+					Next
 				</button>
 			</div>
 		</form>

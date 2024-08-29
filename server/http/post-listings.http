@@ -4,31 +4,30 @@ Content-Type: application/json
 
 {
     "titleCategory": {
-    	"listingTitle": "My Listing",
-    	"category": 1,
-        "subCategory": 1,
-    	"subTitle": "This is a great listing!",
-	},
-	"itemDetails": {
-	   "description": "This is a great listing!",
-	   "condition": "New",
-	},
-	"photos": {
-    	"images": [
-            {
-                "photo": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-            }
-        ]
+        "title": "This is my title",
+        "categoryId": 1,
+        "subTitle": "afasfsdf",
+        "endDate": "2024-09-02",
+    },
+    "itemDetails": {
+        "condition": "used",
+        "description": "test 1235 "
+    },
+    "photos": {
+        "images": [],
+        "heroImage": 0
     },
     "pricePayment": {
-    	"listingPrice": 100,
-    	"reservePrice": "USD",
-    	"creditCard": "true",
-       	"bankTransfer": "false",
-        "bitCoin": "false",
+        "listingPrice": "10",
+        "reservePrice": "10",
+        "creditCardPayment": false,
+        "bankTransferPayment": false,
+        "bitcoinPayment": false,
+        "creditCard": true,
+        "bankTransfer": true
     },
     "shipping": {
-        "pickUp": "true",
+        "pickUp": true,
         "shippingOption": "post"
     }
 }
