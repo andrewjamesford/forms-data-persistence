@@ -24,8 +24,8 @@ export const addListing = async (listingDetails) => {
 				listingDetails.titleCategory.subTitle,
 				listingDetails.titleCategory.endDate,
 
-				listingDetails.itemDetails.description,
 				listingDetails.itemDetails.condition,
+				listingDetails.itemDetails.description,
 
 				listingDetails.photos.images,
 				listingDetails.photos.heroImage,

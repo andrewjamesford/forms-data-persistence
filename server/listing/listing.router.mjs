@@ -36,6 +36,7 @@ const addListingSchema = Joi.object().keys({
 		creditCardPayment: Joi.boolean().required(),
 		bankTransferPayment: Joi.boolean().required(),
 		bitcoinPayment: Joi.boolean().required(),
+		
 	}).required(),
 	shipping: Joi.object({
 		pickUp: Joi.boolean().required(),
