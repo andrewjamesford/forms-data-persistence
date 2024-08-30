@@ -13,7 +13,7 @@ CREATE TABLE listings (
 	end_date timeStamp,
 	listing_description text,
 	condition_new boolean,
-	images json,
+	images UUID [],
 	hero_image int,
 	listing_price money,
 	reserve_price money,

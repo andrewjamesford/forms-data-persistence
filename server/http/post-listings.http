@@ -10,7 +10,7 @@ Content-Type: application/json
 			"subTitle": "afasfsdf",
 			"endDate": "2024-09-02"
 		},
-		"itemDetails": {
+		"itemDetails": {  
 			"condition": false,
 			"description": "test 1235"
 		},
