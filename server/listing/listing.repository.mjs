@@ -75,7 +75,7 @@ export const addListing = async (listingDetails) => {
 				shippingOption,
 			],
 		);
-		return result.rows ?? [];
+		return result.rowCount ?? 0;
 	} catch (error) {
 		throw new Error(`Error adding listing: ${error.message}`);
 	}

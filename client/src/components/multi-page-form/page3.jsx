@@ -29,7 +29,7 @@ export default function PageThree({ values, setFormState }) {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} noValidate>
 			<Helmet>
 				<title>Multi Page Form - Photos</title>
 			</Helmet>

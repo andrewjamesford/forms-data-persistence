@@ -29,7 +29,7 @@ export default function PageTwo({ values, setFormState }) {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} noValidate>
 			<Helmet>
 				<title>Multi Page Form - Item Details</title>
 			</Helmet>
@@ -70,10 +70,10 @@ export default function PageTwo({ values, setFormState }) {
 							type="radio"
 							id="used"
 							name="condition"
-							value="used"
-							checked={itemDetails.condition === "used"}
+							value={false}
+							checked={itemDetails.condition}
 							onChange={() => {
-								setItemDetails({ ...itemDetails, condition: "used" });
+								setItemDetails({ ...itemDetails, condition: false });
 							}}
 							onBlur={changeData}
 						/>
@@ -86,10 +86,10 @@ export default function PageTwo({ values, setFormState }) {
 							type="radio"
 							id="new"
 							name="condition"
-							value="new"
-							checked={itemDetails.condition === "new"}
+							value={true}
+							checked={itemDetails.condition}
 							onChange={() => {
-								setItemDetails({ ...itemDetails, condition: "new" });
+								setItemDetails({ ...itemDetails, condition: true });
 							}}
 							onBlur={changeData}
 						/>

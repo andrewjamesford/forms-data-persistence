@@ -29,7 +29,7 @@ export default function PageFive({ values, setFormState }) {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} noValidate>
 			<Helmet>
 				<title>Multi Page Form - Shipping & Pickup</title>
 			</Helmet>

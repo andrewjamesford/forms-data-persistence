@@ -18,9 +18,9 @@ export default function PageFour({ values, setFormState }) {
 	const checkPaymentRequired = () => {
 		// Check if at least one payment option is selected
 		if (
-			pricePayment.creditCard ||
-			pricePayment.bankTransfer ||
-			pricePayment.bitcoin
+			pricePayment.creditCardPayment ||
+			pricePayment.bankTransferPayment ||
+			pricePayment.bitcoinPayment
 		) {
 			setCheckRequired(false);
 		} else {
@@ -43,7 +43,7 @@ export default function PageFour({ values, setFormState }) {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} noValidate>
 			<Helmet>
 				<title>Multi Page Form - Price & Payment</title>
 			</Helmet>
@@ -121,12 +121,12 @@ export default function PageFour({ values, setFormState }) {
 							onChange={() => {
 								setPricePayment({
 									...pricePayment,
-									creditCard: !pricePayment.creditCard,
+									creditCardPayment: !pricePayment.creditCardPayment,
 								});
 								checkPaymentRequired();
 							}}
 							onBlur={changeData}
-							checked={pricePayment.creditCard}
+							checked={pricePayment.creditCardPayment}
 							required={checkRequired}
 						/>
 						<label
@@ -145,12 +145,12 @@ export default function PageFour({ values, setFormState }) {
 							onChange={() => {
 								setPricePayment({
 									...pricePayment,
-									bankTransfer: !pricePayment.bankTransfer,
+									bankTransferPayment: !pricePayment.bankTransferPayment,
 								});
 								checkPaymentRequired();
 							}}
 							onBlur={changeData}
-							checked={pricePayment.bankTransfer}
+							checked={pricePayment.bankTransferPayment}
 							required={checkRequired}
 						/>
 						<label
@@ -169,12 +169,12 @@ export default function PageFour({ values, setFormState }) {
 							onChange={() => {
 								setPricePayment({
 									...pricePayment,
-									bitcoin: !pricePayment.bitcoin,
+									bitcoinPayment: !pricePayment.bitcoinPayment,
 								});
 								checkPaymentRequired();
 							}}
 							onBlur={changeData}
-							checked={pricePayment.bitcoin}
+							checked={pricePayment.bitcoinPayment}
 							required={checkRequired}
 						/>
 						<label

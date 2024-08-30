@@ -18,8 +18,12 @@ export default function State({ step }) {
 
 	const [formState, setFormState] = useState(listingSchema);
 
-	const addListing = async () => {
-		const response = await api.addListing(formState);
+	const handleAddListing = async () => {
+		const listing = {
+			listing: formState,
+		};
+		console.log("formState", formState, listing);
+		const response = await api.addListing(listing);
 
 		if (!response.ok) {
 			throw new Error("Error adding listing");
@@ -91,7 +95,9 @@ export default function State({ step }) {
 								/>
 							);
 						default:
-							return <PageSix values={formState} addListing={addListing} />;
+							return (
+								<PageSix values={formState} addListing={handleAddListing} />
+							);
 					}
 				})()}
 			</>
