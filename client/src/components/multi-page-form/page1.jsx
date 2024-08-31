@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import { addDays, format } from "date-fns";
 import { getPageAndPath } from "../../utils";
 import api from "../../api";
+import Loader from "../loader";
 
 export default function PageOne({ values, setFormState }) {
 	const path = usePath();
@@ -17,7 +18,9 @@ export default function PageOne({ values, setFormState }) {
 	const [categories, setCategories] = useState([]);
 	const [subCategories, setSubCategories] = useState([]);
 
-	const [loading, setLoading] = useState(true);
+	const [loadingCategory, setLoadingCategory] = useState(true);
+	const [loadingSubCategory, setLoadingSubCategory] = useState(true);
+
 	const [error, setError] = useState(null);
 
 	const changeData = () => {
@@ -37,7 +40,7 @@ export default function PageOne({ values, setFormState }) {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			setLoading(true);
+			setLoadingCategory(true);
 			try {
 				const response = await api.getCategories();
 				if (!response.ok) {
@@ -48,7 +51,7 @@ export default function PageOne({ values, setFormState }) {
 			} catch (error) {
 				setError(error);
 			} finally {
-				setLoading(false);
+				setLoadingCategory(false);
 			}
 		};
 
@@ -57,7 +60,7 @@ export default function PageOne({ values, setFormState }) {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			setLoading(true);
+			setLoadingSubCategory(true);
 			try {
 				const parentId = titleCategory.categoryId || 0;
 				if (Number.parseInt(parentId) === 0) {
@@ -73,14 +76,13 @@ export default function PageOne({ values, setFormState }) {
 			} catch (error) {
 				setError(error);
 			} finally {
-				setLoading(false);
+				setLoadingSubCategory(false);
 			}
 		};
 
 		fetchData();
 	}, [titleCategory.categoryId]);
 
-	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error.message}</p>;
 
 	return (
@@ -143,18 +145,24 @@ export default function PageOne({ values, setFormState }) {
 					onBlur={changeData}
 					maxLength={50}
 				/>
-				<p className="mt-1 text-sm text-gray-500">50 characters max</p>
+				<span className="mt-1 hidden text-sm text-red-600 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+					Please enter a subtitle of max 50 characters
+				</span>
+				<p className="mt-1 text-sm text-gray-500">
+					Optional - 50 characters max
+				</p>
 			</div>
 
-			{categories && (
-				<div className="mt-6">
-					<label
-						htmlFor="category"
-						className="block text-sm font-medium text-gray-700 "
-					>
-						Category
-					</label>
-					<div className="mt-1">
+			<div className="mt-6">
+				<label
+					htmlFor="category"
+					className="block text-sm font-medium text-gray-700 "
+				>
+					Category
+				</label>
+				<div className="mt-1">
+					{(loadingCategory) => <Loader />}
+					{!loadingCategory && (
 						<select
 							id="category"
 							placeholder="Select a category"
@@ -182,53 +190,51 @@ export default function PageOne({ values, setFormState }) {
 								);
 							})}
 						</select>
-						<span className="mt-1 hidden text-sm text-red-600 peer-[&:not(:selected):invalid]:block">
-							Please select a category
-						</span>
-					</div>
+					)}
+					<span className="mt-1 hidden text-sm text-red-600 peer-[&:not(:selected):invalid]:block">
+						Please select a category
+					</span>
 				</div>
-			)}
-			{subCategories &&
-				subCategories.length > 0 &&
-				Number.parseInt(titleCategory.categoryId) !== 0 && (
-					<div className="mt-6">
-						<label
-							htmlFor="category-sub"
-							className="block text-sm font-medium text-gray-700"
-						>
-							Sub Category
-						</label>
-						<div className="mt-1">
-							<select
-								id="category-sub"
-								placeholder="Select a sub category"
-								className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 placeholder:italic"
-								onChange={(e) => {
-									const value = e.target.value || "";
-									setTitleCategory({
-										...titleCategory,
-										subCategoryId: value,
-									});
-								}}
-								value={titleCategory.subCategoryId}
-								onBlur={changeData}
-								required={true}
-								pattern="\d+"
-							>
-								<option value="" className="text-muted-foreground italic">
-									Select a sub category...
+			</div>
+
+			<div className="mt-6">
+				<label
+					htmlFor="category-sub"
+					className="block text-sm font-medium text-gray-700"
+				>
+					Sub Category
+				</label>
+				<div className="mt-1">
+					<select
+						id="category-sub"
+						placeholder="Select a sub category"
+						className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 placeholder:italic"
+						onChange={(e) => {
+							const value = e.target.value || "";
+							setTitleCategory({
+								...titleCategory,
+								subCategoryId: value,
+							});
+						}}
+						value={titleCategory.subCategoryId}
+						onBlur={changeData}
+						required={true}
+						pattern="\d+"
+						disabled={subCategories.length === 0}
+					>
+						<option value="" className="text-muted-foreground italic">
+							Select a sub category...
+						</option>
+						{subCategories?.map((category) => {
+							return (
+								<option key={category.id} value={category.id}>
+									{category.category_name}
 								</option>
-								{subCategories?.map((category) => {
-									return (
-										<option key={category.id} value={category.id}>
-											{category.category_name}
-										</option>
-									);
-								})}
-							</select>
-						</div>
-					</div>
-				)}
+							);
+						})}
+					</select>
+				</div>
+			</div>
 
 			<div className="mt-6">
 				<label

@@ -1,14 +1,12 @@
-const Loader = ({ width = 10, height = 10 }) => {
+const PageLoader = () => {
 	return (
-		<div className="min-h-10">
+		<div className="absolute top-0 bottom-0 left-0 right-0 flex flex-1 h-screen w-screen justify-items-center align-middle items-center bg-gray-100 z-10">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 512 512"
 				title="Loading Animation"
 				aria-label="Loading Animation"
 				className=" animate-spin text-primary flex-1 "
-				width={width}
-				height={height}
 			>
 				<title>Loading</title>
 				{/* <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
