@@ -1,9 +1,9 @@
 import { usePath } from "crossroad";
+import { getPageAndPath } from "../utils";
 
 export default function Header() {
 	const path = usePath();
-	const stepArray = path[0]?.split("/");
-	const page = stepArray[1] || "";
+	const { page } = getPageAndPath(path);
 
 	return (
 		<>

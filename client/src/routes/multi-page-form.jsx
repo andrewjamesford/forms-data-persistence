@@ -19,7 +19,6 @@ const PageFive = lazy(() => import("../components/multi-page-form/page5"));
 const PageSix = lazy(() => import("../components/multi-page-form/page6"));
 
 import { listingSchema } from "../models/listingSchema";
-import Loader from "../components/loader";
 import Skeleton from "../components/skeleton";
 
 export default function State({ step }) {

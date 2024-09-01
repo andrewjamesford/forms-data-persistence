@@ -127,12 +127,12 @@ export default function PageOne({ values, setFormState }) {
 					htmlFor="sub-title"
 					className="block text-sm font-medium text-gray-700"
 				>
-					Subtitle
+					Subtitle (optional)
 				</label>
 				<input
 					id="sub-title"
 					placeholder="e.g. iPhone 5c, Red t-shirt"
-					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic"
+					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic peer"
 					type="text"
 					onChange={(e) => {
 						const value = e.target.value ?? "";
@@ -148,9 +148,7 @@ export default function PageOne({ values, setFormState }) {
 				<span className="mt-1 hidden text-sm text-red-600 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
 					Please enter a subtitle of max 50 characters
 				</span>
-				<p className="mt-1 text-sm text-gray-500">
-					Optional - 50 characters max
-				</p>
+				<p className="mt-1 text-sm text-gray-500">50 characters max</p>
 			</div>
 
 			<div className="mt-6">
@@ -271,7 +269,7 @@ export default function PageOne({ values, setFormState }) {
 				<button
 					type="submit"
 					onClick={changeData}
-					className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 group-invalid:pointer-events-none group-invalid:opacity-30"
+					className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 group-invalid:pointer-events-none group-invalid:opacity-30 disabled:cursor-not-allowed"
 				>
 					Next
 				</button>

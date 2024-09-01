@@ -44,7 +44,7 @@ export default function PageTwo({ values, setFormState }) {
 
 				<textarea
 					id="listing-description"
-					className="block w-full px-3 py-2 mt-1 border rounded-md invalid:text-red-600"
+					className="block w-full px-3 py-2 mt-1 border rounded-md invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-600 peer"
 					value={itemDetails.description}
 					onChange={(e) => {
 						const value = e.target.value ?? "";
@@ -54,7 +54,11 @@ export default function PageTwo({ values, setFormState }) {
 					required={true}
 					maxLength={500}
 					minLength={10}
+					placeholder="Describe your item"
 				/>
+				<span className="mt-1 hidden text-sm text-red-600 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+					Please enter a description of 10-500 characters
+				</span>
 			</div>
 			<fieldset>
 				<legend className="sr-only">Condition</legend>
@@ -71,7 +75,7 @@ export default function PageTwo({ values, setFormState }) {
 							id="used"
 							name="condition"
 							value={false}
-							checked={itemDetails.condition}
+							checked={itemDetails.condition === false}
 							onChange={() => {
 								setItemDetails({ ...itemDetails, condition: false });
 							}}
@@ -87,7 +91,7 @@ export default function PageTwo({ values, setFormState }) {
 							id="new"
 							name="condition"
 							value={true}
-							checked={itemDetails.condition}
+							checked={itemDetails.condition === true}
 							onChange={() => {
 								setItemDetails({ ...itemDetails, condition: true });
 							}}
