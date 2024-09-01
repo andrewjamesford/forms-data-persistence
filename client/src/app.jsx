@@ -9,7 +9,7 @@ import NotFoundPage from "./routes/notFoundPage";
 import SimpleForm from "./routes/simple-form";
 import SinglePageForm from "./routes/single-page-form.jsx";
 
-const App = () => {
+export default function App() {
 	return (
 		<div className="w-full flex flex-row place-content-center bg-gray-100">
 			<Helmet>
@@ -22,11 +22,22 @@ const App = () => {
 						<Header />
 						<main className="px-4 py-8 bg-white">
 							<Switch redirect="/">
-								<Route exact path="/" component={Home} />
-								<Route exact path="/simple/" component={SimpleForm} />
-								<Route exact path="/single/" component={SinglePageForm} />
-								<Route exact path="/multi/:step" component={MultiPageForm} />
-								<Route path="*" component={NotFoundPage} />
+								<Route exact path="/">
+									<Home />
+								</Route>
+								<Route exact path="/simple/">
+									<SimpleForm />
+								</Route>
+								<Route exact path="/single/">
+									<SinglePageForm />
+								</Route>
+								<Route
+									path="/multi/:step"
+									render={({ step }) => <MultiPageForm step={step} />}
+								/>
+								<Route path="*">
+									<NotFoundPage />
+								</Route>
 							</Switch>
 						</main>
 					</Router>
@@ -35,6 +46,4 @@ const App = () => {
 			</div>
 		</div>
 	);
-};
-
-export default App;
+}

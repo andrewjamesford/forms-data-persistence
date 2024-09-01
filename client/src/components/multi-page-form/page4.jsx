@@ -9,24 +9,24 @@ export default function PageFour({ values, setFormState }) {
 
 	const [pricePayment, setPricePayment] = useState(values);
 	const [, setUrl] = useUrl();
-	const [checkRequired, setCheckRequired] = useState(true);
 
 	const changeData = () => {
 		setFormState(pricePayment);
+		setCheckRequired(checkPaymentRequired());
 	};
 
 	const checkPaymentRequired = () => {
 		// Check if at least one payment option is selected
 		if (
-			pricePayment.creditCardPayment ||
-			pricePayment.bankTransferPayment ||
-			pricePayment.bitcoinPayment
+			pricePayment.creditCardPayment === true ||
+			pricePayment.bankTransferPayment === true ||
+			pricePayment.bitcoinPayment === true
 		) {
-			setCheckRequired(false);
-		} else {
-			setCheckRequired(true);
+			return false;
 		}
+		return true;
 	};
+	const [checkRequired, setCheckRequired] = useState(checkPaymentRequired());
 
 	const nextForm = () => {
 		setUrl(`/${page}/${step + 1}`);
@@ -129,6 +129,7 @@ export default function PageFour({ values, setFormState }) {
 							checked={pricePayment.creditCardPayment}
 							required={checkRequired}
 						/>
+
 						<label
 							htmlFor="payment-credit"
 							className="ml-2 text-sm text-gray-700"
@@ -153,6 +154,7 @@ export default function PageFour({ values, setFormState }) {
 							checked={pricePayment.bankTransferPayment}
 							required={checkRequired}
 						/>
+
 						<label
 							htmlFor="payment-bank"
 							className="ml-2 text-sm text-gray-700"

@@ -11,6 +11,7 @@ export default function PageSix({ values, addListing }) {
 			<Helmet>
 				<title>Multi Page Form - Review & Submit</title>
 			</Helmet>
+
 			<h1 className="mt-4 text-2xl font-bold">Finalise</h1>
 
 			<h2 className="mt-6 text-xl font-bold">

@@ -41,8 +41,70 @@ export default function State({ step }) {
 		if (result.error) {
 			throw new Error(result.error);
 		}
-		// redirect to listing page
-		setUrl("/");
+
+		console.log("Listing added", result);
+		alert("Listing added", result);
+	};
+
+	const renderPage = () => {
+		switch (step) {
+			case "1":
+				return (
+					<PageOne
+						values={formState.titleCategory}
+						setFormState={(newTitleCategory) =>
+							setFormState({
+								...formState,
+								titleCategory: newTitleCategory,
+							})
+						}
+					/>
+				);
+			case "2":
+				return (
+					<PageTwo
+						values={formState.itemDetails}
+						setFormState={(newItemDetails) =>
+							setFormState({
+								...formState,
+								itemDetails: newItemDetails,
+							})
+						}
+					/>
+				);
+			case "3":
+				return (
+					<PageThree
+						values={formState.photos}
+						setFormState={(newPhotos) =>
+							setFormState({ ...formState, photos: newPhotos })
+						}
+					/>
+				);
+			case "4":
+				return (
+					<PageFour
+						values={formState.pricePayment}
+						setFormState={(newPricePayment) =>
+							setFormState({
+								...formState,
+								pricePayment: newPricePayment,
+							})
+						}
+					/>
+				);
+			case "5":
+				return (
+					<PageFive
+						values={formState.shipping}
+						setFormState={(newShipping) =>
+							setFormState({ ...formState, shipping: newShipping })
+						}
+					/>
+				);
+			default:
+				return <PageSix values={formState} addListing={handleAddListing} />;
+		}
 	};
 
 	return (
@@ -59,68 +121,7 @@ export default function State({ step }) {
 						</div>
 					}
 				>
-					{(() => {
-						switch (step) {
-							case "1":
-								return (
-									<PageOne
-										values={formState.titleCategory}
-										setFormState={(newTitleCategory) =>
-											setFormState({
-												...formState,
-												titleCategory: newTitleCategory,
-											})
-										}
-									/>
-								);
-							case "2":
-								return (
-									<PageTwo
-										values={formState.itemDetails}
-										setFormState={(newItemDetails) =>
-											setFormState({
-												...formState,
-												itemDetails: newItemDetails,
-											})
-										}
-									/>
-								);
-							case "3":
-								return (
-									<PageThree
-										values={formState.photos}
-										setFormState={(newPhotos) =>
-											setFormState({ ...formState, photos: newPhotos })
-										}
-									/>
-								);
-							case "4":
-								return (
-									<PageFour
-										values={formState.pricePayment}
-										setFormState={(newPricePayment) =>
-											setFormState({
-												...formState,
-												pricePayment: newPricePayment,
-											})
-										}
-									/>
-								);
-							case "5":
-								return (
-									<PageFive
-										values={formState.shipping}
-										setFormState={(newShipping) =>
-											setFormState({ ...formState, shipping: newShipping })
-										}
-									/>
-								);
-							default:
-								return (
-									<PageSix values={formState} addListing={handleAddListing} />
-								);
-						}
-					})()}
+					{renderPage()}
 				</Suspense>
 			</>
 		</ErrorBoundary>
