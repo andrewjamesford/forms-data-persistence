@@ -161,7 +161,7 @@ export default function PageOne({ values, setFormState }) {
 						Category
 					</label>
 					<div className="mt-1">
-						{(loadingCategory) => <Loader />}
+						{loadingCategory && <Loader />}
 						{!loadingCategory && (
 							<select
 								id="category"
@@ -205,34 +205,37 @@ export default function PageOne({ values, setFormState }) {
 						Sub Category
 					</label>
 					<div className="mt-1">
-						<select
-							id="category-sub"
-							placeholder="Select a sub category"
-							className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 placeholder:italic"
-							onChange={(e) => {
-								const value = e.target.value || "";
-								setTitleCategory({
-									...titleCategory,
-									subCategoryId: value,
-								});
-							}}
-							value={titleCategory.subCategoryId}
-							onBlur={changeData}
-							required={true}
-							pattern="\d+"
-							disabled={subCategories.length === 0}
-						>
-							<option value="" className="text-muted-foreground italic">
-								Select a sub category...
-							</option>
-							{subCategories?.map((category) => {
-								return (
-									<option key={category.id} value={category.id}>
-										{category.category_name}
-									</option>
-								);
-							})}
-						</select>
+						{loadingSubCategory && <Loader />}
+						{!loadingSubCategory && (
+							<select
+								id="category-sub"
+								placeholder="Select a sub category"
+								className="block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 placeholder:italic"
+								onChange={(e) => {
+									const value = e.target.value || "";
+									setTitleCategory({
+										...titleCategory,
+										subCategoryId: value,
+									});
+								}}
+								value={titleCategory.subCategoryId}
+								onBlur={changeData}
+								required={true}
+								pattern="\d+"
+								disabled={subCategories.length === 0}
+							>
+								<option value="" className="text-muted-foreground italic">
+									Select a sub category...
+								</option>
+								{subCategories?.map((category) => {
+									return (
+										<option key={category.id} value={category.id}>
+											{category.category_name}
+										</option>
+									);
+								})}
+							</select>
+						)}
 					</div>
 				</div>
 
