@@ -1,4 +1,4 @@
-const Loader = ({ width = 10, height = 10 }) => {
+export default function Loader({ width = 10, height = 10 }) {
 	return (
 		<div className="min-h-10">
 			<svg
@@ -16,6 +16,4 @@ const Loader = ({ width = 10, height = 10 }) => {
 			</svg>
 		</div>
 	);
-};
-
-export default Loader;
+}

@@ -3,6 +3,7 @@ import { useUrl } from "crossroad";
 import { useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import api from "../api";
+// import PageOne from "../components/multi-page-form/page1";
 
 import BreadCrumbs from "../components/breadCrumbs";
 // titleCategory
@@ -21,7 +22,73 @@ const PageSix = lazy(() => import("../components/multi-page-form/page6"));
 import { listingSchema } from "../models/listingSchema";
 import Skeleton from "../components/skeleton";
 
-export default function State({ step }) {
+export function RenderPage({
+	step,
+	formState,
+	setFormState,
+	handleAddListing,
+}) {
+	switch (step) {
+		case "1":
+			return (
+				<PageOne
+					values={formState.titleCategory}
+					setFormState={(newTitleCategory) =>
+						setFormState({
+							...formState,
+							titleCategory: newTitleCategory,
+						})
+					}
+				/>
+			);
+		case "2":
+			return (
+				<PageTwo
+					values={formState.itemDetails}
+					setFormState={(newItemDetails) =>
+						setFormState({
+							...formState,
+							itemDetails: newItemDetails,
+						})
+					}
+				/>
+			);
+		case "3":
+			return (
+				<PageThree
+					values={formState.photos}
+					setFormState={(newPhotos) =>
+						setFormState({ ...formState, photos: newPhotos })
+					}
+				/>
+			);
+		case "4":
+			return (
+				<PageFour
+					values={formState.pricePayment}
+					setFormState={(newPricePayment) =>
+						setFormState({
+							...formState,
+							pricePayment: newPricePayment,
+						})
+					}
+				/>
+			);
+		case "5":
+			return (
+				<PageFive
+					values={formState.shipping}
+					setFormState={(newShipping) =>
+						setFormState({ ...formState, shipping: newShipping })
+					}
+				/>
+			);
+		default:
+			return <PageSix values={formState} addListing={handleAddListing} />;
+	}
+}
+
+export default function MultiPageForm({ step }) {
 	const [url, setUrl] = useUrl();
 
 	const [formState, setFormState] = useState(listingSchema);
@@ -46,67 +113,6 @@ export default function State({ step }) {
 		alert("Listing added", result);
 	};
 
-	const renderPage = () => {
-		switch (step) {
-			case "1":
-				return (
-					<PageOne
-						values={formState.titleCategory}
-						setFormState={(newTitleCategory) =>
-							setFormState({
-								...formState,
-								titleCategory: newTitleCategory,
-							})
-						}
-					/>
-				);
-			case "2":
-				return (
-					<PageTwo
-						values={formState.itemDetails}
-						setFormState={(newItemDetails) =>
-							setFormState({
-								...formState,
-								itemDetails: newItemDetails,
-							})
-						}
-					/>
-				);
-			case "3":
-				return (
-					<PageThree
-						values={formState.photos}
-						setFormState={(newPhotos) =>
-							setFormState({ ...formState, photos: newPhotos })
-						}
-					/>
-				);
-			case "4":
-				return (
-					<PageFour
-						values={formState.pricePayment}
-						setFormState={(newPricePayment) =>
-							setFormState({
-								...formState,
-								pricePayment: newPricePayment,
-							})
-						}
-					/>
-				);
-			case "5":
-				return (
-					<PageFive
-						values={formState.shipping}
-						setFormState={(newShipping) =>
-							setFormState({ ...formState, shipping: newShipping })
-						}
-					/>
-				);
-			default:
-				return <PageSix values={formState} addListing={handleAddListing} />;
-		}
-	};
-
 	return (
 		<ErrorBoundary
 			fallback={<div>Something went wrong</div>}
@@ -121,7 +127,12 @@ export default function State({ step }) {
 						</div>
 					}
 				>
-					{renderPage()}
+					<RenderPage
+						step={step}
+						formState={formState}
+						setFormState={setFormState}
+						handleAddListing={handleAddListing}
+					/>
 				</Suspense>
 			</>
 		</ErrorBoundary>
