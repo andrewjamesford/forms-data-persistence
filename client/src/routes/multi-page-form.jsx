@@ -3,7 +3,6 @@ import { useUrl } from "crossroad";
 import { useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import api from "../api";
-// import PageOne from "../components/multi-page-form/page1";
 
 import BreadCrumbs from "../components/breadCrumbs";
 // titleCategory
@@ -109,8 +108,8 @@ export default function MultiPageForm({ step }) {
 			throw new Error(result.error);
 		}
 
-		console.log("Listing added", result);
-		alert("Listing added", result);
+		console.log(`Listing added ${result}`);
+		alert(`Listing added ${result}`);
 	};
 
 	return (

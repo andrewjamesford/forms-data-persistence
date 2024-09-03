@@ -5,8 +5,8 @@ import Header from "./components/header";
 import Home from "./routes/home";
 import MultiPageForm from "./routes/multi-page-form";
 import NotFoundPage from "./routes/notFoundPage";
-import SinglePageFormPage from "./components/single-page-form/page";
-import SimpleFormPage from "./components/simple-form/page";
+import SinglePageFormPage from "./components/single-page-form/singlePageForm";
+import SimpleFormPage from "./components/simple-form/simpleFormPage";
 
 export default function App() {
 	return (
