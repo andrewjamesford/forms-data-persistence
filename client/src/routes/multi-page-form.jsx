@@ -1,7 +1,6 @@
-import React, { Suspense, lazy } from "react";
-import { useUrl } from "crossroad";
-import { useState } from "react";
+import React, { lazy, useState, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { useUrl } from "crossroad";
 import api from "../api";
 
 import BreadCrumbs from "../components/breadCrumbs";

@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { listingSchema } from "../../models/listingSchema";
 import api from "../../api";
 
 export default function () {
+	const [formState, setFormState] = useState(listingSchema);
+
 	const handleSubmit = () => {};
 
 	return (
