@@ -13,10 +13,6 @@ export const listingSchema = {
 		description: "",
 		condition: false,
 	},
-	photos: {
-		images: [],
-		heroImage: 0,
-	},
 	pricePayment: {
 		listingPrice: "",
 		reservePrice: "",

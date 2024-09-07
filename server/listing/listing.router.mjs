@@ -28,10 +28,6 @@ const addListingSchema = Joi.object().keys({
 			description: Joi.string().required(),
 			condition: Joi.boolean().required(),
 		}).required(),
-		photos: Joi.object({
-			images: Joi.array().items(Joi.string()),
-			heroImage: Joi.number().required(),
-		}).required(),
 		pricePayment: Joi.object({
 			listingPrice: Joi.string().required(),
 			reservePrice: Joi.string(),

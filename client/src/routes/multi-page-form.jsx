@@ -8,14 +8,12 @@ import BreadCrumbs from "../components/breadCrumbs";
 const PageOne = lazy(() => import("../components/multi-page-form/page1"));
 // itemDetails
 const PageTwo = lazy(() => import("../components/multi-page-form/page2"));
-// photos
-const PageThree = lazy(() => import("../components/multi-page-form/page3"));
 // pricePayment
-const PageFour = lazy(() => import("../components/multi-page-form/page4"));
+const PageThree = lazy(() => import("../components/multi-page-form/page3"));
 // shipping
-const PageFive = lazy(() => import("../components/multi-page-form/page5"));
+const PageFour = lazy(() => import("../components/multi-page-form/page4"));
 // review
-const PageSix = lazy(() => import("../components/multi-page-form/page6"));
+const PageFive = lazy(() => import("../components/multi-page-form/page5"));
 
 import { listingSchema } from "../models/listingSchema";
 import Skeleton from "../components/skeleton";
@@ -54,15 +52,6 @@ export function RenderPage({
 		case "3":
 			return (
 				<PageThree
-					values={formState.photos}
-					setFormState={(newPhotos) =>
-						setFormState({ ...formState, photos: newPhotos })
-					}
-				/>
-			);
-		case "4":
-			return (
-				<PageFour
 					values={formState.pricePayment}
 					setFormState={(newPricePayment) =>
 						setFormState({
@@ -72,9 +61,9 @@ export function RenderPage({
 					}
 				/>
 			);
-		case "5":
+		case "4":
 			return (
-				<PageFive
+				<PageFour
 					values={formState.shipping}
 					setFormState={(newShipping) =>
 						setFormState({ ...formState, shipping: newShipping })
@@ -82,7 +71,7 @@ export function RenderPage({
 				/>
 			);
 		default:
-			return <PageSix values={formState} addListing={handleAddListing} />;
+			return <PageFive values={formState} addListing={handleAddListing} />;
 	}
 }
 

@@ -1,32 +1,18 @@
 import { useState } from "react";
-import { Helmet } from "react-helmet";
 import { usePath, useUrl } from "crossroad";
+import { Helmet } from "react-helmet";
 import { getPageAndPath } from "../../utils";
 
 export default function PageFour({ values, setFormState }) {
 	const path = usePath();
 	const { page, step } = getPageAndPath(path);
 
-	const [pricePayment, setPricePayment] = useState(values);
-	const [, setUrl] = useUrl();
+	const [shipping, setShipping] = useState(values);
+	const [url, setUrl] = useUrl();
 
 	const changeData = () => {
-		setFormState(pricePayment);
-		setCheckRequired(checkPaymentRequired());
+		setFormState(shipping);
 	};
-
-	const checkPaymentRequired = () => {
-		// Check if at least one payment option is selected
-		if (
-			pricePayment.creditCardPayment === true ||
-			pricePayment.bankTransferPayment === true ||
-			pricePayment.bitcoinPayment === true
-		) {
-			return false;
-		}
-		return true;
-	};
-	const [checkRequired, setCheckRequired] = useState(checkPaymentRequired());
 
 	const nextForm = () => {
 		setUrl(`/${page}/${step + 1}`);
@@ -43,147 +29,110 @@ export default function PageFour({ values, setFormState }) {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} noValidate className="group">
+		<form onSubmit={handleSubmit} noValidate>
 			<Helmet>
-				<title>Multi Page Form - Price & Payment</title>
+				<title>Multi Page Form - Shipping & Pickup</title>
 			</Helmet>
-			<h1 className="mt-4 text-2xl font-bold">Price &amp; Payment</h1>
-			<div className="mt-6">
-				<label
-					htmlFor="listing-price"
-					className="block text-sm font-medium text-gray-700"
-				>
-					Start price
-				</label>
-				<span className="flex">
-					<span className="pt-3 pr-2 text-lg">$</span>
-					<input
-						id="listing-price"
-						placeholder="$10.00"
-						className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic"
-						type="number"
-						min={1}
-						step={1}
-						value={pricePayment.listingPrice}
-						required={true}
-						onChange={(e) => {
-							setPricePayment({
-								...pricePayment,
-								listingPrice: e.target.value,
-							});
-						}}
-						onBlur={changeData}
-					/>
-				</span>
-			</div>
-			<div className="mt-6">
-				<label
-					htmlFor="listing-reserve"
-					className="block text-sm font-medium text-gray-700"
-				>
-					Reserve price (optional)
-				</label>
-				<span className="flex">
-					<span className="pt-3 pr-2 text-lg">$</span>
-					<input
-						id="listing-reserve"
-						placeholder="$20.00"
-						className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic"
-						type="number"
-						min={0}
-						step={1}
-						value={pricePayment.reservePrice}
-						onChange={(e) => {
-							setPricePayment({
-								...pricePayment,
-								reservePrice: e.target.value,
-							});
-						}}
-						onBlur={changeData}
-					/>
-				</span>
-			</div>
+
+			<h1 className="mt-4 text-2xl font-bold">Shipping & pick-up</h1>
 			<fieldset>
-				<legend className="sr-only">Payment options</legend>
+				<legend className="sr-only">Pick up?</legend>
+
 				<div className="mt-6">
 					<label
 						htmlFor="category"
 						className="block text-sm font-medium text-gray-700"
 					>
-						Payment options
+						Pick up?
 					</label>
 					<div className="flex mt-3">
 						<input
-							type="checkbox"
-							id="payment-credit"
-							name="payment-type"
-							value="credit-card"
-							onChange={() => {
-								setPricePayment({
-									...pricePayment,
-									creditCardPayment: !pricePayment.creditCardPayment,
-								});
-								checkPaymentRequired();
+							type="radio"
+							id="pick-up-true"
+							name="pick-up"
+							value="true"
+							checked={shipping.pickUp === true}
+							onChange={(e) => {
+								setShipping({ ...shipping, pickUp: true });
 							}}
 							onBlur={changeData}
-							checked={pricePayment.creditCardPayment}
-							required={checkRequired}
 						/>
-
 						<label
-							htmlFor="payment-credit"
+							htmlFor="pick-up-true"
 							className="ml-2 text-sm text-gray-700"
 						>
-							Credit Card
+							Yes
 						</label>
 					</div>
 					<div className="flex mt-3">
 						<input
-							type="checkbox"
-							id="payment-bank"
-							name="payment-type"
-							value="bank-transfer"
-							onChange={() => {
-								setPricePayment({
-									...pricePayment,
-									bankTransferPayment: !pricePayment.bankTransferPayment,
-								});
-								checkPaymentRequired();
+							type="radio"
+							id="pick-up-false"
+							name="pick-up"
+							value="false"
+							checked={shipping.pickUp === false}
+							onChange={(e) => {
+								setShipping({ ...shipping, pickUp: false });
 							}}
 							onBlur={changeData}
-							checked={pricePayment.bankTransferPayment}
-							required={checkRequired}
 						/>
-
 						<label
-							htmlFor="payment-bank"
+							htmlFor="pick-up-false"
 							className="ml-2 text-sm text-gray-700"
 						>
-							Bank Transfer
+							No
 						</label>
 					</div>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend className="sr-only">Shipping options</legend>
+				<div className="mt-6">
+					<label
+						htmlFor="shipping-option"
+						className="block text-sm font-medium text-gray-700"
+					>
+						Shipping options
+					</label>
+
 					<div className="flex mt-3">
 						<input
-							type="checkbox"
-							id="payment-bitcoin"
-							name="payment-type"
-							value="bitcoin"
-							onChange={() => {
-								setPricePayment({
-									...pricePayment,
-									bitcoinPayment: !pricePayment.bitcoinPayment,
-								});
-								checkPaymentRequired();
+							type="radio"
+							id="shipping-option-courier"
+							name="shipping-option"
+							value="courier"
+							checked={shipping.shippingOption === "courier"}
+							onChange={(e) => {
+								setShipping({ ...shipping, shippingOption: "courier" });
 							}}
 							onBlur={changeData}
-							checked={pricePayment.bitcoinPayment}
-							required={checkRequired}
 						/>
 						<label
-							htmlFor="payment-bitcoin"
+							htmlFor="shipping-option-courier"
 							className="ml-2 text-sm text-gray-700"
 						>
-							Bitcoin
+							Courier
+						</label>
+					</div>
+
+					<div className="flex mt-3">
+						<input
+							type="radio"
+							id="shipping-option-post"
+							name="shipping-option"
+							value="post"
+							checked={shipping.shippingOption === "post"}
+							onChange={(e) => {
+								setShipping({ ...shipping, shippingOption: "post" });
+							}}
+							onBlur={changeData}
+						/>
+						<label
+							htmlFor="shipping-option-free"
+							className="ml-2 text-sm text-gray-700"
+						>
+							Post
 						</label>
 					</div>
 				</div>
@@ -200,8 +149,7 @@ export default function PageFour({ values, setFormState }) {
 
 				<button
 					type="submit"
-					onClick={changeData}
-					className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 group-invalid:pointer-events-none group-invalid:opacity-30"
+					className="items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
 				>
 					Next
 				</button>

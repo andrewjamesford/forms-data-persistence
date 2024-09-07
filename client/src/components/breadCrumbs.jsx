@@ -20,10 +20,9 @@ export default function BreadCrumbs() {
 	const steps = [
 		{ href: `/${page}/1`, label: "Title & Category" },
 		{ href: `/${page}/2`, label: "Item Details" },
-		{ href: `/${page}/3`, label: "Photos" },
-		{ href: `/${page}/4`, label: "Price & Payment" },
-		{ href: `/${page}/5`, label: "Shipping & Pick-up" },
-		{ href: `/${page}/6`, label: "Review & Submit" },
+		{ href: `/${page}/3`, label: "Price & Payment" },
+		{ href: `/${page}/4`, label: "Shipping & Pick-up" },
+		{ href: `/${page}/5`, label: "Review & Submit" },
 	];
 
 	return (

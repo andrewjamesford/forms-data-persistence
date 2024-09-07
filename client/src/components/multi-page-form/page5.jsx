@@ -1,159 +1,91 @@
-import { useState } from "react";
-import { usePath, useUrl } from "crossroad";
 import { Helmet } from "react-helmet";
+import { usePath } from "crossroad";
+
 import { getPageAndPath } from "../../utils";
 
-export default function PageFive({ values, setFormState }) {
+export default function PageFive({ values, addListing }) {
 	const path = usePath();
 	const { page, step } = getPageAndPath(path);
-
-	const [shipping, setShipping] = useState(values);
-	const [url, setUrl] = useUrl();
-
-	const changeData = () => {
-		setFormState(shipping);
-	};
-
-	const nextForm = () => {
-		setUrl(`/${page}/${step + 1}`);
-	};
-
-	const previousForm = () => {
-		changeData();
-		setUrl(`/${page}/${step - 1}`);
-	};
-
-	const handleSubmit = () => {
-		changeData();
-		nextForm();
-	};
-
 	return (
-		<form onSubmit={handleSubmit} noValidate>
+		<>
 			<Helmet>
-				<title>Multi Page Form - Shipping & Pickup</title>
+				<title>Multi Page Form - Review & Submit</title>
 			</Helmet>
 
-			<h1 className="mt-4 text-2xl font-bold">Shipping & pick-up</h1>
-			<fieldset>
-				<legend className="sr-only">Pick up?</legend>
+			<h1 className="mt-4 text-2xl font-bold">Finalise</h1>
 
-				<div className="mt-6">
-					<label
-						htmlFor="category"
-						className="block text-sm font-medium text-gray-700"
-					>
-						Pick up?
-					</label>
-					<div className="flex mt-3">
-						<input
-							type="radio"
-							id="pick-up-true"
-							name="pick-up"
-							value="true"
-							checked={shipping.pickUp === true}
-							onChange={(e) => {
-								setShipping({ ...shipping, pickUp: true });
-							}}
-							onBlur={changeData}
-						/>
-						<label
-							htmlFor="pick-up-true"
-							className="ml-2 text-sm text-gray-700"
-						>
-							Yes
-						</label>
-					</div>
-					<div className="flex mt-3">
-						<input
-							type="radio"
-							id="pick-up-false"
-							name="pick-up"
-							value="false"
-							checked={shipping.pickUp === false}
-							onChange={(e) => {
-								setShipping({ ...shipping, pickUp: false });
-							}}
-							onBlur={changeData}
-						/>
-						<label
-							htmlFor="pick-up-false"
-							className="ml-2 text-sm text-gray-700"
-						>
-							No
-						</label>
-					</div>
-				</div>
-			</fieldset>
+			<h2 className="mt-6 text-xl font-bold">
+				<a href={`/${page}/1`}>Title & Category</a>
+			</h2>
+			<div className="mt-3">
+				<dl className="grid md:grid-cols-2 border p-4 rounded-md">
+					<dt className="text-lg font-semibold">Listing Title</dt>
+					<dd className="capitalize">{values.titleCategory.listingTitle}</dd>
 
-			<fieldset>
-				<legend className="sr-only">Shipping options</legend>
-				<div className="mt-6">
-					<label
-						htmlFor="shipping-option"
-						className="block text-sm font-medium text-gray-700"
-					>
-						Shipping options
-					</label>
+					<dt className="text-lg font-semibold">Category</dt>
+					<dd className="capitalize">{values.titleCategory.category}</dd>
 
-					<div className="flex mt-3">
-						<input
-							type="radio"
-							id="shipping-option-courier"
-							name="shipping-option"
-							value="courier"
-							checked={shipping.shippingOption === "courier"}
-							onChange={(e) => {
-								setShipping({ ...shipping, shippingOption: "courier" });
-							}}
-							onBlur={changeData}
-						/>
-						<label
-							htmlFor="shipping-option-courier"
-							className="ml-2 text-sm text-gray-700"
-						>
-							Courier
-						</label>
-					</div>
+					<dt className="text-lg font-semibold">Sub Category</dt>
+					<dd className="capitalize">{values.titleCategory.subCategory}</dd>
 
-					<div className="flex mt-3">
-						<input
-							type="radio"
-							id="shipping-option-post"
-							name="shipping-option"
-							value="post"
-							checked={shipping.shippingOption === "post"}
-							onChange={(e) => {
-								setShipping({ ...shipping, shippingOption: "post" });
-							}}
-							onBlur={changeData}
-						/>
-						<label
-							htmlFor="shipping-option-free"
-							className="ml-2 text-sm text-gray-700"
-						>
-							Post
-						</label>
-					</div>
-				</div>
-			</fieldset>
+					<dt className="text-lg font-semibold">Sub Title</dt>
+					<dd className="capitalize">{values.titleCategory.subTitle}</dd>
+				</dl>
+			</div>
 
-			<div className="mt-6 grid md:grid-flow-col md:w-1/2 gap-2">
+			<h2 className="mt-6 text-xl font-bold">
+				<a href={`/${page}/2`}>Item Details</a>
+			</h2>
+			<div className="mt-3">
+				<dl className="grid md:grid-cols-2 border p-4 rounded-md">
+					<dt className="text-lg font-semibold">Description</dt>
+					<dd className="capitalize">{values.itemDetails.description}</dd>
+
+					<dt className="text-lg font-semibold">Condition</dt>
+					<dd className="capitalize">{values.itemDetails.condition}</dd>
+				</dl>
+			</div>
+
+			<h2 className="mt-6 text-xl font-bold">
+				<a href={`/${page}/4`}>Price & Payment</a>
+			</h2>
+			<div className="mt-3">
+				<dl className="grid md:grid-cols-2 border p-4 rounded-md">
+					<dt className="text-lg font-semibold">Start Price</dt>
+					<dd className="capitalize">{values.pricePayment.listingPrice}</dd>
+
+					<dt className="text-lg font-semibold">Reserve Price</dt>
+					<dd className="capitalize">{values.pricePayment.reservePrice}</dd>
+
+					<dt className="text-lg font-semibold">Payment Options</dt>
+					<dd className="capitalize">{values.pricePayment.paymentOptions}</dd>
+				</dl>
+			</div>
+
+			<h2 className="mt-6 text-xl font-bold">
+				<a href={`/${page}/5`}>Shipping & Pick-up</a>
+			</h2>
+			<div className="mt-3">
+				<dl className="grid md:grid-cols-2 border p-4 rounded-md">
+					<dt className="text-lg font-semibold">Pick-up</dt>
+					<dd className="capitalize">{values.shipping.pickUp}</dd>
+
+					<dt className="text-lg font-semibold">Shipping Options</dt>
+					<dd className="capitalize">{values.shipping.shippingOption}</dd>
+				</dl>
+			</div>
+
+			<div className="mt-3">
 				<button
+					onClick={() => {
+						addListing();
+					}}
 					type="button"
-					onClick={previousForm}
-					className="items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-primary/30 h-10 px-4 py-2"
+					className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
 				>
-					Previous
-				</button>
-
-				<button
-					type="submit"
-					className="items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-				>
-					Next
+					Start Listing
 				</button>
 			</div>
-		</form>
+		</>
 	);
 }

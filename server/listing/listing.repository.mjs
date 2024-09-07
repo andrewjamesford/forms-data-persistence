@@ -46,8 +46,6 @@ export const addListing = async (listingDetails) => {
 			end_date, 
 			listing_description, 
 			condition_new, 
-			images, 
-			hero_image, 
 			listing_price, 
 			reserve_price, 
 			credit_card_payment, 
@@ -55,7 +53,7 @@ export const addListing = async (listingDetails) => {
 			bitcoin_payment, 
 			pick_up, 
 			shipping_option)
-			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15);
+			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
       `,
 			[
 				title,
@@ -64,8 +62,6 @@ export const addListing = async (listingDetails) => {
 				endDate,
 				description,
 				condition,
-				images,
-				heroImage,
 				listingPrice,
 				reservePrice,
 				creditCardPayment,

@@ -13,8 +13,6 @@ CREATE TABLE listings (
 	end_date timeStamp,
 	listing_description text,
 	condition_new boolean,
-	images UUID [],
-	hero_image int,
 	listing_price money,
 	reserve_price money,
 	credit_card_payment boolean,
@@ -23,5 +21,4 @@ CREATE TABLE listings (
 	pick_up boolean,
 	shipping_option varchar(30)
 );
-CREATE TABLE photos (id UUID PRIMARY KEY, photo_desc text);
 COMMIT;

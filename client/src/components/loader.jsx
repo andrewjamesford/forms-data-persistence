@@ -1,6 +1,6 @@
 export default function Loader({ width = 10, height = 10 }) {
 	return (
-		<div className="min-h-10">
+		<div className="min-h-10 w-full flex justify-center items-center">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 512 512"
