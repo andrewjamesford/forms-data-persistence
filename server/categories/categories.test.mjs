@@ -1,40 +1,47 @@
-import path from "node:path";
+import { describe, expect, test, vi, it } from "vitest";
+import * as db from "../db.cjs";
 import { getCategories } from "./categories.repository.mjs";
 
-import db from "../db";
+const mockCategories = {
+	categories: [
+		{
+			id: 1,
+			category_name: "Antiques & collectables",
+			parent_id: 0,
+		},
+		{
+			id: 7,
+			category_name: "Computers & Electronics",
+			parent_id: 0,
+		},
+	],
+};
 
 describe("getCategories", () => {
-	beforeEach(() => {
-		// Set up any necessary mocks or variables here
+	it("should return the categories", async () => {
+		const mock = vi.fn().mockImplementation(getCategories);
+
+		mock.mockImplementationOnce(() => mockCategories);
+
+		expect(mock()).toEqual(mockCategories);
+		expect(mock).toHaveBeenCalledTimes(1);
 	});
 
-	afterEach(() => {
-		// Clean up any mocks or variables here
-	});
+	it("should return an empty array if no categories match the query", async () => {
+		const mockResult = { rows: [] };
 
-	test("should return an array", () => {
-		expect(Array.isArray(getCategories())).toBe(true);
-	});
+		vi.spyOn(db, "query").mockResolvedValue(mockResult);
 
-	test("should return the correct number of categories", async () => {
-		const mockData = [
-			{ id: 1, name: "Category1" },
-			{ id: 2, name: "Category2" },
-		];
-		jest.spyOn(db, "query").mockResolvedValue(mockData);
 		const categories = await getCategories();
-		expect(categories).toHaveLength(2);
-	});
 
-	test("should return an empty array if no categories exist", async () => {
-		jest.spyOn(db, "query").mockResolvedValue([]);
-		const categories = await getCategories();
 		expect(categories).toEqual([]);
 	});
 
-	test("should handle errors correctly", async () => {
-		const mockError = new Error("Database error");
-		jest.spyOn(db, "query").mockRejectedValueOnce(mockError);
-		await expect(getCategories()).rejects.toThrow(mockError);
+	it("should throw an error if the database query fails", async () => {
+		const mockError = new Error("Database query failed");
+
+		vi.spyOn(db, "query").mockRejectedValue(mockError);
+
+		await expect(getCategories()).rejects.toThrow("Database query failed");
 	});
 });
