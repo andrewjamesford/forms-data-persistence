@@ -17,24 +17,19 @@ export const addListing = async (listingDetails) => {
 		const { titleCategory, itemDetails, pricePayment, shipping } =
 			listingDetails;
 
-		const {
-			title = "",
-			categoryId = 0,
-			subTitle = "",
-			endDate,
-		} = titleCategory;
+		const { title, categoryId, subTitle, endDate } = titleCategory;
 
-		const { condition = false, description = "" } = itemDetails;
+		const { condition, description } = itemDetails;
 
 		const {
-			listingPrice = "",
-			reservePrice = "",
-			creditCardPayment = false,
-			bankTransferPayment = false,
-			bitcoinPayment = false,
+			listingPrice,
+			reservePrice,
+			creditCardPayment,
+			bankTransferPayment,
+			bitcoinPayment,
 		} = pricePayment;
 
-		const { pickUp = true, shippingOption = "post" } = shipping;
+		const { pickUp, shippingOption } = shipping;
 
 		const result = await query(
 			`INSERT INTO listings (

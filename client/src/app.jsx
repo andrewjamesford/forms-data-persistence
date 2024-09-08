@@ -2,11 +2,11 @@ import Router, { Route, Switch } from "crossroad";
 
 import Footer from "./components/footer";
 import Header from "./components/header";
+import SimpleFormPage from "./components/simple-form/simpleFormPage";
+import SinglePageFormPage from "./components/single-page-form/singlePageForm";
 import Home from "./routes/home";
 import MultiPageForm from "./routes/multi-page-form";
 import NotFoundPage from "./routes/notFoundPage";
-import SinglePageFormPage from "./components/single-page-form/singlePageForm";
-import SimpleFormPage from "./components/simple-form/simpleFormPage";
 
 export default function App() {
 	return (

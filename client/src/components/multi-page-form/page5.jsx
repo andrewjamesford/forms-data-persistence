@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet";
 import { usePath } from "crossroad";
+import { Helmet } from "react-helmet";
 
 import { getPageAndPath } from "../../utils";
 

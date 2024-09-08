@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
-import { listingSchema } from "../../models/listingSchema";
 import { addDays, format } from "date-fns";
+import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import api from "../../api";
+import { listingSchema } from "../../models/listingSchema";
 import Loader from "../loader";
 
 export default function () {
@@ -28,7 +28,9 @@ export default function () {
 
 	const changeData = () => {};
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
 		const listing = {
 			titleCategory: titleCategory,
 			itemDetails: itemDetails,
@@ -46,7 +48,7 @@ export default function () {
 			throw new Error(result.error);
 		}
 
-		alert(`Listing added ${JSON.stringify(result)}`);
+		alert(`${JSON.stringify(result)} listing added`);
 	};
 
 	useEffect(() => {
@@ -98,7 +100,7 @@ export default function () {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} noValidate className="group">
 				<Helmet>
 					<title>Single Page Form</title>
 				</Helmet>
@@ -600,10 +602,7 @@ export default function () {
 
 				<div className="mt-3">
 					<button
-						onClick={() => {
-							handleSubmit();
-						}}
-						type="button"
+						type="submit"
 						className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
 					>
 						Start Listing

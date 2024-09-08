@@ -1,6 +1,5 @@
 import React, { lazy, useState, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { useUrl } from "crossroad";
 import api from "../api";
 
 import BreadCrumbs from "../components/breadCrumbs";
@@ -15,8 +14,8 @@ const PageFour = lazy(() => import("../components/multi-page-form/page4"));
 // review
 const PageFive = lazy(() => import("../components/multi-page-form/page5"));
 
-import { listingSchema } from "../models/listingSchema";
 import Skeleton from "../components/skeleton";
+import { listingSchema } from "../models/listingSchema";
 
 export function RenderPage({
 	step,
@@ -76,8 +75,6 @@ export function RenderPage({
 }
 
 export default function MultiPageForm({ step }) {
-	const [url, setUrl] = useUrl();
-
 	const [formState, setFormState] = useState(listingSchema);
 
 	const handleAddListing = async () => {
@@ -95,7 +92,7 @@ export default function MultiPageForm({ step }) {
 			throw new Error(result.error);
 		}
 
-		alert(`Listing added ${JSON.stringify(result)}`);
+		alert(`${JSON.stringify(result)} listing added`);
 	};
 
 	return (

@@ -1,6 +1,7 @@
-import { Helmet } from "react-helmet";
-import { useState } from "react";
 import { addDays, format } from "date-fns";
+import { useState } from "react";
+import { Helmet } from "react-helmet";
+import { listingSchema } from "../../models/listingSchema";
 
 import api from "../../api";
 
@@ -14,15 +15,32 @@ export default function SimpleFormPage() {
 	const [startPrice, setStartPrice] = useState(0);
 	const [description, setDescription] = useState("");
 
-	const handleSubmit = () => {
-		const data = {
-			listingTitle,
-			endDate,
-			startPrice,
-			description,
-		};
-		// this is a fake api call, see the single page form and , multi page form for more info
-		alert(`handleSubmit ${JSON.stringify(data)}`);
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const listing = listingSchema;
+
+		listing.titleCategory.title = listingTitle;
+		listing.titleCategory.subTitle = listingTitle;
+		listing.titleCategory.endDate = endDate;
+		listing.titleCategory.categoryId = 1;
+		listing.titleCategory.subCategoryId = 1;
+		listing.pricePayment.listingPrice = startPrice.toString();
+		listing.pricePayment.reservePrice = startPrice.toString();
+		listing.pricePayment.creditCardPayment = true;
+		listing.itemDetails.description = description;
+
+		const response = await api.addListing({ listing: listing });
+
+		if (!response.ok) {
+			throw new Error("Error adding listing");
+		}
+		const result = await response.json();
+
+		if (result.error) {
+			throw new Error(result.error);
+		}
+
+		alert(`${JSON.stringify(result)} listing added`);
 	};
 
 	return (
@@ -141,7 +159,7 @@ export default function SimpleFormPage() {
 						type="submit"
 						className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 group-invalid:pointer-events-none group-invalid:opacity-30 disabled:cursor-not-allowed"
 					>
-						Add Listing
+						Start Listing
 					</button>
 				</div>
 			</form>

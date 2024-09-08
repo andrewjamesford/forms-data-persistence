@@ -1,9 +1,9 @@
 import { usePath, useUrl } from "crossroad";
+import { addDays, format } from "date-fns";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { addDays, format } from "date-fns";
-import { getPageAndPath } from "../../utils";
 import api from "../../api";
+import { getPageAndPath } from "../../utils";
 import Loader from "../loader";
 
 export default function PageOne({ values, setFormState }) {
