@@ -3,7 +3,6 @@ const router = express.Router();
 import Joi from "joi";
 import bodyValidationMiddleware from "../middleware/bodyValidationMiddleware.mjs";
 import { addListing, getListings } from "./listing.repository.mjs";
-import { end } from "../db.cjs";
 
 router.get("/", async (req, res, next) => {
 	try {
