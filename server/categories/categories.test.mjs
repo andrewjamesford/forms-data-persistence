@@ -1,38 +1,40 @@
 import path from "node:path";
-import jestOpenAPI from "jest-openapi";
+import { getCategories } from "./categories.repository.mjs";
 
-jestOpenAPI(path.join(__dirname, "../apispec.yaml"));
 import db from "../db";
 
-describe("GIVEN that the GET /products route exist", () => {
-  afterAll(() => {
-    db.end();
-  });
-  test.todo(
-    "WHEN there are products THEN return status 200 and an array of products",
-  );
+describe("getCategories", () => {
+	beforeEach(() => {
+		// Set up any necessary mocks or variables here
+	});
 
-  test.todo(
-    "WHEN there are no products THEN return status 200 and an empty array",
-  );
-});
+	afterEach(() => {
+		// Clean up any mocks or variables here
+	});
 
-describe("WHEN the client sends a request for a specific number of products", () => {
-  test.todo(
-    "WHEN the limit query parameter is valid as per the API spec THEN return status 200 and an array of products",
-  );
+	test("should return an array", () => {
+		expect(Array.isArray(getCategories())).toBe(true);
+	});
 
-  test.todo(
-    "WHEN the limit query parameter is not valid as per the API spec THEN return status 400 and an appropriate error message",
-  );
-});
+	test("should return the correct number of categories", async () => {
+		const mockData = [
+			{ id: 1, name: "Category1" },
+			{ id: 2, name: "Category2" },
+		];
+		jest.spyOn(db, "query").mockResolvedValue(mockData);
+		const categories = await getCategories();
+		expect(categories).toHaveLength(2);
+	});
 
-describe("WHEN the client sends a request for a specific page of products", () => {
-  test.todo(
-    "WHEN the page query parameter is valid as per the API spec THEN return 200 status code and an array of products",
-  );
+	test("should return an empty array if no categories exist", async () => {
+		jest.spyOn(db, "query").mockResolvedValue([]);
+		const categories = await getCategories();
+		expect(categories).toEqual([]);
+	});
 
-  test.todo(
-    "WHEN the page query parameter is not valid as per the API spec THEN return status 400 and an appropriate error message",
-  );
+	test("should handle errors correctly", async () => {
+		const mockError = new Error("Database error");
+		jest.spyOn(db, "query").mockRejectedValueOnce(mockError);
+		await expect(getCategories()).rejects.toThrow(mockError);
+	});
 });

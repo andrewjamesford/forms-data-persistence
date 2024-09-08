@@ -1,25 +1,9 @@
 import path from "node:path";
-import jestOpenAPI from "jest-openapi";
 
-jest.mock("../middleware/authorizationMiddleware");
 import db from "../db";
 
-jestOpenAPI(path.join(__dirname, "../apispec.yaml"));
+describe("Listing reports tests", () => {
+	afterEach(() => {});
 
-describe("GIVEN that the GET /reports route exists", () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  afterAll(() => {
-    db.end();
-  });
-
-  test.todo("WHEN the user is not authenticated THEN return status 401");
-
-  test.todo(
-    "WHEN the user is authenticated but does not have the right permissions THEN return status 403",
-  );
-
-  test.todo("WHEN the user is authenticated THEN return status 200");
+	afterAll(() => {});
 });
