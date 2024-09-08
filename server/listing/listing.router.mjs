@@ -39,7 +39,17 @@ const addListingSchema = Joi.object().keys({
 			pickUp: Joi.boolean().required(),
 			shippingOption: Joi.string().required(),
 		}).required(),
-	}).required(),
+	})
+		.required()
+		.custom((value) => {
+			if (
+				value.pricePayment.creditCardPayment === false &&
+				value.pricePayment.bankTransferPayment === false &&
+				value.pricePayment.bitcoinPayment === false
+			) {
+				throw new Error("At least one of the payment methods must be selected");
+			}
+		}),
 });
 
 router.post(

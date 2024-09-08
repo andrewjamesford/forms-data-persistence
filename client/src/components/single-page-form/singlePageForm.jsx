@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { listingSchema } from "../../models/listingSchema";
 import { addDays, format } from "date-fns";
@@ -30,10 +30,12 @@ export default function () {
 
 	const handleSubmit = async () => {
 		const listing = {
-			listing: formState,
+			titleCategory: titleCategory,
+			itemDetails: itemDetails,
+			pricePayment: pricePayment,
+			shipping: shipping,
 		};
-		console.log("formState", formState, listing);
-		const response = await api.addListing(listing);
+		const response = await api.addListing({ listing: listing });
 
 		if (!response.ok) {
 			throw new Error("Error adding listing");
@@ -44,9 +46,55 @@ export default function () {
 			throw new Error(result.error);
 		}
 
-		console.log(`Listing added ${result}`);
-		alert(`Listing added ${result}`);
+		alert(`Listing added ${JSON.stringify(result)}`);
 	};
+
+	useEffect(() => {
+		const fetchData = async () => {
+			setLoadingCategory(true);
+			try {
+				const response = await api.getCategories();
+				if (!response.ok) {
+					throw new Error("Error retrieving categories");
+				}
+				const result = await response.json();
+				setCategories(result.categories);
+			} catch (error) {
+				setError(error);
+			} finally {
+				setLoadingCategory(false);
+			}
+		};
+
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			setLoadingSubCategory(true);
+			try {
+				const parentId = titleCategory.categoryId || 0;
+				if (Number.parseInt(parentId) === 0) {
+					setSubCategories([]);
+					return;
+				}
+				const response = await api.getCategories(parentId);
+				if (!response.ok) {
+					throw new Error("Error retrieving sub-categories");
+				}
+				const result = await response.json();
+				setSubCategories(result?.categories);
+			} catch (error) {
+				setError(error);
+			} finally {
+				setLoadingSubCategory(false);
+			}
+		};
+
+		fetchData();
+	}, [titleCategory.categoryId]);
+
+	if (error) return <p>Error: {error.message}</p>;
 
 	return (
 		<>
@@ -553,7 +601,7 @@ export default function () {
 				<div className="mt-3">
 					<button
 						onClick={() => {
-							addListing();
+							handleSubmit();
 						}}
 						type="button"
 						className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"

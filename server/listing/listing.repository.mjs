@@ -26,8 +26,6 @@ export const addListing = async (listingDetails) => {
 
 		const { condition = false, description = "" } = itemDetails;
 
-		const { images = [], heroImage = 0 } = photos;
-
 		const {
 			listingPrice = "",
 			reservePrice = "",

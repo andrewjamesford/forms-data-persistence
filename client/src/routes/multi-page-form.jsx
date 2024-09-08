@@ -84,7 +84,6 @@ export default function MultiPageForm({ step }) {
 		const listing = {
 			listing: formState,
 		};
-		console.log("formState", formState, listing);
 		const response = await api.addListing(listing);
 
 		if (!response.ok) {
@@ -96,8 +95,7 @@ export default function MultiPageForm({ step }) {
 			throw new Error(result.error);
 		}
 
-		console.log(`Listing added ${result}`);
-		alert(`Listing added ${result}`);
+		alert(`Listing added ${JSON.stringify(result)}`);
 	};
 
 	return (
