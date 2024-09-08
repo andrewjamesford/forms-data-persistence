@@ -8,9 +8,9 @@ You are an expert programmer
 {{{ input }}}
 
 Write unit tests for the above selected code, following each of these instructions:
-- Use `jest`
+- Use `vitest`
 - Properly set up and tear down
 - Include important edge cases
 - The tests should be complete and sophisticated
 - Give the tests just as chat output, don't edit any file
-- Don't explain how to set up `jest`
+- Don't explain how to set up `vitest`

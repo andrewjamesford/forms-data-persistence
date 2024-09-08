@@ -1,6 +1,7 @@
 .DS_Store
 package-lock.json
-.env
-client/.env
-server/.env
+.env*
+client/.env*
+server/.env*
 .aider*
+/node_modules
