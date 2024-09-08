@@ -2,17 +2,17 @@ import { describe, expect, test, vi, it } from "vitest";
 import * as db from "../db.cjs";
 import { addListing, getListings } from "./listing.repository.mjs";
 
-const mockListings = [
-	{
-		id: "1",
-		title: "Test",
-		description: "",
-		price: 0,
-		categoryId: "1",
-	},
-];
-
 describe("getListings", () => {
+	const mockListings = [
+		{
+			id: "1",
+			title: "Test",
+			description: "",
+			price: 0,
+			categoryId: "1",
+		},
+	];
+
 	it("should return all listings", async () => {
 		const mock = vi.fn().mockImplementation(getListings);
 
