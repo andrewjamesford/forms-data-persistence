@@ -21,8 +21,8 @@ export default function SimpleFormPage() {
 			startPrice,
 			description,
 		};
-
-		alert(`handleSubmit ${data}`);
+		// this is a fake api call, see the single page form and , multi page form for more info
+		alert(`handleSubmit ${JSON.stringify(data)}`);
 	};
 
 	return (

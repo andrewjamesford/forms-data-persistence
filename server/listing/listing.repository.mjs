@@ -14,7 +14,7 @@ export const getListings = async () => {
 
 export const addListing = async (listingDetails) => {
 	try {
-		const { titleCategory, itemDetails, photos, pricePayment, shipping } =
+		const { titleCategory, itemDetails, pricePayment, shipping } =
 			listingDetails;
 
 		const {
