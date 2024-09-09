@@ -1,6 +1,8 @@
-import { describe, expect, test, vi, it } from "vitest";
+import { describe, expect, vi, it } from "vitest";
 import * as db from "../db.cjs";
 import { getCategories } from "./categories.repository.mjs";
+import request from "supertest";
+import { app } from "../app";
 
 const mockCategories = {
 	categories: [
@@ -43,5 +45,13 @@ describe("getCategories", () => {
 		vi.spyOn(db, "query").mockRejectedValue(mockError);
 
 		await expect(getCategories()).rejects.toThrow("Database query failed");
+	});
+
+	it("should respond with a 200 status code", async () => {
+		const response = await request(app).get(
+			"http://localhost:5001/api/categories",
+		);
+
+		expect(response.statusCode).toBe(200);
 	});
 });
