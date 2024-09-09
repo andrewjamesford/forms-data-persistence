@@ -8,7 +8,7 @@ import {
 	setSessionStorageItem,
 	getSessionStorageItem,
 	removeSessionStorageItem,
-} from "../../hooks/useSessionStorage";
+} from "../../utils/sessionStorage";
 
 import api from "../../api";
 

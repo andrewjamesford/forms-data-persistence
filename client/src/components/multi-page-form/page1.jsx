@@ -3,7 +3,7 @@ import { addDays, format } from "date-fns";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import api from "../../api";
-import { getPageAndPath } from "../../utils";
+import { getPageAndPath } from "../../utils/getPageAndPath";
 import Loader from "../loader";
 
 export default function PageOne({ values, setFormState }) {

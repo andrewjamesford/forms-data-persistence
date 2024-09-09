@@ -1,7 +1,7 @@
 import { usePath, useUrl } from "crossroad";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
-import { getPageAndPath } from "../../utils";
+import { getPageAndPath } from "../../utils/getPageAndPath";
 
 export default function PageFour({ values, setFormState }) {
 	const path = usePath();

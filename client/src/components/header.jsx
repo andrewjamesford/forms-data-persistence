@@ -1,5 +1,5 @@
 import { usePath } from "crossroad";
-import { getPageAndPath } from "../utils";
+import { getPageAndPath } from "../utils/getPageAndPath";
 
 export default function Header() {
 	const path = usePath();

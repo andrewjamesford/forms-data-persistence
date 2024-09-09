@@ -1,7 +1,7 @@
 import { usePath } from "crossroad";
 import { Helmet } from "react-helmet";
 
-import { getPageAndPath } from "../../utils";
+import { getPageAndPath } from "../../utils/getPageAndPath";
 
 export default function PageFive({ values, addListing }) {
 	const path = usePath();
