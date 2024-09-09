@@ -2,6 +2,13 @@ import { addDays, format } from "date-fns";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { listingSchema } from "../../models/listingSchema";
+// import { getSessionStorageItem } from "../../hooks/useSessionStorage";
+
+import {
+	setSessionStorageItem,
+	getSessionStorageItem,
+	removeSessionStorageItem,
+} from "../../hooks/useSessionStorage";
 
 import api from "../../api";
 
@@ -9,12 +16,25 @@ export default function SimpleFormPage() {
 	const today = format(new Date(), "yyyy-MM-dd");
 	const tomorrow = format(addDays(today, 1), "yyyy-MM-dd");
 	const fortnight = format(addDays(today, 14), "yyyy-MM-dd");
+	const storageKey = "simpleForm";
 
-	const [listingTitle, setListingTitle] = useState("");
-	const [endDate, setEndDate] = useState(tomorrow);
-	const [startPrice, setStartPrice] = useState(0);
-	const [description, setDescription] = useState("");
+	// Get session storage via hook with key "simpleForm"
+	const simpleFormSession = getSessionStorageItem(storageKey);
 
+	const [listingTitle, setListingTitle] = useState(
+		simpleFormSession?.listingTitle || "",
+	);
+	const [endDate, setEndDate] = useState(
+		simpleFormSession?.endDate || tomorrow,
+	);
+	const [startPrice, setStartPrice] = useState(
+		simpleFormSession?.startPrice || 0,
+	);
+	const [description, setDescription] = useState(
+		simpleFormSession?.description || "",
+	);
+
+	// Handling form submission
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const listing = listingSchema;
@@ -40,6 +60,7 @@ export default function SimpleFormPage() {
 			throw new Error(result.error);
 		}
 
+		removeSessionStorageItem(storageKey);
 		alert(`${JSON.stringify(result)} listing added`);
 	};
 
@@ -64,6 +85,10 @@ export default function SimpleFormPage() {
 					onChange={(e) => {
 						const value = e.target.value ?? "";
 						setListingTitle(value);
+						setSessionStorageItem(storageKey, {
+							...simpleFormSession,
+							listingTitle: value,
+						});
 					}}
 					value={listingTitle}
 					required={true}
@@ -90,6 +115,10 @@ export default function SimpleFormPage() {
 					onChange={(e) => {
 						const value = e.target.value ?? "";
 						setEndDate(value);
+						setSessionStorageItem(storageKey, {
+							...simpleFormSession,
+							endDate: value,
+						});
 					}}
 					value={endDate}
 					required={true}
@@ -124,6 +153,10 @@ export default function SimpleFormPage() {
 							const value = e.target.value ?? "";
 							const price = Number.parseInt(value, 10);
 							setStartPrice(price);
+							setSessionStorageItem(storageKey, {
+								...simpleFormSession,
+								startPrice: price,
+							});
 						}}
 					/>
 				</span>
@@ -143,6 +176,10 @@ export default function SimpleFormPage() {
 					onChange={(e) => {
 						const value = e.target.value ?? "";
 						setDescription(value);
+						setSessionStorageItem(storageKey, {
+							...simpleFormSession,
+							description: value,
+						});
 					}}
 					required={true}
 					maxLength={500}
