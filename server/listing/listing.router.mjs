@@ -2,7 +2,13 @@ import express from "express";
 const router = express.Router();
 import Joi from "joi";
 import bodyValidationMiddleware from "../middleware/bodyValidationMiddleware.mjs";
-import { addListing, getListings } from "./listing.repository.mjs";
+import {
+	addListing,
+	getListings,
+	getDraftListing,
+	addDraftListing,
+	updateDraftListing,
+} from "./listing.repository.mjs";
 
 router.get("/", async (req, res, next) => {
 	try {
@@ -67,5 +73,39 @@ router.post(
 		}
 	},
 );
+
+router.post("/:email", async (req, res, next) => {
+	try {
+		const email = req.params.email;
+		const draft = req.body.draft;
+
+		const listings = await getListingByEmail(email);
+
+		if (listings === null || listings === undefined) {
+			const addDraftListingResponse = await addDraftListing(draft, email);
+
+			return addDraftListingResponse;
+		}
+		const updateDraftListingResponse = await updateDraftListing({
+			draft,
+			email,
+		});
+		return updateDraftListingResponse;
+	} catch (err) {
+		console.error(err);
+		next(err);
+	}
+});
+
+router.get("/:email", async (req, res, next) => {
+	try {
+		const email = req.params.email;
+		const listings = await getDraftListing(email);
+		return res.json(listings);
+	} catch (err) {
+		console.error(err);
+		next(err);
+	}
+});
 
 export default router;

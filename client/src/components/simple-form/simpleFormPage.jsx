@@ -2,7 +2,6 @@ import { addDays, format } from "date-fns";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { listingSchema } from "../../models/listingSchema";
-// import { getSessionStorageItem } from "../../hooks/useSessionStorage";
 
 import {
 	setSessionStorageItem,
@@ -12,6 +11,10 @@ import {
 
 import api from "../../api";
 
+/**
+ * Simple form page
+ * @returns { ReactElement }
+ */
 export default function SimpleFormPage() {
 	const today = format(new Date(), "yyyy-MM-dd");
 	const tomorrow = format(addDays(today, 1), "yyyy-MM-dd");

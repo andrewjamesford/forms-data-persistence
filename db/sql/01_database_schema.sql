@@ -21,4 +21,8 @@ CREATE TABLE listings (
 	pick_up boolean,
 	shipping_option varchar(30)
 );
+CREATE TABLE listings_draft (
+	user_email varchar(134) PRIMARY KEY,
+	draft jsonb NOT NULL,
+);
 COMMIT;
