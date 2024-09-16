@@ -8,7 +8,7 @@ CREATE TABLE categories (
 CREATE TABLE listings (
 	id SERIAL PRIMARY KEY,
 	title varchar(80),
-	category_id INT REFERENCES categories(id),
+	category_id INT,
 	sub_title varchar(50),
 	end_date timeStamp,
 	listing_description text,
@@ -23,6 +23,6 @@ CREATE TABLE listings (
 );
 CREATE TABLE listings_draft (
 	user_email varchar(134) PRIMARY KEY,
-	draft jsonb NOT NULL,
+	draft jsonb NOT NULL
 );
 COMMIT;

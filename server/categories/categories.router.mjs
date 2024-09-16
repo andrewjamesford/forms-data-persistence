@@ -5,7 +5,7 @@ import { getCategories } from "./categories.repository.mjs";
 router.get("/", async (req, res, next) => {
 	try {
 		const parentId = req?.query?.parentId || 0;
-		const categories = await getCategories(parentId);
+		const categories = await getCategories(parentId, true);
 
 		const responseResults = {
 			categories,
@@ -18,4 +18,3 @@ router.get("/", async (req, res, next) => {
 });
 
 export default router;
-          

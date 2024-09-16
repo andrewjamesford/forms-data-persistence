@@ -13,6 +13,8 @@ export default function PageOne({ values, setFormState }) {
 	const tomorrow = format(addDays(today, 1), "yyyy-MM-dd");
 	const fortnight = format(addDays(today, 14), "yyyy-MM-dd");
 
+	const [email, setEmail] = useState("");
+
 	const [titleCategory, setTitleCategory] = useState(values);
 	const [, setUrl] = useUrl();
 
@@ -26,6 +28,11 @@ export default function PageOne({ values, setFormState }) {
 
 	const changeData = () => {
 		setFormState(titleCategory);
+	};
+
+	const changeEmail = (e) => {
+		const value = e.target.value ?? "";
+		setEmail(value);
 	};
 
 	const nextForm = () => {
@@ -92,6 +99,23 @@ export default function PageOne({ values, setFormState }) {
 				<title>Multi Page Form - Title & Category</title>
 			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">What are you listing?</h1>
+			<div className="mt-6">
+				<label
+					htmlFor="email"
+					className="block text-sm font-medium text-gray-700"
+				>
+					Email
+				</label>
+
+				<input
+					id="email"
+					placeholder="Email address"
+					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-600 peer"
+					type="email"
+					value={email}
+					onChange={changeEmail}
+				/>
+			</div>
 			<div className="mt-6">
 				<label
 					htmlFor="listing-title"

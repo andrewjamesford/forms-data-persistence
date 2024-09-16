@@ -10,8 +10,12 @@ import {
 	updateDraftListing,
 } from "./listing.repository.mjs";
 
+/**
+ * Get all listings
+ */
 router.get("/", async (req, res, next) => {
 	try {
+		// Call getListings() to retrieve all listings from the database
 		const getListingsResponse = await getListings();
 
 		return res.json(getListingsResponse);
@@ -57,6 +61,9 @@ const addListingSchema = Joi.object().keys({
 		}),
 });
 
+/**
+ * Add a new Listing
+ */
 router.post(
 	"/",
 	bodyValidationMiddleware(addListingSchema),
@@ -74,18 +81,24 @@ router.post(
 	},
 );
 
+/**
+ * Save draft listing
+ */
 router.post("/:email", async (req, res, next) => {
 	try {
 		const email = req.params.email;
 		const draft = req.body.draft;
 
+		// Call getListingByEmail() to check if the user already has a saved listing
 		const listings = await getListingByEmail(email);
 
 		if (listings === null || listings === undefined) {
+			// If no existing listing is found, call addDraftListing() to create a new draft listing for the user
 			const addDraftListingResponse = await addDraftListing(draft, email);
 
 			return addDraftListingResponse;
 		}
+		// If an existing listing is found, call updateDraftListing() to update the draft listing with the new data
 		const updateDraftListingResponse = await updateDraftListing({
 			draft,
 			email,
@@ -97,6 +110,10 @@ router.post("/:email", async (req, res, next) => {
 	}
 });
 
+/**
+ * Get draft listing by email address
+ * @param {string} email - The email of the user to get their draft listing from
+ */
 router.get("/:email", async (req, res, next) => {
 	try {
 		const email = req.params.email;
