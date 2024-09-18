@@ -90,7 +90,7 @@ router.post("/:email", async (req, res, next) => {
 		const draft = req.body.draft;
 
 		// Call getListingByEmail() to check if the user already has a saved listing
-		const listings = await getListingByEmail(email);
+		const listings = await getDraftListing(email);
 
 		if (listings === null || listings === undefined) {
 			// If no existing listing is found, call addDraftListing() to create a new draft listing for the user

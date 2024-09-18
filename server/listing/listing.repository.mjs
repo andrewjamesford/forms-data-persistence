@@ -127,8 +127,9 @@ export const updateDraftListing = async (draft, userEmail) => {
 export const getDraftListing = async (userEmail) => {
 	try {
 		const result = await query(
-			`SELECT * FROM listing_drafts 
-			WHERE user_email=$1;`,
+			`SELECT user_email, draft 
+			FROM listing_drafts 
+			WHERE user_email=$1`,
 			[userEmail],
 		);
 		return result.rows;
