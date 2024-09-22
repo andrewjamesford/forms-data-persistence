@@ -12,6 +12,12 @@ import {
 
 /**
  * Get all listings
+ *
+ * @name GET /listings
+ * @function
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
  */
 router.get("/", async (req, res, next) => {
 	try {
@@ -63,6 +69,12 @@ const addListingSchema = Joi.object().keys({
 
 /**
  * Add a new Listing
+ *
+ * @name POST /listings
+ * @function
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
  */
 router.post(
 	"/",
@@ -83,27 +95,34 @@ router.post(
 
 /**
  * Save draft listing
+ *
+ * @name POST /listings/:email
+ * @function
+ * @param {string} req.params.email - The email of the user to save their draft listing for
+ * @param {Object} req.body.listing - The draft listing data to be saved
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
  */
 router.post("/:email", async (req, res, next) => {
 	try {
-		const email = req.params.email;
-		const draft = req.body.draft;
+		const email = req?.params?.email;
+		const draft = req?.body?.listing;
 
 		// Call getListingByEmail() to check if the user already has a saved listing
 		const listings = await getDraftListing(email);
 
-		if (listings === null || listings === undefined) {
+		if (listings !== null && listings !== undefined && listings.length <= 0) {
 			// If no existing listing is found, call addDraftListing() to create a new draft listing for the user
 			const addDraftListingResponse = await addDraftListing(draft, email);
 
-			return addDraftListingResponse;
+			if (addDraftListingResponse !== null) return res.json(true);
 		}
 		// If an existing listing is found, call updateDraftListing() to update the draft listing with the new data
-		const updateDraftListingResponse = await updateDraftListing({
-			draft,
-			email,
-		});
-		return updateDraftListingResponse;
+		const updateDraftListingResponse = await updateDraftListing(draft, email);
+
+		if (updateDraftListingResponse !== null) return res.json(true);
+
+		return res.json(false);
 	} catch (err) {
 		console.error(err);
 		next(err);
@@ -112,7 +131,12 @@ router.post("/:email", async (req, res, next) => {
 
 /**
  * Get draft listing by email address
- * @param {string} email - The email of the user to get their draft listing from
+ *
+ * @name GET /listings/:email
+ * @function
+ * @param {string} req.params.email - The email of the user to get their draft listing from
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
  */
 router.get("/:email", async (req, res, next) => {
 	try {

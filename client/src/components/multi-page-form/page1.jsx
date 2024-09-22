@@ -91,6 +91,17 @@ export default function PageOne({ values, setFormState }) {
 		fetchData();
 	}, [titleCategory.categoryId]);
 
+	const checkForDraft = (e) => {
+		// Check if there is already a draft record for this users email
+		const email = e.target.value;
+		// Call the api to check for a draft record
+		api.checkForDraft(email).then((response) => {
+			if (response.status === "success") {
+				
+			}
+		});
+	};
+
 	if (error) return <p>Error: {error.message}</p>;
 
 	return (
@@ -114,6 +125,7 @@ export default function PageOne({ values, setFormState }) {
 					type="email"
 					value={email}
 					onChange={changeEmail}
+					onBlur={checkForDraft}
 				/>
 			</div>
 			<div className="mt-6">

@@ -88,7 +88,7 @@ export const addListing = async (listingDetails) => {
 export const addDraftListing = async (draft, userEmail) => {
 	try {
 		const result = await query(
-			`INSERT INTO listing_drafts (
+			`INSERT INTO listings_draft (
 		draft, 
 		user_email) 
 		VALUES ($1, $2);`,
@@ -109,7 +109,7 @@ export const addDraftListing = async (draft, userEmail) => {
 export const updateDraftListing = async (draft, userEmail) => {
 	try {
 		const result = await query(
-			`UPDATE listing_drafts SET 
+			`UPDATE listings_draft SET 
 		draft=$1 WHERE user_email=$2;`,
 			[draft, userEmail],
 		);
@@ -128,7 +128,7 @@ export const getDraftListing = async (userEmail) => {
 	try {
 		const result = await query(
 			`SELECT user_email, draft 
-			FROM listing_drafts 
+			FROM listings_draft 
 			WHERE user_email=$1`,
 			[userEmail],
 		);
