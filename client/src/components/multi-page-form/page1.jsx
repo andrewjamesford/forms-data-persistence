@@ -25,6 +25,7 @@ export default function PageOne({ values, setFormState }) {
 	const [loadingSubCategory, setLoadingSubCategory] = useState(true);
 
 	const [error, setError] = useState(null);
+	const [existingDraftAvailable, setExistingDraftAvailable] = useState(false);
 
 	const changeData = () => {
 		setFormState(titleCategory);
@@ -91,16 +92,24 @@ export default function PageOne({ values, setFormState }) {
 		fetchData();
 	}, [titleCategory.categoryId]);
 
-	const checkForDraft = (e) => {
+	const checkForDraft = async (e) => {
 		// Check if there is already a draft record for this users email
 		const email = e.target.value;
-		// Call the api to check for a draft record
-		api.checkForDraft(email).then((response) => {
-			if (response.status === "success") {
-				
+		try {
+			if (email.length === 0) {
+				return;
 			}
-		});
+			// Call the api to check for a draft record
+			const response = await api.getDraftLising(email);
+			if (response.status === 200) {
+				setExistingDraftAvailable(true);
+			}
+		} catch (error) {
+			setError(error);
+		}
 	};
+
+
 
 	if (error) return <p>Error: {error.message}</p>;
 
@@ -128,6 +137,20 @@ export default function PageOne({ values, setFormState }) {
 					onBlur={checkForDraft}
 				/>
 			</div>
+			{existingDraftAvailable && (
+				<div className="mt-4 bg-green-100 border rounded-md text-sm pb-2">
+					<span className="p-2 color-">
+						Existing draft available, would you like to load it?&nbsp;
+					</span>
+					<button
+						type="button"
+						onClick={loadDraft}
+						className="mt-2 border rounded-md peer text-sm p-1 bg-white"
+					>
+						Load draft
+					</button>
+				</div>
+			)}
 			<div className="mt-6">
 				<label
 					htmlFor="listing-title"

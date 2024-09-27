@@ -18,3 +18,10 @@ In the root folder run the following:
 docker compose up
 ```
 
+Or alternatively you can run each project individually with:
+- `cd server && npm i && npm start`
+- `cd client && npm i && npm dev`
+- run db in docker with `cd db  && docker-compose db up`
+
+
+Recomended to install the NPM packages regardless if you are using Docker to get intellisense for TailwindCSS.

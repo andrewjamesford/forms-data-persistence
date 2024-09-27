@@ -95,6 +95,12 @@ export default function MultiPageForm({ step }) {
 		alert(`${JSON.stringify(result)} listing added`);
 	};
 
+	const handleFormStateChange = (state) => {
+		console.log("formState", formState);
+		console.log("state", state);
+		setFormState({ ...formState, ...state });
+	};
+
 	return (
 		<ErrorBoundary
 			fallback={<div>Something went wrong</div>}
@@ -112,7 +118,7 @@ export default function MultiPageForm({ step }) {
 					<RenderPage
 						step={step}
 						formState={formState}
-						setFormState={setFormState}
+						setFormState={se}
 						handleAddListing={handleAddListing}
 					/>
 				</Suspense>

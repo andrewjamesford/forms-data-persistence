@@ -43,7 +43,9 @@
 			"orta.vscode-jest",
 			"ms-azuretools.vscode-docker",
 			"mtxr.sqltools",
-			"biomejs.biome"
+			"biomejs.biome",
+			"bradlc.vscode-tailwindcss",
+			"anweber.vscode-httpyac"
 		]
 	}
 }
