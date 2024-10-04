@@ -22,6 +22,7 @@ export function RenderPage({
 	formState,
 	setFormState,
 	handleAddListing,
+	handleLoadDraft,
 }) {
 	switch (step) {
 		case "1":
@@ -34,6 +35,7 @@ export function RenderPage({
 							titleCategory: newTitleCategory,
 						})
 					}
+					handleLoadDraft={handleLoadDraft}
 				/>
 			);
 		case "2":
@@ -95,12 +97,39 @@ export default function MultiPageForm({ step }) {
 		alert(`${JSON.stringify(result)} listing added`);
 	};
 
-	const handleFormStateChange = (state) => {
-		console.log("formState", formState);
-		console.log("state", state);
-		setFormState({ ...formState, ...state });
+	const handleLoadDraft = async (email) => {
+		try {
+			const response = await api.getDraftListing(email);
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+			const result = await response.json();
+
+			if (!result || result.length === 0) {
+				throw new Error("No draft record found");
+			}
+
+			const draftValues = result[0]?.draft || {};
+
+			setFormState((prevState) => {
+				const newState = {
+					...prevState,
+					titleCategory: draftValues.titleCategory || prevState.titleCategory,
+					itemDetails: draftValues.itemDetails || prevState.itemDetails,
+					pricePayment: draftValues.pricePayment || prevState.pricePayment,
+					shipping: draftValues.shipping || prevState.shipping,
+				};
+				console.log("New form state:", newState);
+				return newState;
+			});
+
+			console.log("Draft loaded successfully:", draftValues);
+		} catch (error) {
+			console.error("Error loading draft:", error.message);
+		}
 	};
 
+	console.log("Listing form state:", formState);
 	return (
 		<ErrorBoundary
 			fallback={<div>Something went wrong</div>}
@@ -118,8 +147,9 @@ export default function MultiPageForm({ step }) {
 					<RenderPage
 						step={step}
 						formState={formState}
-						setFormState={se}
+						setFormState={setFormState}
 						handleAddListing={handleAddListing}
+						handleLoadDraft={handleLoadDraft}
 					/>
 				</Suspense>
 			</>

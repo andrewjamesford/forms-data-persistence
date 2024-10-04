@@ -18,7 +18,7 @@ async function getListings() {
 	});
 }
 
-async function getDraftLising(email) {
+async function getDraftListing(email) {
 	return await fetch(`${import.meta.env.VITE_API_URL}/listings/${email}`, {
 		headers,
 	});
@@ -45,5 +45,5 @@ export default {
 	getListings,
 	addListing,
 	saveDraftListing,
-	getDraftLising,
+	getDraftListing,
 };

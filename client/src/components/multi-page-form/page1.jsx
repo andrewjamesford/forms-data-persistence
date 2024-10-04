@@ -6,15 +6,15 @@ import api from "../../api";
 import { getPageAndPath } from "../../utils/getPageAndPath";
 import Loader from "../loader";
 
-export default function PageOne({ values, setFormState }) {
+export default function PageOne({ values, setFormState, handleLoadDraft }) {
 	const path = usePath();
 	const { page, step } = getPageAndPath(path);
 	const today = format(new Date(), "yyyy-MM-dd");
 	const tomorrow = format(addDays(today, 1), "yyyy-MM-dd");
 	const fortnight = format(addDays(today, 14), "yyyy-MM-dd");
 
-	const [email, setEmail] = useState("");
-
+	const [email, setEmail] = useState(values?.titleCategory?.email ?? "");
+	console.log("values= ", values);
 	const [titleCategory, setTitleCategory] = useState(values);
 	const [, setUrl] = useUrl();
 
@@ -100,7 +100,7 @@ export default function PageOne({ values, setFormState }) {
 				return;
 			}
 			// Call the api to check for a draft record
-			const response = await api.getDraftLising(email);
+			const response = await api.getDraftListing(email);
 			if (response.status === 200) {
 				setExistingDraftAvailable(true);
 			}
@@ -108,8 +108,6 @@ export default function PageOne({ values, setFormState }) {
 			setError(error);
 		}
 	};
-
-
 
 	if (error) return <p>Error: {error.message}</p>;
 
@@ -144,7 +142,7 @@ export default function PageOne({ values, setFormState }) {
 					</span>
 					<button
 						type="button"
-						onClick={loadDraft}
+						onClick={() => handleLoadDraft(email)}
 						className="mt-2 border rounded-md peer text-sm p-1 bg-white"
 					>
 						Load draft
