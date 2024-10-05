@@ -82,17 +82,17 @@ export const addListing = async (listingDetails) => {
 /**
  * addDraftListing - adds a draft to the database.
  * @param {object} draft
- * @param {string} userEmail
+ * @param {string} userId
  * @returns rowcount
  */
-export const addDraftListing = async (draft, userEmail) => {
+export const addDraftListing = async (draft, userId) => {
 	try {
 		const result = await query(
 			`INSERT INTO listings_draft (
 		draft, 
-		user_email) 
+		user_id) 
 		VALUES ($1, $2);`,
-			[draft, userEmail],
+			[draft, userId],
 		);
 		return result.rowCount ?? 0;
 	} catch (error) {
@@ -103,15 +103,15 @@ export const addDraftListing = async (draft, userEmail) => {
 /**
  * updateDraftListing - updates a draft listing in the database.
  * @param {object} draft
- * @param {string} userEmail
+ * @param {string} userId
  * @returns rowcount
  */
-export const updateDraftListing = async (draft, userEmail) => {
+export const updateDraftListing = async (draft, userId) => {
 	try {
 		const result = await query(
 			`UPDATE listings_draft SET 
-		draft=$1 WHERE user_email=$2;`,
-			[draft, userEmail],
+		draft=$1 WHERE user_id=$2;`,
+			[draft, userId],
 		);
 		return result.rowCount ?? 0;
 	} catch (error) {
@@ -121,16 +121,16 @@ export const updateDraftListing = async (draft, userEmail) => {
 
 /**
  * getDraftListing - gets a draft from the database.
- * @param {string} userEmail
+ * @param {string} userId
  * @returns draft listing
  */
-export const getDraftListing = async (userEmail) => {
+export const getDraftListing = async (userId) => {
 	try {
 		const result = await query(
-			`SELECT user_email, draft 
+			`SELECT user_id, draft 
 			FROM listings_draft 
-			WHERE user_email=$1`,
-			[userEmail],
+			WHERE user_id=$1`,
+			[userId],
 		);
 		return result.rows;
 	} catch (error) {

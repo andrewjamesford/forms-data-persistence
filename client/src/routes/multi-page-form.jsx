@@ -1,7 +1,8 @@
 import React, { lazy, useState, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import api from "../api";
-
+import { generateUUID } from "src/utils/generateUUID";
+import { getLocalStorageItem } from "src/utils/localStorage";
 import BreadCrumbs from "../components/breadCrumbs";
 // titleCategory
 const PageOne = lazy(() => import("../components/multi-page-form/page1"));

@@ -93,14 +93,14 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 	}, [titleCategory.categoryId]);
 
 	const checkForDraft = async (e) => {
-		// Check if there is already a draft record for this users email
-		const email = e.target.value;
+		// Check if there is already a draft record for this users id
+		const userId = e.target.value;
 		try {
-			if (email.length === 0) {
+			if (userId.length === 0) {
 				return;
 			}
 			// Call the api to check for a draft record
-			const response = await api.getDraftListing(email);
+			const response = await api.getDraftListing(userId);
 			if (response.status === 200) {
 				setExistingDraftAvailable(true);
 			}
@@ -119,17 +119,19 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 			<h1 className="mt-4 text-2xl font-bold">What are you listing?</h1>
 			<div className="mt-6">
 				<label
-					htmlFor="email"
+					htmlFor="UUID"
 					className="block text-sm font-medium text-gray-700"
 				>
-					Email
+					UUID
 				</label>
 
 				<input
-					id="email"
-					placeholder="Email address"
+					id="UUID"
+					placeholder="{`UUID`}"
 					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-600 peer"
-					type="email"
+					type="text"
+					pattern="[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}
+"
 					value={email}
 					onChange={changeEmail}
 					onBlur={checkForDraft}

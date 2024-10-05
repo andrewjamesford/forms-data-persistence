@@ -22,7 +22,7 @@ CREATE TABLE listings (
 	shipping_option varchar(30)
 );
 CREATE TABLE listings_draft (
-	user_email varchar(134) PRIMARY KEY,
+	user_id UUID PRIMARY KEY,
 	draft jsonb NOT NULL
 );
 COMMIT;
