@@ -17,65 +17,6 @@ const PageFive = lazy(() => import("../components/multi-page-form/page5"));
 import Skeleton from "../components/skeleton";
 import { listingSchema } from "../models/listingSchema";
 
-export function RenderPage({
-	step,
-	formState,
-	setFormState,
-	handleAddListing,
-	handleLoadDraft,
-}) {
-	switch (step) {
-		case "1":
-			return (
-				<PageOne
-					values={formState.titleCategory}
-					setFormState={(newTitleCategory) =>
-						setFormState({
-							...formState,
-							titleCategory: newTitleCategory,
-						})
-					}
-					handleLoadDraft={handleLoadDraft}
-				/>
-			);
-		case "2":
-			return (
-				<PageTwo
-					values={formState.itemDetails}
-					setFormState={(newItemDetails) =>
-						setFormState({
-							...formState,
-							itemDetails: newItemDetails,
-						})
-					}
-				/>
-			);
-		case "3":
-			return (
-				<PageThree
-					values={formState.pricePayment}
-					setFormState={(newPricePayment) =>
-						setFormState({
-							...formState,
-							pricePayment: newPricePayment,
-						})
-					}
-				/>
-			);
-		case "4":
-			return (
-				<PageFour
-					values={formState.shipping}
-					setFormState={(newShipping) =>
-						setFormState({ ...formState, shipping: newShipping })
-					}
-				/>
-			);
-		default:
-			return <PageFive values={formState} addListing={handleAddListing} />;
-	}
-}
-
 export default function MultiPageForm({ step }) {
 	const [formState, setFormState] = useState(listingSchema);
 
@@ -144,13 +85,51 @@ export default function MultiPageForm({ step }) {
 						</div>
 					}
 				>
-					<RenderPage
-						step={step}
-						formState={formState}
-						setFormState={setFormState}
-						handleAddListing={handleAddListing}
-						handleLoadDraft={handleLoadDraft}
-					/>
+					{step === "1" && (
+						<PageOne
+							values={formState.titleCategory}
+							setFormState={(newTitleCategory) =>
+								setFormState({
+									...formState,
+									titleCategory: newTitleCategory,
+								})
+							}
+							handleLoadDraft={handleLoadDraft}
+						/>
+					)}
+					{step === "2" && (
+						<PageTwo
+							values={formState.itemDetails}
+							setFormState={(newItemDetails) =>
+								setFormState({
+									...formState,
+									itemDetails: newItemDetails,
+								})
+							}
+						/>
+					)}
+					{step === "3" && (
+						<PageThree
+							values={formState.pricePayment}
+							setFormState={(newPricePayment) =>
+								setFormState({
+									...formState,
+									pricePayment: newPricePayment,
+								})
+							}
+						/>
+					)}
+					{step === "4" && (
+						<PageFour
+							values={formState.shipping}
+							setFormState={(newShipping) =>
+								setFormState({ ...formState, shipping: newShipping })
+							}
+						/>
+					)}
+					{step === "5" && (
+						<PageFive values={formState} addListing={handleAddListing} />
+					)}
 				</Suspense>
 			</>
 		</ErrorBoundary>
