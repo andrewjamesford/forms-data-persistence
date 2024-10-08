@@ -11,7 +11,7 @@ function NavItem({ href, isActive, children }) {
 	);
 }
 
-export default function BreadCrumbs() {
+export default function BreadCrumbs({ currentStep }) {
 	const path = usePath();
 	const stepArray = path[0].split("/");
 	const step = stepArray[2];
@@ -25,9 +25,11 @@ export default function BreadCrumbs() {
 		{ href: `/${page}/5`, label: "Review & Submit" },
 	];
 
+	// return an array of steps up to the current step
+	const reducedSteps = steps.slice(0, currentStep);
 	return (
 		<nav className="invisible md:visible flex items-center space-x-2 text-sm text-gray-600">
-			{steps.map((item, index) => (
+			{reducedSteps.map((item, index) => (
 				<NavItem
 					key={item.label}
 					href={item.href}

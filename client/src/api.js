@@ -18,8 +18,8 @@ async function getListings() {
 	});
 }
 
-async function getDraftListing(email) {
-	return await fetch(`${import.meta.env.VITE_API_URL}/listings/${email}`, {
+async function getDraftListing(userId) {
+	return await fetch(`${import.meta.env.VITE_API_URL}/listings/${userId}`, {
 		headers,
 	});
 }
@@ -32,8 +32,8 @@ async function addListing(listing) {
 	});
 }
 
-async function saveDraftListing(email, listing) {
-	return await fetch(`${import.meta.env.VITE_API_URL}/listings/${email}`, {
+async function saveDraftListing(userId, listing) {
+	return await fetch(`${import.meta.env.VITE_API_URL}/listings/${userId}`, {
 		method: "POST",
 		headers,
 		body: JSON.stringify(listing),
