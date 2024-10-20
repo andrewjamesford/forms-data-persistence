@@ -30,7 +30,7 @@ function getLocalStorageItem(key) {
  * @returns {boolean} True if the item was successfully removed, false otherwise.
  */
 function removeLocalStorageItem(key) {
-	returnlocalStorage.removeItem(key);
+	localStorage.removeItem(key);
 	return true;
 }
 
