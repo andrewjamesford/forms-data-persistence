@@ -96,29 +96,29 @@ router.post(
 /**
  * Save draft listing
  *
- * @name POST /listings/:email
+ * @name POST /listings/:userId
  * @function
- * @param {string} req.params.email - The email of the user to save their draft listing for
+ * @param {string} req.params.userId - The userId of the user to save their draft listing for
  * @param {Object} req.body.listing - The draft listing data to be saved
  * @param {Object} res - The response object
  * @param {Function} next - The next middleware function
  */
-router.post("/:email", async (req, res, next) => {
+router.post("/:userId", async (req, res, next) => {
 	try {
-		const email = req?.params?.email;
+		const userId = req?.params?.userId;
 		const draft = req?.body?.listing;
 
-		// Call getListingByEmail() to check if the user already has a saved listing
-		const listings = await getDraftListing(email);
+		// Call getDraftListing() to check if the user already has a saved listing
+		const listings = await getDraftListing(userId);
 
 		if (listings !== null && listings !== undefined && listings.length <= 0) {
 			// If no existing listing is found, call addDraftListing() to create a new draft listing for the user
-			const addDraftListingResponse = await addDraftListing(draft, email);
+			const addDraftListingResponse = await addDraftListing(draft, userId);
 
 			if (addDraftListingResponse !== null) return res.json(true);
 		}
 		// If an existing listing is found, call updateDraftListing() to update the draft listing with the new data
-		const updateDraftListingResponse = await updateDraftListing(draft, email);
+		const updateDraftListingResponse = await updateDraftListing(draft, userId);
 
 		if (updateDraftListingResponse !== null) return res.json(true);
 
@@ -130,18 +130,18 @@ router.post("/:email", async (req, res, next) => {
 });
 
 /**
- * Get draft listing by email address
+ * Get draft listing by userId address
  *
- * @name GET /listings/:email
+ * @name GET /listings/:userId
  * @function
- * @param {string} req.params.email - The email of the user to get their draft listing from
+ * @param {string} req.params.userId - The userId of the user to get their draft listing from
  * @param {Object} res - The response object
  * @param {Function} next - The next middleware function
  */
-router.get("/:email", async (req, res, next) => {
+router.get("/:userId", async (req, res, next) => {
 	try {
-		const email = req.params.email;
-		const listings = await getDraftListing(email);
+		const userId = req.params.userId;
+		const listings = await getDraftListing(userId);
 		return res.json(listings);
 	} catch (err) {
 		console.error(err);
