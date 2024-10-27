@@ -3,10 +3,14 @@ import { usePath } from "crossroad";
 function NavItem({ href, isActive, children }) {
 	return (
 		<div>
-			<a href={href} className={isActive ? "font-semibold" : ""}>
-				{children}
-			</a>
-			<span>&nbsp;&gt;</span>
+			{isActive ? (
+				<a href={href} className={isActive ? "font-semibold" : ""}>
+					{children}
+				</a>
+			) : (
+				<span className="text-slate-400">{children}</span>
+			)}
+			<span className="text-slate-400">&nbsp;&gt;</span>
 		</div>
 	);
 }
@@ -25,11 +29,9 @@ export default function BreadCrumbs({ currentStep }) {
 		{ href: `/${page}/5`, label: "Review & Submit" },
 	];
 
-	// return an array of steps up to the current step
-	const reducedSteps = steps.slice(0, currentStep);
 	return (
 		<nav className="invisible md:visible flex items-center space-x-2 text-sm text-gray-600">
-			{reducedSteps.map((item, index) => (
+			{steps.map((item, index) => (
 				<NavItem
 					key={item.label}
 					href={item.href}

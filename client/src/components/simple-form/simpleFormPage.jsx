@@ -1,6 +1,5 @@
 import { addDays, format } from "date-fns";
 import { useState } from "react";
-import { Helmet } from "react-helmet";
 import { listingSchema } from "../../models/listingSchema";
 
 import {
@@ -69,9 +68,6 @@ export default function SimpleFormPage() {
 
 	return (
 		<form onSubmit={handleSubmit} noValidate className="group">
-			<Helmet>
-				<title>Simple Form</title>
-			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">What are you listing?</h1>
 			<div className="mt-6">
 				<label

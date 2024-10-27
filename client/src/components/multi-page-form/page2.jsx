@@ -30,9 +30,7 @@ export default function PageTwo({ values, setFormState }) {
 
 	return (
 		<form onSubmit={handleSubmit} noValidate className="group">
-			<Helmet>
-				<title>Multi Page Form - Item Details</title>
-			</Helmet>
+
 			<h1 className="mt-4 text-2xl font-bold">Item details</h1>
 			<div className="mt-6">
 				<label

@@ -115,9 +115,6 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 
 	return (
 		<form onSubmit={handleSubmit} noValidate className="group">
-			<Helmet>
-				<title>Multi Page Form - Title & Category</title>
-			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">What are you listing?</h1>
 			<div className="mt-6">
 				<label
