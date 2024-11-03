@@ -35,6 +35,7 @@ router.get("/", async (req, res, next) => {
 const addListingSchema = Joi.object().keys({
 	listing: Joi.object({
 		titleCategory: Joi.object({
+			userId: Joi.string().optional(),
 			title: Joi.string().required(),
 			subTitle: Joi.string(),
 			categoryId: Joi.number().greater(0).required(),

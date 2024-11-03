@@ -1,12 +1,16 @@
 import { usePath, useUrl } from "crossroad";
 import { addDays, format } from "date-fns";
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
 import api from "../../api";
 import { getPageAndPath } from "../../utils/getPageAndPath";
 import Loader from "../loader";
 
-export default function PageOne({ values, setFormState, handleLoadDraft }) {
+export default function PageOne({
+	values,
+	setFormState,
+	handleLoadDraft,
+	draftAvailable,
+}) {
 	const path = usePath();
 	const { page, step } = getPageAndPath(path);
 	const today = format(new Date(), "yyyy-MM-dd");
@@ -23,7 +27,6 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 	const [loadingSubCategory, setLoadingSubCategory] = useState(true);
 
 	const [error, setError] = useState(null);
-	const [existingDraftAvailable, setExistingDraftAvailable] = useState(false);
 
 	const changeData = () => {
 		setFormState(titleCategory);
@@ -98,27 +101,6 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 		fetchData();
 	}, [titleCategory.categoryId]);
 
-	const checkForDraft = async (userId) => {
-		// Check if there is already a draft record for this users id
-		try {
-			if (userId.length === 0) {
-				return;
-			}
-			// Call the api to check for a draft record
-			const response = await api.getDraftListing(userId);
-			if (response.status === 200) {
-				const result = await response.json();
-				if (result.length > 0) {
-					setExistingDraftAvailable(true);
-				}
-			}
-		} catch (error) {
-			setError(error);
-		}
-	};
-
-	checkForDraft(titleCategory.userId);
-
 	if (error) return <p>Error: {error.message}</p>;
 
 	return (
@@ -150,20 +132,7 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 					onBlur={(e) => checkForDraft(e.target.value)}
 				/>
 			</div>
-			{existingDraftAvailable && (
-				<div className="mt-4 bg-green-100 border rounded-md text-sm pb-2">
-					<span className="p-2 color-">
-						Existing draft available, would you like to load it?&nbsp;
-					</span>
-					<button
-						type="button"
-						onClick={() => handleLoadDraft(titleCategory.userId)}
-						className="mt-2 border rounded-md peer text-sm p-1 bg-white"
-					>
-						Load Draft
-					</button>
-				</div>
-			)}
+
 			<div className="mt-6">
 				<label
 					htmlFor="listing-title"
@@ -352,7 +321,7 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 				>
 					Next
 				</button>
-				{existingDraftAvailable && (
+				{draftAvailable && (
 					<button
 						type="button"
 						onClick={() => handleLoadDraft(titleCategory.userId)}

@@ -27,6 +27,8 @@ export default function MultiPageForm({ step }) {
 		},
 	});
 
+	const [draftAvailable, setDraftAvailable] = useState(false);
+
 	const handleAddListing = async () => {
 		const listing = {
 			listing: formState,
@@ -91,7 +93,32 @@ export default function MultiPageForm({ step }) {
 		console.log("Draft saved successfully");
 	};
 
-	console.log("Listing form state:", formState, step);
+	const checkForDraft = async (userId) => {
+		// Check if there is already a draft record for this users id
+		try {
+			if (userId.length === 0) {
+				return;
+			}
+			// Call the api to check for a draft record
+			const response = await api.getDraftListing(userId);
+			if (response.status === 200) {
+				const result = await response.json();
+				if (result.length > 0) {
+					setDraftAvailable(true);
+				}
+			}
+		} catch (error) {
+			setDraftAvailable(false);
+			setError(error);
+		}
+	};
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		checkForDraft(userID);
+	}, [userID]);
+
+	console.log("Listing form state:", formState, step, draftAvailable);
 	return (
 		<>
 			<BreadCrumbs currentStep={step} />
@@ -105,37 +132,45 @@ export default function MultiPageForm({ step }) {
 						});
 						saveDraft();
 					}}
+					draftAvailable={draftAvailable}
 					handleLoadDraft={handleLoadDraft}
 				/>
 			)}
 			{step === "2" && (
 				<PageTwo
 					values={formState.itemDetails}
-					setFormState={(newItemDetails) =>
+					setFormState={(newItemDetails) => {
 						setFormState({
 							...formState,
 							itemDetails: newItemDetails,
-						})
-					}
+						});
+						saveDraft();
+					}}
+					draftAvailable={draftAvailable}
+					handleLoadDraft={handleLoadDraft}
 				/>
 			)}
 			{step === "3" && (
 				<PageThree
 					values={formState.pricePayment}
-					setFormState={(newPricePayment) =>
+					setFormState={(newPricePayment) => {
 						setFormState({
 							...formState,
 							pricePayment: newPricePayment,
-						})
-					}
+						});
+						saveDraft();
+					}}
 				/>
 			)}
 			{step === "4" && (
 				<PageFour
 					values={formState.shipping}
-					setFormState={(newShipping) =>
-						setFormState({ ...formState, shipping: newShipping })
-					}
+					setFormState={(newShipping) => {
+						setFormState({ ...formState, shipping: newShipping });
+						saveDraft();
+					}}
+					draftAvailable={draftAvailable}
+					handleLoadDraft={handleLoadDraft}
 				/>
 			)}
 			{step === "5" && (

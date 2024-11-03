@@ -3,7 +3,12 @@ import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { getPageAndPath } from "../../utils/getPageAndPath";
 
-export default function PageFour({ values, setFormState }) {
+export default function PageFour({
+	values,
+	setFormState,
+	handleLoadDraft,
+	draftAvailable,
+}) {
 	const path = usePath();
 	const { page, step } = getPageAndPath(path);
 
@@ -149,6 +154,15 @@ export default function PageFour({ values, setFormState }) {
 				>
 					Next
 				</button>
+				{draftAvailable && (
+					<button
+						type="button"
+						onClick={() => handleLoadDraft(values.titleCategory.userId)}
+						className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-secondary text-primary hover:bg-primary/20 h-10 px-4 py-2	 border border-card-primary/"
+					>
+						Load Draft
+					</button>
+				)}
 			</div>
 		</form>
 	);
