@@ -1,17 +1,13 @@
 import { usePath } from "crossroad";
 import { Helmet } from "react-helmet";
 
-import { getPageAndPath } from "../../utils";
+import { getPageAndPath } from "../../utils/getPageAndPath";
 
 export default function PageFive({ values, addListing }) {
 	const path = usePath();
 	const { page, step } = getPageAndPath(path);
 	return (
 		<>
-			<Helmet>
-				<title>Multi Page Form - Review & Submit</title>
-			</Helmet>
-
 			<h1 className="mt-4 text-2xl font-bold">Finalise</h1>
 
 			<h2 className="mt-6 text-xl font-bold">

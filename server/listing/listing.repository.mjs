@@ -1,5 +1,9 @@
 import { query } from "../db.cjs";
 
+/**
+ * getListings - gets all listings from the database
+ * @returns array of listings
+ */
 export const getListings = async () => {
 	try {
 		const result = await query(
@@ -12,6 +16,11 @@ export const getListings = async () => {
 	}
 };
 
+/**
+ * addListing - adds a new listing to the database
+ * @param {object} listingDetails
+ * @returns {object} listing
+ */
 export const addListing = async (listingDetails) => {
 	try {
 		const { titleCategory, itemDetails, pricePayment, shipping } =
@@ -67,5 +76,64 @@ export const addListing = async (listingDetails) => {
 		return result.rowCount ?? 0;
 	} catch (error) {
 		throw new Error(`Error adding listing: ${error.message}`);
+	}
+};
+
+/**
+ * addDraftListing - adds a draft to the database.
+ * @param {object} draft
+ * @param {string} userId
+ * @returns rowcount
+ */
+export const addDraftListing = async (draft, userId) => {
+	try {
+		const result = await query(
+			`INSERT INTO listings_draft (
+		draft, 
+		user_id) 
+		VALUES ($1, $2);`,
+			[draft, userId],
+		);
+		return result.rowCount ?? 0;
+	} catch (error) {
+		throw new Error(`Error adding listing: ${error.message}`);
+	}
+};
+
+/**
+ * updateDraftListing - updates a draft listing in the database.
+ * @param {object} draft
+ * @param {string} userId
+ * @returns rowcount
+ */
+export const updateDraftListing = async (draft, userId) => {
+	try {
+		const result = await query(
+			`UPDATE listings_draft SET 
+		draft=$1 WHERE user_id=$2;`,
+			[draft, userId],
+		);
+		return result.rowCount ?? 0;
+	} catch (error) {
+		throw new Error(`Error updating draft: ${error.message}`);
+	}
+};
+
+/**
+ * getDraftListing - gets a draft from the database.
+ * @param {string} userId
+ * @returns draft listing
+ */
+export const getDraftListing = async (userId) => {
+	try {
+		const result = await query(
+			`SELECT user_id, draft 
+			FROM listings_draft 
+			WHERE user_id=$1`,
+			[userId],
+		);
+		return result.rows;
+	} catch (error) {
+		throw new Error(`Error getting draft: ${error.message}`);
 	}
 };

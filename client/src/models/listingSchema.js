@@ -3,6 +3,7 @@ export const endDate = format(addDays(new Date(), 1), "yyyy-MM-dd");
 
 export const listingSchema = {
 	titleCategory: {
+		userId: "",
 		title: "",
 		categoryId: 0,
 		subCategoryId: 0,

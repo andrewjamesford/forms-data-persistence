@@ -3,10 +3,10 @@ import { addDays, format } from "date-fns";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import api from "../../api";
-import { getPageAndPath } from "../../utils";
+import { getPageAndPath } from "../../utils/getPageAndPath";
 import Loader from "../loader";
 
-export default function PageOne({ values, setFormState }) {
+export default function PageOne({ values, setFormState, handleLoadDraft }) {
 	const path = usePath();
 	const { page, step } = getPageAndPath(path);
 	const today = format(new Date(), "yyyy-MM-dd");
@@ -23,9 +23,19 @@ export default function PageOne({ values, setFormState }) {
 	const [loadingSubCategory, setLoadingSubCategory] = useState(true);
 
 	const [error, setError] = useState(null);
+	const [existingDraftAvailable, setExistingDraftAvailable] = useState(false);
 
 	const changeData = () => {
 		setFormState(titleCategory);
+	};
+
+	const changeUserId = (e) => {
+		const value = e.target.value ?? "";
+		setUserId(value);
+		setTitleCategory({
+			...titleCategory,
+			userId: value,
+		});
 	};
 
 	const nextForm = () => {
@@ -38,6 +48,10 @@ export default function PageOne({ values, setFormState }) {
 		changeData();
 		nextForm();
 	};
+
+	useEffect(() => {
+		setTitleCategory(values);
+	}, [values]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -84,14 +98,72 @@ export default function PageOne({ values, setFormState }) {
 		fetchData();
 	}, [titleCategory.categoryId]);
 
+	const checkForDraft = async (userId) => {
+		// Check if there is already a draft record for this users id
+		try {
+			if (userId.length === 0) {
+				return;
+			}
+			// Call the api to check for a draft record
+			const response = await api.getDraftListing(userId);
+			if (response.status === 200) {
+				const result = await response.json();
+				if (result.length > 0) {
+					setExistingDraftAvailable(true);
+				}
+			}
+		} catch (error) {
+			setError(error);
+		}
+	};
+
+	checkForDraft(titleCategory.userId);
+
 	if (error) return <p>Error: {error.message}</p>;
 
 	return (
 		<form onSubmit={handleSubmit} noValidate className="group">
-			<Helmet>
-				<title>Multi Page Form - Title & Category</title>
-			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">What are you listing?</h1>
+			<div className="mt-6">
+				<label
+					htmlFor="UUID"
+					className="block text-sm font-medium text-gray-700"
+				>
+					Unique ID
+				</label>
+
+				<input
+					id="UUID"
+					aria-label="Enter a unique identifier for the listing"
+					placeholder="2bb147b2-83c3-11ef-b287-75f0c324ee85"
+					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-600 peer"
+					type="text"
+					pattern="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+					value={titleCategory.userId}
+					onChange={(e) => {
+						const value = e.target.value ?? "";
+						setTitleCategory({
+							...titleCategory,
+							userId: value,
+						});
+					}}
+					onBlur={(e) => checkForDraft(e.target.value)}
+				/>
+			</div>
+			{existingDraftAvailable && (
+				<div className="mt-4 bg-green-100 border rounded-md text-sm pb-2">
+					<span className="p-2 color-">
+						Existing draft available, would you like to load it?&nbsp;
+					</span>
+					<button
+						type="button"
+						onClick={() => handleLoadDraft(titleCategory.userId)}
+						className="mt-2 border rounded-md peer text-sm p-1 bg-white"
+					>
+						Load Draft
+					</button>
+				</div>
+			)}
 			<div className="mt-6">
 				<label
 					htmlFor="listing-title"
@@ -101,6 +173,7 @@ export default function PageOne({ values, setFormState }) {
 				</label>
 				<input
 					id="listing-title"
+					aria-label="Enter the title of the listing"
 					placeholder="e.g. iPhone 5c, Red t-shirt"
 					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-600 peer"
 					type="text"
@@ -132,6 +205,7 @@ export default function PageOne({ values, setFormState }) {
 				</label>
 				<input
 					id="sub-title"
+					aria-label="Enter an optional subtitle for the listing"
 					placeholder="e.g. iPhone 5c, Red t-shirt"
 					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic peer"
 					type="text"
@@ -164,6 +238,7 @@ export default function PageOne({ values, setFormState }) {
 					{!loadingCategory && (
 						<select
 							id="category"
+							aria-label="Select the main category for the listing"
 							placeholder="Select a category"
 							className={`block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background  peer ${titleCategory.categoryId === 0 ? " italic text-gray-400" : ""}`}
 							onChange={(e) => {
@@ -260,7 +335,7 @@ export default function PageOne({ values, setFormState }) {
 					onBlur={changeData}
 					required={true}
 					pattern="\d{4}-\d{2}-\d{2}"
-					datatype="date"
+					data-type="date"
 					min={tomorrow}
 					max={fortnight}
 				/>
@@ -269,7 +344,7 @@ export default function PageOne({ values, setFormState }) {
 				</span>
 			</div>
 
-			<div className="mt-6 grid md:grid-flow-col md:w-1/4 gap-2">
+			<div className="mt-6 flex justify-between gap-2">
 				<button
 					type="submit"
 					onClick={changeData}
@@ -277,6 +352,15 @@ export default function PageOne({ values, setFormState }) {
 				>
 					Next
 				</button>
+				{existingDraftAvailable && (
+					<button
+						type="button"
+						onClick={() => handleLoadDraft(titleCategory.userId)}
+						className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-secondary text-primary hover:bg-primary/20 h-10 px-4 py-2	 border border-card-primary/"
+					>
+						Load Draft
+					</button>
+				)}
 			</div>
 		</form>
 	);

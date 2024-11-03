@@ -1,2 +1,3 @@
-GET /api/listings HTTP/1.1
-Host: localhost:5001
+GET {{ HOST }}/api/listings HTTP/1.1
+
+?? status == 200

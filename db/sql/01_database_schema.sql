@@ -8,7 +8,7 @@ CREATE TABLE categories (
 CREATE TABLE listings (
 	id SERIAL PRIMARY KEY,
 	title varchar(80),
-	category_id INT REFERENCES categories(id),
+	category_id INT,
 	sub_title varchar(50),
 	end_date timeStamp,
 	listing_description text,
@@ -20,5 +20,9 @@ CREATE TABLE listings (
 	bitcoin_payment boolean,
 	pick_up boolean,
 	shipping_option varchar(30)
+);
+CREATE TABLE listings_draft (
+	user_id UUID PRIMARY KEY,
+	draft jsonb NOT NULL
 );
 COMMIT;

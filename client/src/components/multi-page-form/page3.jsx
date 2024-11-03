@@ -1,7 +1,7 @@
 import { usePath, useUrl } from "crossroad";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
-import { getPageAndPath } from "../../utils";
+import { getPageAndPath } from "../../utils/getPageAndPath";
 
 export default function PageThree({ values, setFormState }) {
 	const path = usePath();
@@ -44,9 +44,6 @@ export default function PageThree({ values, setFormState }) {
 
 	return (
 		<form onSubmit={handleSubmit} noValidate className="group">
-			<Helmet>
-				<title>Multi Page Form - Price & Payment</title>
-			</Helmet>
 			<h1 className="mt-4 text-2xl font-bold">Price &amp; Payment</h1>
 			<div className="mt-6">
 				<label

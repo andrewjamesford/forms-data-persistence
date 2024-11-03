@@ -17,6 +17,11 @@ app.use(express.json());
 // routes
 app.use("/api/categories", categoriesRouter);
 app.use("/api/listings", listingRouter);
+// Health check API route
+app.get('/health', (req, res) => {
+  res.status(200).json({ message: 'OK' });
+});
+
 
 // error handling middleware
 app.use(errorHandlerMiddleware);

@@ -3,15 +3,19 @@ import { usePath } from "crossroad";
 function NavItem({ href, isActive, children }) {
 	return (
 		<div>
-			<a href={href} className={isActive ? "font-semibold" : ""}>
-				{children}
-			</a>
-			<span>&nbsp;&gt;</span>
+			{isActive ? (
+				<a href={href} className={"font-semibold underline"}>
+					{children}
+				</a>
+			) : (
+				<span className="text-slate-400">{children}</span>
+			)}
+			<span className="text-slate-400">&nbsp;&gt;</span>
 		</div>
 	);
 }
 
-export default function BreadCrumbs() {
+export default function BreadCrumbs({ currentStep }) {
 	const path = usePath();
 	const stepArray = path[0].split("/");
 	const step = stepArray[2];
