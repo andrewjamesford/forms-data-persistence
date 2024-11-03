@@ -24,4 +24,4 @@ Or alternatively you can run each project individually with:
 - run db in docker with `cd db  && docker-compose db up`
 
 
-Recomended to install the NPM packages regardless if you are using Docker to get intellisense for TailwindCSS.
+Recommended to install the NPM packages regardless if you are using Docker to get intellisense for TailwindCSS.
