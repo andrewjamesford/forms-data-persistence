@@ -4,7 +4,7 @@ function NavItem({ href, isActive, children }) {
 	return (
 		<div>
 			{isActive ? (
-				<a href={href} className={isActive ? "font-semibold" : ""}>
+				<a href={href} className={"font-semibold underline"}>
 					{children}
 				</a>
 			) : (

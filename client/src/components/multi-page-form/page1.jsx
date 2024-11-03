@@ -32,6 +32,10 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 	const changeUserId = (e) => {
 		const value = e.target.value ?? "";
 		setUserId(value);
+		setTitleCategory({
+			...titleCategory,
+			userId: value,
+		});
 	};
 
 	const nextForm = () => {
@@ -44,6 +48,10 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 		changeData();
 		nextForm();
 	};
+
+	useEffect(() => {
+		setTitleCategory(values);
+	}, [values]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -126,6 +134,7 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 
 				<input
 					id="UUID"
+					aria-label="Enter a unique identifier for the listing"
 					placeholder="2bb147b2-83c3-11ef-b287-75f0c324ee85"
 					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-600 peer"
 					type="text"
@@ -151,7 +160,7 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 						onClick={() => handleLoadDraft(titleCategory.userId)}
 						className="mt-2 border rounded-md peer text-sm p-1 bg-white"
 					>
-						Load draft
+						Load Draft
 					</button>
 				</div>
 			)}
@@ -164,6 +173,7 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 				</label>
 				<input
 					id="listing-title"
+					aria-label="Enter the title of the listing"
 					placeholder="e.g. iPhone 5c, Red t-shirt"
 					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-600 peer"
 					type="text"
@@ -195,6 +205,7 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 				</label>
 				<input
 					id="sub-title"
+					aria-label="Enter an optional subtitle for the listing"
 					placeholder="e.g. iPhone 5c, Red t-shirt"
 					className="block w-full px-3 py-2 mt-1 border rounded-md placeholder:italic peer"
 					type="text"
@@ -227,6 +238,7 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 					{!loadingCategory && (
 						<select
 							id="category"
+							aria-label="Select the main category for the listing"
 							placeholder="Select a category"
 							className={`block w-full h-10 px-3 py-2 items-center justify-between rounded-md border border-input bg-background ring-offset-background  peer ${titleCategory.categoryId === 0 ? " italic text-gray-400" : ""}`}
 							onChange={(e) => {
@@ -323,7 +335,7 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 					onBlur={changeData}
 					required={true}
 					pattern="\d{4}-\d{2}-\d{2}"
-					datatype="date"
+					data-type="date"
 					min={tomorrow}
 					max={fortnight}
 				/>
@@ -332,7 +344,7 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 				</span>
 			</div>
 
-			<div className="mt-6 grid md:grid-flow-col md:w-1/4 gap-2">
+			<div className="mt-6 flex justify-between gap-2">
 				<button
 					type="submit"
 					onClick={changeData}
@@ -340,7 +352,15 @@ export default function PageOne({ values, setFormState, handleLoadDraft }) {
 				>
 					Next
 				</button>
-				{existingDraftAvailable && <button type="button">Load Draft</button>}
+				{existingDraftAvailable && (
+					<button
+						type="button"
+						onClick={() => handleLoadDraft(titleCategory.userId)}
+						className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-secondary text-primary hover:bg-primary/20 h-10 px-4 py-2	 border border-card-primary/"
+					>
+						Load Draft
+					</button>
+				)}
 			</div>
 		</form>
 	);

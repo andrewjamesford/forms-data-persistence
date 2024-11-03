@@ -10,6 +10,8 @@ import {
 	updateDraftListing,
 } from "./listing.repository.mjs";
 
+router.use(express.json());
+
 /**
  * Get all listings
  *
@@ -107,6 +109,9 @@ router.post("/:userId", async (req, res, next) => {
 	try {
 		const userId = req?.params?.userId;
 		const draft = req?.body?.listing;
+
+		if (!userId) throw new Error("User ID is required");
+		if (!draft) throw new Error("Draft data is required");
 
 		// Call getDraftListing() to check if the user already has a saved listing
 		const listings = await getDraftListing(userId);

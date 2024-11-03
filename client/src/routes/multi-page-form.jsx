@@ -46,31 +46,49 @@ export default function MultiPageForm({ step }) {
 	};
 
 	const handleLoadDraft = async (userId) => {
-		// try {
-		// 	const response = await api.getDraftListing(email);
-		// 	if (!response.ok) {
-		// 		throw new Error(`HTTP error! status: ${response.status}`);
-		// 	}
-		// 	const result = await response.json();
-		// 	if (!result || result.length === 0) {
-		// 		throw new Error("No draft record found");
-		// 	}
-		// 	const draftValues = result[0]?.draft || {};
-		// 	setFormState((prevState) => {
-		// 		const newState = {
-		// 			...prevState,
-		// 			titleCategory: draftValues.titleCategory || prevState.titleCategory,
-		// 			itemDetails: draftValues.itemDetails || prevState.itemDetails,
-		// 			pricePayment: draftValues.pricePayment || prevState.pricePayment,
-		// 			shipping: draftValues.shipping || prevState.shipping,
-		// 		};
-		// 		console.log("New form state:", newState);
-		// 		return newState;
-		// 	});
-		// 	console.log("Draft loaded successfully:", draftValues);
-		// } catch (error) {
-		// 	console.error("Error loading draft:", error.message);
-		// }
+		try {
+			const response = await api.getDraftListing(userId);
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+			const result = await response.json();
+			if (!result || result.length === 0) {
+				throw new Error("No draft record found");
+			}
+			const draftValues = result[0]?.draft || {};
+			setFormState((prevState) => {
+				const newState = {
+					...prevState,
+					titleCategory: draftValues.titleCategory || prevState.titleCategory,
+					itemDetails: draftValues.itemDetails || prevState.itemDetails,
+					pricePayment: draftValues.pricePayment || prevState.pricePayment,
+					shipping: draftValues.shipping || prevState.shipping,
+				};
+				console.log("New form state:", newState);
+				return newState;
+			});
+			console.log("Draft loaded successfully:", draftValues);
+		} catch (error) {
+			console.error("Error loading draft:", error.message);
+		}
+	};
+
+	const saveDraft = async () => {
+		const listing = {
+			listing: formState,
+		};
+		if (!formState) {
+			throw new Error("No form state to save");
+		}
+		const response = await api.saveDraftListing(userID, listing);
+		if (!response.ok) {
+			throw new Error("Error saving draft");
+		}
+		const result = await response.json();
+		if (result.error) {
+			throw new Error(result.error);
+		}
+		console.log("Draft saved successfully");
 	};
 
 	console.log("Listing form state:", formState, step);
@@ -80,12 +98,13 @@ export default function MultiPageForm({ step }) {
 			{step === "1" && (
 				<PageOne
 					values={formState.titleCategory}
-					setFormState={(newTitleCategory) =>
+					setFormState={(newTitleCategory) => {
 						setFormState({
 							...formState,
 							titleCategory: newTitleCategory,
-						})
-					}
+						});
+						saveDraft();
+					}}
 					handleLoadDraft={handleLoadDraft}
 				/>
 			)}

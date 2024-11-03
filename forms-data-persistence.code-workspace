@@ -18,6 +18,7 @@
 		}
 	],
 	"settings": {
+		"editor.defaultFormatter": "biomejs.biome",
 		"files.exclude": {
 			"node_modules/": true,
 			"packages/": true

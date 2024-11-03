@@ -1,4 +1,4 @@
-POST {{ HOST }}/api/listings/me@example1.com HTTP/1.1
+POST {{ HOST }}/api/listings/99b27b6f-7576-4997-863a-9b285152c282 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -27,5 +27,7 @@ Content-Type: application/json
         }
     }
 }
+
+
 
 ?? status == 200
