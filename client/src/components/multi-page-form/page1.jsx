@@ -313,11 +313,11 @@ export default function PageOne({
 				</span>
 			</div>
 
-			<div className="mt-6 flex justify-between gap-2">
+			<div className="mt-6 grid md:flex w-full gap-2">
 				<button
 					type="submit"
 					onClick={changeData}
-					className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 group-invalid:pointer-events-none group-invalid:opacity-30 disabled:cursor-not-allowed"
+					className="items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 group-invalid:pointer-events-none group-invalid:opacity-30 disabled:cursor-not-allowed"
 				>
 					Next
 				</button>
@@ -325,7 +325,7 @@ export default function PageOne({
 					<button
 						type="button"
 						onClick={() => handleLoadDraft(titleCategory.userId)}
-						className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-secondary text-primary hover:bg-primary/20 h-10 px-4 py-2	 border border-card-primary/"
+						className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-secondary text-primary hover:bg-primary/20 h-10 px-4 py-2	 border border-card-primary md:ml-auto"
 					>
 						Load Draft
 					</button>
