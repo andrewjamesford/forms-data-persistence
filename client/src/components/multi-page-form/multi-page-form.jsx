@@ -1,20 +1,20 @@
 import React, { lazy, useState, Suspense, useEffect } from "react";
-import api from "../api";
-import { getLocalStorageItem } from "../utils/localStorage";
+import api from "../../api";
+import { getLocalStorageItem } from "../../utils/localStorage";
 
-import BreadCrumbs from "../components/breadCrumbs";
+import BreadCrumbs from "../breadCrumbs";
 // titleCategory
-import PageOne from "../components/multi-page-form/page1";
+import PageOne from "./page1";
 // itemDetails
-import PageTwo from "../components/multi-page-form/page2";
+import PageTwo from "./page2";
 // pricePayment
-import PageThree from "../components/multi-page-form/page3";
+import PageThree from "./page3";
 // shipping
-import PageFour from "../components/multi-page-form/page4";
+import PageFour from "./page4";
 // review
-import PageFive from "../components/multi-page-form/page5";
+import PageFive from "./page5";
 
-import { listingSchema } from "../models/listingSchema";
+import { listingSchema } from "../../models/listingSchema";
 
 export default function MultiPageForm({ step }) {
 	const userID = getLocalStorageItem("userId");
