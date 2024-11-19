@@ -1,9 +1,14 @@
 import { usePath } from "crossroad";
+import React, { lazy, Suspense } from "react";
 import { getPageAndPath } from "../utils/getPageAndPath";
+import Loader from "./loader";
+const MenuLoggedIn = lazy(() => import("./menuLoggedIn"));
+const MenuLoggedOut = lazy(() => import("./menuLoggedOut"));
 
 export default function Header() {
 	const path = usePath();
 	const { page } = getPageAndPath(path);
+	const isLoggedIn = getLocalStorageItem("isLoggedIn");
 
 	const single = page === "single" ? "font-bold" : "";
 	const simple = page === "simple" ? "font-bold" : "";
@@ -27,43 +32,14 @@ export default function Header() {
 					</a>
 				</div>
 				<div className="flex flex-col text-center md:flex-row md:text-left gap-4 py-2 md:py-4">
-					<ul className="list-none gap-2 md:gap-4 flex flex-col items-center md:flex-row">
-						<li>
-							<a
-								href="/single/"
-								className={`${single} text-sm text-gray-600 underline`}
-							>
-								Single Page Form
-							</a>
-						</li>
-						<li>
-							<a
-								href="/simple/"
-								className={`${simple} text-sm text-gray-600 underline`}
-							>
-								Simple Form
-							</a>
-						</li>
-
-						<li>
-							<a
-								href="/multi/1"
-								className={`${multi} text-sm text-gray-600 underline`}
-							>
-								Multi Page Form
-							</a>
-						</li>
-						<li>
-							<a href="/" className="text-sm text-gray-600 underline">
-								My Sold!
-							</a>
-						</li>
-						<li>
-							<a href="/" className="text-sm text-gray-600 underline">
-								Log out
-							</a>
-						</li>
-					</ul>
+					<Suspense fallback={<Loader />}>
+						TTh1
+						{isLoggedIn ? (
+							<MenuLoggedIn menuProps={{ single, simple, multi }} />
+						) : (
+							<MenuLoggedOut menuProps={{ single, simple, multi }} />
+						)}
+					</Suspense>
 				</div>
 			</header>
 		</>
