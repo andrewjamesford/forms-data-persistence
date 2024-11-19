@@ -17,7 +17,9 @@ const SinglePageFormPage = lazy(
 const SimpleFormPage = lazy(
 	() => import("./components/simple-form/simpleFormPage"),
 );
-const MultiPageForm = lazy(() => import("./routes/multi-page-form"));
+const MultiPageForm = lazy(
+	() => import("./components/multi-page-form/multi-page-form"),
+);
 const NotFoundPage = lazy(() => import("./routes/notFoundPage"));
 
 export default function App() {
