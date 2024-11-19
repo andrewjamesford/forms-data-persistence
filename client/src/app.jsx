@@ -9,7 +9,7 @@ import Skeleton from "./components/skeleton";
 import { getLocalStorageItem, setLocalStorageItem } from "./utils/localStorage";
 import { generateUUID } from "./utils/generateUUID";
 
-import Home from "./routes/home";
+const Home = lazy(() => import("./routes/home"));
 
 const SinglePageFormPage = lazy(
 	() => import("./components/single-page-form/singlePageForm"),
@@ -55,14 +55,14 @@ export default function App() {
 									}
 								>
 									<Switch redirect="/">
+										<Route exact path="/">
+											<Home />
+										</Route>
 										<Route
 											path="/multi/:step"
 											component={MultiPageForm}
 											render={({ step }) => <MultiPageForm step={step} />}
 										/>
-										<Route exact path="/">
-											<Home />
-										</Route>
 										<Route exact path="/simple/">
 											<SimpleFormPage />
 										</Route>
