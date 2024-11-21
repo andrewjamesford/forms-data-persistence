@@ -3,9 +3,9 @@ import { useState } from "react";
 import { listingSchema } from "../../models/listingSchema";
 
 import {
-	setSessionStorageItem,
 	getSessionStorageItem,
 	removeSessionStorageItem,
+	setSessionStorageItem,
 } from "../../utils/sessionStorage";
 
 import api from "../../api";

@@ -2,12 +2,12 @@ import Router, { Route, Switch } from "crossroad";
 import React, { lazy, useState, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-import Header from "./components/header";
 import Footer from "./components/footer";
+import Header from "./components/header";
 import Skeleton from "./components/skeleton";
 
-import { getLocalStorageItem, setLocalStorageItem } from "./utils/localStorage";
 import { generateUUID } from "./utils/generateUUID";
+import { getLocalStorageItem, setLocalStorageItem } from "./utils/localStorage";
 
 const Home = lazy(() => import("./routes/home"));
 

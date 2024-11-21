@@ -3,10 +3,10 @@ const router = express.Router();
 import Joi from "joi";
 import bodyValidationMiddleware from "../middleware/bodyValidationMiddleware.mjs";
 import {
-	addListing,
-	getListings,
-	getDraftListing,
 	addDraftListing,
+	addListing,
+	getDraftListing,
+	getListings,
 	updateDraftListing,
 } from "./listing.repository.mjs";
 

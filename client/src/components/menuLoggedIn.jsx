@@ -1,9 +1,5 @@
-import { removeLocalStorageItem } from "../utils/localStorage";
-
-export default function MenuLoggedIn() {
-	const handleLogout = () => {
-		removeLocalStorageItem("isLoggedIn");
-	};
+export default function MenuLoggedIn({ menuProps, onChange }) {
+	const { single, simple, multi } = menuProps;
 
 	return (
 		<ul className="list-none gap-2 md:gap-4 flex flex-col items-center md:flex-row">
@@ -40,7 +36,7 @@ export default function MenuLoggedIn() {
 			<li>
 				<button
 					type="button"
-					onClick={handleLogout}
+					onClick={onChange}
 					className="text-sm text-gray-600 underline"
 				>
 					Log out

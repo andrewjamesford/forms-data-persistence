@@ -1,6 +1,10 @@
 import { usePath } from "crossroad";
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import { getPageAndPath } from "../utils/getPageAndPath";
+import {
+	getLocalStorageItem,
+	setLocalStorageItem,
+} from "../utils/localStorage";
 import Loader from "./loader";
 const MenuLoggedIn = lazy(() => import("./menuLoggedIn"));
 const MenuLoggedOut = lazy(() => import("./menuLoggedOut"));
@@ -8,7 +12,19 @@ const MenuLoggedOut = lazy(() => import("./menuLoggedOut"));
 export default function Header() {
 	const path = usePath();
 	const { page } = getPageAndPath(path);
-	const isLoggedIn = getLocalStorageItem("isLoggedIn");
+	const storageKey = "isLoggedIn";
+	const storageIsLoggedIn = getLocalStorageItem(storageKey) || false;
+	const [isLoggedIn, setIsLoggedIn] = useState(storageIsLoggedIn);
+
+	const handleLogout = () => {
+		setIsLoggedIn(false);
+		setLocalStorageItem(storageKey, false);
+	};
+
+	const handleLogin = () => {
+		setIsLoggedIn(true);
+		setLocalStorageItem(storageKey, true);
+	};
 
 	const single = page === "single" ? "font-bold" : "";
 	const simple = page === "simple" ? "font-bold" : "";
@@ -33,11 +49,16 @@ export default function Header() {
 				</div>
 				<div className="flex flex-col text-center md:flex-row md:text-left gap-4 py-2 md:py-4">
 					<Suspense fallback={<Loader />}>
-						TTh1
 						{isLoggedIn ? (
-							<MenuLoggedIn menuProps={{ single, simple, multi }} />
+							<MenuLoggedIn
+								menuProps={{ single, simple, multi }}
+								onChange={handleLogout}
+							/>
 						) : (
-							<MenuLoggedOut menuProps={{ single, simple, multi }} />
+							<MenuLoggedOut
+								menuProps={{ single, simple, multi }}
+								onChange={handleLogin}
+							/>
 						)}
 					</Suspense>
 				</div>

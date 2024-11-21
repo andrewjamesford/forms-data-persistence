@@ -1,8 +1,8 @@
-import { describe, expect, vi, it } from "vitest";
+import request from "supertest";
+import { describe, expect, it, vi } from "vitest";
+import { app } from "../app";
 import * as db from "../db.cjs";
 import { getCategories } from "./categories.repository.mjs";
-import request from "supertest";
-import { app } from "../app";
 
 const mockCategories = {
 	categories: [
