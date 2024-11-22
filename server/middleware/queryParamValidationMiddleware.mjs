@@ -1,3 +1,9 @@
+/**
+ * Middleware to validate query parameters against a given schema.
+ *
+ * @param {Object} schema - The validation schema.
+ * @returns {Function} Middleware function to validate query parameters.
+ */
 const queryParamValidationMiddleware = (schema) => (req, res, next) => {
 	const { error } = schema.validate(req.query);
 

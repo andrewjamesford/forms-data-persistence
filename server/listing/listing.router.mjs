@@ -32,6 +32,7 @@ router.get("/", async (req, res, next) => {
 	}
 });
 
+// schema for adding a new listing
 const addListingSchema = Joi.object().keys({
 	listing: Joi.object({
 		titleCategory: Joi.object({

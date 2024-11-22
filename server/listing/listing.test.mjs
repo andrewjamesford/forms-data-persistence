@@ -4,7 +4,14 @@ import { app } from "../app";
 import * as db from "../db.cjs";
 import { addListing, getListings } from "./listing.repository.mjs";
 
+/**
+ * Test suite for the getListings function.
+ */
 describe("getListings", () => {
+	/**
+	 * Mock data for listings.
+	 * @type {Array<Object>}
+	 */
 	const mockListings = [
 		{
 			id: "1",
@@ -15,6 +22,9 @@ describe("getListings", () => {
 		},
 	];
 
+	/**
+	 * Test case to verify that getListings returns all listings.
+	 */
 	it("should return all listings", async () => {
 		const mock = vi.fn().mockImplementation(getListings);
 
@@ -24,6 +34,9 @@ describe("getListings", () => {
 		expect(mock).toHaveBeenCalledTimes(1);
 	});
 
+	/**
+	 * Test case to verify that getListings returns an empty array when there are no listings.
+	 */
 	it("should return empty array", async () => {
 		const mockResult = { rows: [] };
 
@@ -34,6 +47,9 @@ describe("getListings", () => {
 		expect(listings).toEqual([]);
 	});
 
+	/**
+	 * Test case to verify that getListings throws an error if the database query fails.
+	 */
 	it("should throw an error if the database query fails", async () => {
 		const mockError = new Error("Database query failed");
 
@@ -42,6 +58,9 @@ describe("getListings", () => {
 		await expect(getListings()).rejects.toThrow("Database query failed");
 	});
 
+	/**
+	 * Test case to verify that the API responds with a 200 status code when retrieving listings.
+	 */
 	it("should respond with a 200 status code", async () => {
 		const response = await request(app).get("/api/listings/");
 
@@ -49,7 +68,13 @@ describe("getListings", () => {
 	});
 });
 
+/**
+ * Test suite for the addListing function.
+ */
 describe("addListing", () => {
+	/**
+	 * Test case to verify that addListing adds a new listing to the database.
+	 */
 	it("should add a new listing to the database", async () => {
 		const mock = vi.fn().mockImplementation(addListing);
 		const newListing = {
