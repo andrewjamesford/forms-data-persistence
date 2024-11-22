@@ -1,8 +1,3 @@
-/**
- * @file /Users/andrewford/Developer/MR/Videos/forms-data-persistence/client/src/api.js
- * @description This module provides functions to interact with the API for categories and listings.
- */
-
 const headers = {
 	Accept: "application/json",
 	"Content-Type": "application/json",

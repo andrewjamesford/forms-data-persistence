@@ -1,3 +1,4 @@
+// Code for the 404 page
 export default function NotFoundPage() {
 	return (
 		<main className="narrow-layout main-content section-padding page-padding">

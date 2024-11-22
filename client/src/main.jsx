@@ -8,7 +8,7 @@ import "./index.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<StrictMode>
 		<ErrorBoundary
-			fallback={<div>Something went wrong</div>}
+			fallback={<ErrorMessage message="Something went wrong" />}
 			onError={(error) => console.error(error)}
 		>
 			<App />
