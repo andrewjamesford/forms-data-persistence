@@ -1,4 +1,4 @@
-export default function MenuLoggedIn({ menuProps, onChange }) {
+export default function MenuLoggedIn({ menuProps, onLogOut }) {
 	const { single, simple, multi } = menuProps;
 
 	return (
@@ -36,7 +36,7 @@ export default function MenuLoggedIn({ menuProps, onChange }) {
 			<li>
 				<button
 					type="button"
-					onClick={onChange}
+					onClick={onLogOut}
 					className="text-sm text-gray-600 underline"
 				>
 					Log out
