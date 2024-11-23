@@ -1,6 +1,6 @@
 import { usePath, useUrl } from "crossroad";
 import React, { useState } from "react";
-import { getPageAndPath } from "../../utils/getPageAndPath";
+import { getPageAndPath } from "@/utils/getPageAndPath";
 
 export default function PageTwo({
 	values,

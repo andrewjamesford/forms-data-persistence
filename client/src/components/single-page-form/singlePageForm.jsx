@@ -1,8 +1,8 @@
 import { addDays, format } from "date-fns";
 import { useEffect, useState } from "react";
-import api from "../../api";
-import { listingSchema } from "../../models/listingSchema";
-import Loader from "../loader";
+import api from "@/api";
+import { listingSchema } from "@/models/listingSchema";
+import Loader from "@/loader";
 
 export default function () {
 	const today = format(new Date(), "yyyy-MM-dd");

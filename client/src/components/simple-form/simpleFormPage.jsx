@@ -1,14 +1,14 @@
 import { addDays, format } from "date-fns";
 import { useState } from "react";
-import { listingSchema } from "../../models/listingSchema";
+import { listingSchema } from "@/models/listingSchema";
 
 import {
 	getSessionStorageItem,
 	removeSessionStorageItem,
 	setSessionStorageItem,
-} from "../../utils/sessionStorage";
+} from "@/utils/sessionStorage";
 
-import api from "../../api";
+import api from "@/api";
 
 /**
  * Simple form page
