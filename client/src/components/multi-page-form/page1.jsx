@@ -1,9 +1,9 @@
 import { usePath, useUrl } from "crossroad";
 import { addDays, format } from "date-fns";
 import { useEffect, useState } from "react";
-import api from "../../api";
-import { getPageAndPath } from "../../utils/getPageAndPath";
-import Loader from "../loader";
+import api from "@/api";
+import { getPageAndPath } from "@/utils/getPageAndPath";
+import Loader from "@/loader";
 
 export default function PageOne({
 	values,

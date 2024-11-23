@@ -1,13 +1,10 @@
 import { usePath } from "crossroad";
 import React, { lazy, Suspense, useState } from "react";
-import { getPageAndPath } from "../utils/getPageAndPath";
-import {
-	getLocalStorageItem,
-	setLocalStorageItem,
-} from "../utils/localStorage";
-import Loader from "./loader";
-const MenuLoggedIn = lazy(() => import("./menuLoggedIn"));
-const MenuLoggedOut = lazy(() => import("./menuLoggedOut"));
+import { getPageAndPath } from "@/utils/getPageAndPath";
+import { getLocalStorageItem, setLocalStorageItem } from "@/utils/localStorage";
+import Loader from "@/components/loader";
+const MenuLoggedIn = lazy(() => import("@/components/menuLoggedIn"));
+const MenuLoggedOut = lazy(() => import("@/components/menuLoggedOut"));
 
 export default function Header() {
 	const path = usePath();

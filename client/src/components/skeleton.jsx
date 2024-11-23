@@ -1,3 +1,4 @@
+// Skeleton component for loading state
 export default function Skeleton() {
 	return (
 		<div role="status" className="max-w-sm animate-pulse animate-in">

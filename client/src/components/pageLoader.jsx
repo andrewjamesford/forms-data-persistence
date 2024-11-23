@@ -1,3 +1,4 @@
+// Page Loader Component
 export default function PageLoader() {
 	return (
 		<div className="absolute top-0 bottom-0 left-0 right-0 flex flex-1 h-screen w-screen justify-items-center align-middle items-center bg-gray-100 z-10">

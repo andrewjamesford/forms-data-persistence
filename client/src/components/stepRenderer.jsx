@@ -1,14 +1,14 @@
 import React, { lazy } from "react";
 // titleCategory
-const PageOne = lazy(() => import("../components/multi-page-form/page1"));
+const PageOne = lazy(() => import("@/components/multi-page-form/page1"));
 // itemDetails
-const PageTwo = lazy(() => import("../components/multi-page-form/page2"));
+const PageTwo = lazy(() => import("@/components/multi-page-form/page2"));
 // pricePayment
-const PageThree = lazy(() => import("../components/multi-page-form/page3"));
+const PageThree = lazy(() => import("@/components/multi-page-form/page3"));
 // shipping
-const PageFour = lazy(() => import("./multi-page-form/page3"));
+const PageFour = lazy(() => import("@/components/multi-page-form/page3"));
 // review
-const PageFive = lazy(() => import("./multi-page-form/page4"));
+const PageFive = lazy(() => import("@/components/multi-page-form/page4"));
 
 export default function StepRenderer({
 	step,

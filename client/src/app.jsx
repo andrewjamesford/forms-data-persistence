@@ -1,27 +1,27 @@
 import Router, { Route, Switch } from "crossroad";
-import React, { lazy, useState, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import ErrorMessage from "./components/errorMessage";
+import ErrorMessage from "@/components/errorMessage";
 
-import Footer from "./components/footer";
-import Header from "./components/header";
-import Skeleton from "./components/skeleton";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
+import Skeleton from "@/components/skeleton";
 
-import { generateUUID } from "./utils/generateUUID";
-import { getLocalStorageItem, setLocalStorageItem } from "./utils/localStorage";
+import { generateUUID } from "@/utils/generateUUID";
+import { getLocalStorageItem, setLocalStorageItem } from "@/utils/localStorage";
 
-const Home = lazy(() => import("./routes/home"));
+const Home = lazy(() => import("@/routes/home"));
 
 const SinglePageFormPage = lazy(
-	() => import("./components/single-page-form/singlePageForm"),
+	() => import("@/components/single-page-form/singlePageForm"),
 );
 const SimpleFormPage = lazy(
-	() => import("./components/simple-form/simpleFormPage"),
+	() => import("@/components/simple-form/simpleFormPage"),
 );
 const MultiPageForm = lazy(
-	() => import("./components/multi-page-form/multi-page-form"),
+	() => import("@/components/multi-page-form/multi-page-form"),
 );
-const NotFoundPage = lazy(() => import("./routes/notFoundPage"));
+const NotFoundPage = lazy(() => import("@/routes/notFoundPage"));
 
 /**
  * The main application component that sets up routing, error boundaries, and layout.
