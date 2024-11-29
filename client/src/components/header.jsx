@@ -23,8 +23,6 @@ export default function Header() {
 		setLocalStorageItem(storageKey, true);
 	};
 
-	console.log("isLoggedIn", isLoggedIn);
-
 	const single = page === "single" ? "font-bold" : "";
 	const simple = page === "simple" ? "font-bold" : "";
 	const multi = page === "multi" ? "font-bold" : "";
