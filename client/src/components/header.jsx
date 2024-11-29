@@ -23,6 +23,8 @@ export default function Header() {
 		setLocalStorageItem(storageKey, true);
 	};
 
+	console.log("isLoggedIn", isLoggedIn);
+
 	const single = page === "single" ? "font-bold" : "";
 	const simple = page === "simple" ? "font-bold" : "";
 	const multi = page === "multi" ? "font-bold" : "";
@@ -48,14 +50,11 @@ export default function Header() {
 					<Suspense fallback={<Loader />}>
 						{isLoggedIn ? (
 							<MenuLoggedIn
-								menuProps={{ single, simple, multi }}
-								onChange={handleLogout}
+								menuProps={{ single, multi, simple }}
+								onChange={() => handleLogout()}
 							/>
 						) : (
-							<MenuLoggedOut
-								menuProps={{ single, simple, multi }}
-								onChange={handleLogin}
-							/>
+							<MenuLoggedOut onChange={() => handleLogin()} />
 						)}
 					</Suspense>
 				</div>
