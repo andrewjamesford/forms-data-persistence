@@ -1,4 +1,8 @@
-// Home page component
+/**
+ * Home component displaying the main landing page
+ * @returns {JSX.Element} The rendered Home component with a title and description
+ * @component
+ */
 export default function Home() {
 	return (
 		<>

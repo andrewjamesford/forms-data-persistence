@@ -1,4 +1,14 @@
-// Page Loader Component
+/**
+ * PageLoader component renders a full-screen loading animation.
+ *
+ * @component
+ * @example
+ * return (
+ *   <PageLoader />
+ * )
+ *
+ * @returns {JSX.Element} A div containing a spinning SVG animation to indicate loading.
+ */
 export default function PageLoader() {
 	return (
 		<div className="absolute top-0 bottom-0 left-0 right-0 flex flex-1 h-screen w-screen justify-items-center align-middle items-center bg-gray-100 z-10">

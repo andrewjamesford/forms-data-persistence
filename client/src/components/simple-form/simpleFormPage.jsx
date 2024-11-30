@@ -1,6 +1,8 @@
+import ErrorMessage from "@/components/errorMessage";
+import { listingSchema } from "@/models/listingSchema";
 import { addDays, format } from "date-fns";
 import { useState } from "react";
-import { listingSchema } from "@/models/listingSchema";
+import { ErrorBoundary } from "react-error-boundary";
 
 import {
 	getSessionStorageItem,
@@ -15,6 +17,23 @@ import api from "@/api";
  * @returns { ReactElement }
  */
 export default function SimpleFormPage() {
+	return (
+		<ErrorBoundary
+			fallback={
+				<ErrorMessage message="An error occured trying to load the form." />
+			}
+			onError={(error) => console.error(error)}
+		>
+			<SimpleFormPageContent />
+		</ErrorBoundary>
+	);
+}
+
+/**
+ * Simple form content
+ * @returns { ReactElement }
+ */
+export function SimpleFormPageContent() {
 	const today = format(new Date(), "yyyy-MM-dd");
 	const tomorrow = format(addDays(today, 1), "yyyy-MM-dd");
 	const fortnight = format(addDays(today, 14), "yyyy-MM-dd");
@@ -76,6 +95,7 @@ export default function SimpleFormPage() {
 				>
 					Listing title
 				</label>
+
 				<input
 					id="listing-title"
 					placeholder="e.g. iPhone 5c, Red t-shirt"

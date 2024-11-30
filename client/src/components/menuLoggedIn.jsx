@@ -1,4 +1,14 @@
-// Menu for logged in users
+/**
+ * MenuLoggedIn component renders a navigation menu for logged-in users.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.menuProps - The properties for menu items.
+ * @param {string} props.menuProps.single - The CSS class for the single page form link.
+ * @param {string} props.menuProps.simple - The CSS class for the simple form link.
+ * @param {string} props.menuProps.multi - The CSS class for the multi-page form link.
+ * @param {Function} props.onChange - The callback function to handle the log out button click.
+ * @returns {JSX.Element} The rendered component.
+ */
 export default function MenuLoggedIn({ menuProps, onChange }) {
 	const { single, simple, multi } = menuProps;
 

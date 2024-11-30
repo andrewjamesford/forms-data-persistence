@@ -1,7 +1,19 @@
+import { getPageAndPath } from "@/utils/getPageAndPath";
 import { usePath, useUrl } from "crossroad";
 import { useState } from "react";
-import { getPageAndPath } from "@/utils/getPageAndPath";
-
+/**
+ * PageThree component handles the third page of a multi-page form.
+ * It allows users to input price and payment options.
+ *
+ * @component
+ * @param {Object} props - The props object.
+ * @param {Object} props.values - The initial values for the form fields.
+ * @param {Function} props.setFormState - Function to update the form state.
+ * @param {Function} props.handleLoadDraft - Function to load a draft.
+ * @param {boolean} props.draftAvailable - Flag indicating if a draft is available.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 export default function PageThree({
 	values,
 	setFormState,

@@ -1,10 +1,35 @@
+import api from "@/api";
+import ErrorMessage from "@/components/errorMessage";
+import Loader from "@/components/loader";
+import { listingSchema } from "@/models/listingSchema";
 import { addDays, format } from "date-fns";
 import { useEffect, useState } from "react";
-import api from "@/api";
-import { listingSchema } from "@/models/listingSchema";
-import Loader from "@/components/loader";
+import { ErrorBoundary } from "react-error-boundary";
 
-export default function () {
+/**
+ * @component SinglePageForm
+ * @description A form component for creating a new listing with error boundary protection.
+ * @returns {JSX.Element} A form wrapped in an error boundary
+ *
+ */
+export default function SinglePageForm() {
+	return (
+		<ErrorBoundary
+			fallback={
+				<ErrorMessage message="An error occured trying to load the form." />
+			}
+			onError={(error) => console.error(error)}
+		>
+			<SinglePageFormContent />
+		</ErrorBoundary>
+	);
+}
+/**
+ * @component SinglePageFormContent
+ * @description The main form content component for creating a new listing.
+ * @returns {JSX.Element} A form with multiple sections for listing details
+ * */
+export function SinglePageFormContent() {
 	const today = format(new Date(), "yyyy-MM-dd");
 	const tomorrow = format(addDays(today, 1), "yyyy-MM-dd");
 	const fortnight = format(addDays(today, 14), "yyyy-MM-dd");

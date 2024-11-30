@@ -1,7 +1,7 @@
+import ErrorMessage from "@/components/errorMessage";
 import Router, { Route, Switch } from "crossroad";
 import React, { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import ErrorMessage from "@/components/errorMessage";
 
 import Footer from "@/components/footer";
 import Header from "@/components/header";
@@ -44,17 +44,18 @@ export default function App() {
 
 	return (
 		/* ErrorBoundary is a component that catches JavaScript errors anywhere in its child component tree and logs those errors, and displays a fallback UI instead of the component tree that crashed. */
-		<ErrorBoundary
-			fallback={<ErrorMessage message="Something went wrong" />}
-			onError={(error) => console.error(error)}
-		>
-			<div className="w-full flex flex-row place-content-center bg-gray-100">
-				<div className="w-11/12 max-w-7xl min-h-screen flex flex-col ">
-					<div className="bg-gray-100 h-full">
-						{/* Router component */}
-						<Router>
-							<Header />
-							<main className="px-4 py-8 bg-white">
+
+		<div className="w-full flex flex-row place-content-center bg-gray-100">
+			<div className="w-11/12 max-w-7xl min-h-screen flex flex-col ">
+				<div className="bg-gray-100 h-full">
+					{/* Router component */}
+					<Router>
+						<Header />
+						<main className="px-4 py-8 bg-white">
+							<ErrorBoundary
+								fallback={<ErrorMessage message={"Error occured in routing"} />}
+								onError={(error) => console.error(error)}
+							>
 								{/* Suspense component */}
 								<Suspense
 									fallback={
@@ -84,12 +85,12 @@ export default function App() {
 										</Route>
 									</Switch>
 								</Suspense>
-							</main>
-						</Router>
-					</div>
-					<Footer />
+							</ErrorBoundary>
+						</main>
+					</Router>
 				</div>
+				<Footer />
 			</div>
-		</ErrorBoundary>
+		</div>
 	);
 }

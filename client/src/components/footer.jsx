@@ -1,3 +1,12 @@
+/**
+ * Footer component that displays a footer section with a demo badge and a description.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Footer />
+ * )
+ */
 export default function Footer() {
 	return (
 		<footer className="px-4 py-2 bg-gray-100">

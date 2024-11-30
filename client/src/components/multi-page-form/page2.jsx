@@ -1,7 +1,17 @@
+import { getPageAndPath } from "@/utils/getPageAndPath";
 import { usePath, useUrl } from "crossroad";
 import React, { useState } from "react";
-import { getPageAndPath } from "@/utils/getPageAndPath";
-
+/**
+ * PageTwo component for rendering the second page of a multi-page form.
+ *
+ * @param {Object} props - The props object.
+ * @param {Object} props.values - The initial values for the form fields.
+ * @param {Function} props.setFormState - Function to update the form state.
+ * @param {Function} props.handleLoadDraft - Function to handle loading a draft.
+ * @param {boolean} props.draftAvailable - Flag indicating if a draft is available.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 export default function PageTwo({
 	values,
 	setFormState,
