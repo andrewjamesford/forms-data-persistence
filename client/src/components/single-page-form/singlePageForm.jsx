@@ -20,7 +20,7 @@ export default function SinglePageForm() {
 			}
 			onError={(error) => console.error(error)}
 		>
-			{/* Change to a empty string to trigger an error */}
+			{/* Change to an empty string to trigger an error */}
 			<SinglePageFormContent boundaryTest={1} />
 		</ErrorBoundary>
 	);
@@ -304,7 +304,6 @@ export function SinglePageFormContent({ boundaryTest }) {
 					onBlur={changeData}
 					required={true}
 					pattern="\d{4}-\d{2}-\d{2}"
-					datatype="date"
 					min={tomorrow}
 					max={fortnight}
 				/>
