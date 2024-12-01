@@ -5,7 +5,7 @@ import Footer from "@/components/footer";
  * ErrorPage component renders a full-page error message with a header and footer.
  *
  * @param {Object} props - The component props.
- * @param {string} [props.message="An error occured"] - The error message to display.
+ * @param {string} [props.message="An error occurred"] - The error message to display.
  * @returns {JSX.Element} The rendered ErrorPage component.
  */
 export default function ErrorPage({ message = "An error occured" }) {
