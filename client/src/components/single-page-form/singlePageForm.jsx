@@ -20,6 +20,7 @@ export default function SinglePageForm() {
 			}
 			onError={(error) => console.error(error)}
 		>
+			{/* Change to a empty string to trigger an error */}
 			<SinglePageFormContent boundaryTest={1} />
 		</ErrorBoundary>
 	);
