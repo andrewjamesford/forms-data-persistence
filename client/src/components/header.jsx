@@ -62,10 +62,10 @@ export default function Header() {
 						{isLoggedIn ? (
 							<MenuLoggedIn
 								menuProps={{ single, multi, simple }}
-								onChange={() => handleLogout()}
+								onChange={handleLogout}
 							/>
 						) : (
-							<MenuLoggedOut onChange={() => handleLogin()} />
+							<MenuLoggedOut onChange={handleLogin} />
 						)}
 					</Suspense>
 				</div>
