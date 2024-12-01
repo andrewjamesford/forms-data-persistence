@@ -20,7 +20,7 @@ export default function SinglePageForm() {
 			}
 			onError={(error) => console.error(error)}
 		>
-			<SinglePageFormContent />
+			<SinglePageFormContent boundaryTest={1} />
 		</ErrorBoundary>
 	);
 }
@@ -29,11 +29,14 @@ export default function SinglePageForm() {
  * @description The main form content component for creating a new listing.
  * @returns {JSX.Element} A form with multiple sections for listing details
  * */
-export function SinglePageFormContent() {
+export function SinglePageFormContent({ boundaryTest }) {
 	const today = format(new Date(), "yyyy-MM-dd");
 	const tomorrow = format(addDays(today, 1), "yyyy-MM-dd");
 	const fortnight = format(addDays(today, 14), "yyyy-MM-dd");
 
+	if (!boundaryTest) {
+		throw new Error("Error boundary test");
+	}
 	const [categories, setCategories] = useState([]);
 	const [subCategories, setSubCategories] = useState([]);
 
@@ -51,6 +54,12 @@ export function SinglePageFormContent() {
 	const [checkRequired, setCheckRequired] = useState();
 
 	const changeData = () => {};
+
+	const checkValue = (value) => {
+		if (value > 10) {
+			throw new Error("Price must be less than $10");
+		}
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -394,6 +403,7 @@ export function SinglePageFormContent() {
 						value={pricePayment.listingPrice}
 						required={true}
 						onChange={(e) => {
+							checkValue(e.target.value);
 							setPricePayment({
 								...pricePayment,
 								listingPrice: e.target.value,
