@@ -1,8 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import path from "node:path";
-import fs from "node:fs";
+
 import categoriesRouter from "./categories/categories.router.mjs";
 import listingRouter from "./listing/listing.router.mjs";
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.mjs";
@@ -18,10 +17,9 @@ app.use(express.json());
 app.use("/api/categories", categoriesRouter);
 app.use("/api/listings", listingRouter);
 // Health check API route
-app.get('/health', (req, res) => {
-  res.status(200).json({ message: 'OK' });
+app.get("/health", (req, res) => {
+	res.status(200).json({ message: "OK" });
 });
-
 
 // error handling middleware
 app.use(errorHandlerMiddleware);

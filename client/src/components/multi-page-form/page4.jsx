@@ -1,8 +1,17 @@
+import { getPageAndPath } from "@/utils/getPageAndPath";
 import { usePath, useUrl } from "crossroad";
 import { useState } from "react";
-import { Helmet } from "react-helmet";
-import { getPageAndPath } from "../../utils/getPageAndPath";
-
+/**
+ * PageFour component handles the shipping and pick-up options in a multi-page form.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.values - The initial form values.
+ * @param {Function} props.setFormState - Function to update the form state.
+ * @param {Function} props.handleLoadDraft - Function to load a draft.
+ * @param {boolean} props.draftAvailable - Flag indicating if a draft is available.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 export default function PageFour({
 	values,
 	setFormState,

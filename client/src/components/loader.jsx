@@ -1,3 +1,11 @@
+/**
+ * Loader component for displaying a loading animation.
+ *
+ * @param {Object} props - The component props.
+ * @param {number} [props.width=10] - The width of the loading animation.
+ * @param {number} [props.height=10] - The height of the loading animation.
+ * @returns {JSX.Element} The Loader component.
+ */
 export default function Loader({ width = 10, height = 10 }) {
 	return (
 		<div className="min-h-10 w-full flex justify-center items-center">

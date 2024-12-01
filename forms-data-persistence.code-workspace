@@ -24,7 +24,10 @@
 			"packages/": true
 		},
 		"jest.autoEnable": false,
-		"jest.disabledWorkspaceFolders": ["DB", "ROOT"],
+		"jest.disabledWorkspaceFolders": [
+			"DB",
+			"ROOT"
+		],
 		"sqltools.connections": [
 			{
 				"previewLimit": 50,
@@ -36,7 +39,10 @@
 				"username": "postgres",
 				"password": "password"
 			}
-		]
+		],
+		"[dockerfile]": {
+			"editor.defaultFormatter": "ms-azuretools.vscode-docker"
+		}
 	},
 	"extensions": {
 		"recommendations": [

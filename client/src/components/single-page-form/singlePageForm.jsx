@@ -1,14 +1,43 @@
+import api from "@/api";
+import ErrorMessage from "@/components/errorMessage";
+import Loader from "@/components/loader";
+import { listingSchema } from "@/models/listingSchema";
 import { addDays, format } from "date-fns";
 import { useEffect, useState } from "react";
-import api from "../../api";
-import { listingSchema } from "../../models/listingSchema";
-import Loader from "../loader";
+import { ErrorBoundary } from "react-error-boundary";
 
-export default function () {
+/**
+ * @component SinglePageForm
+ * @description A form component for creating a new listing with error boundary protection.
+ * @returns {JSX.Element} A form wrapped in an error boundary
+ *
+ */
+export default function SinglePageForm() {
+	return (
+		<ErrorBoundary
+			fallback={
+				<ErrorMessage message="An error occurred trying to load the form." />
+			}
+			onError={(error) => console.error(error)}
+		>
+			{/* Change to a empty string to trigger an error */}
+			<SinglePageFormContent boundaryTest={1} />
+		</ErrorBoundary>
+	);
+}
+/**
+ * @component SinglePageFormContent
+ * @description The main form content component for creating a new listing.
+ * @returns {JSX.Element} A form with multiple sections for listing details
+ * */
+export function SinglePageFormContent({ boundaryTest }) {
 	const today = format(new Date(), "yyyy-MM-dd");
 	const tomorrow = format(addDays(today, 1), "yyyy-MM-dd");
 	const fortnight = format(addDays(today, 14), "yyyy-MM-dd");
 
+	if (!boundaryTest) {
+		throw new Error("Error boundary test");
+	}
 	const [categories, setCategories] = useState([]);
 	const [subCategories, setSubCategories] = useState([]);
 
@@ -26,6 +55,12 @@ export default function () {
 	const [checkRequired, setCheckRequired] = useState();
 
 	const changeData = () => {};
+
+	const checkValue = (value) => {
+		if (value > 10) {
+			throw new Error("Price must be less than $10");
+		}
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -369,6 +404,7 @@ export default function () {
 						value={pricePayment.listingPrice}
 						required={true}
 						onChange={(e) => {
+							checkValue(e.target.value);
 							setPricePayment({
 								...pricePayment,
 								listingPrice: e.target.value,

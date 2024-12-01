@@ -1,10 +1,23 @@
+import api from "@/api";
+import Loader from "@/components/loader";
+import { getPageAndPath } from "@/utils/getPageAndPath";
 import { usePath, useUrl } from "crossroad";
 import { addDays, format } from "date-fns";
 import { useEffect, useState } from "react";
-import api from "../../api";
-import { getPageAndPath } from "../../utils/getPageAndPath";
-import Loader from "../loader";
 
+/**
+ * PageOne component renders the first page of a multi-page form.
+ * It handles form state, data fetching, and form submission.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Object} props.values - The initial form values.
+ * @param {Function} props.setFormState - Function to update the form state.
+ * @param {Function} props.handleLoadDraft - Function to load a draft.
+ * @param {boolean} props.draftAvailable - Indicates if a draft is available.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 export default function PageOne({
 	values,
 	setFormState,

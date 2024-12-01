@@ -1,6 +1,7 @@
 import { addDays, format } from "date-fns";
 export const endDate = format(addDays(new Date(), 1), "yyyy-MM-dd");
 
+// Define the schema for the listing form data object
 export const listingSchema = {
 	titleCategory: {
 		userId: "",

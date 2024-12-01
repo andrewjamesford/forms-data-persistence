@@ -19,7 +19,9 @@ const mockCategories = {
 	],
 };
 
+// getCategories test suite
 describe("getCategories", () => {
+	// Test case to verify that getCategories returns the categories
 	it("should return the categories", async () => {
 		const mock = vi.fn().mockImplementation(getCategories);
 
@@ -29,6 +31,7 @@ describe("getCategories", () => {
 		expect(mock).toHaveBeenCalledTimes(1);
 	});
 
+	// Test case to verify that getCategories returns an empty array if no categories match the query
 	it("should return an empty array if no categories match the query", async () => {
 		const mockResult = { rows: [] };
 
@@ -39,6 +42,7 @@ describe("getCategories", () => {
 		expect(categories).toEqual([]);
 	});
 
+	// Test case to verify that getCategories throws an error if the database query fails
 	it("should throw an error if the database query fails", async () => {
 		const mockError = new Error("Database query failed");
 
@@ -47,6 +51,7 @@ describe("getCategories", () => {
 		await expect(getCategories()).rejects.toThrow("Database query failed");
 	});
 
+	// Test case to verify that getCategories returns the categories with the specified parent ID
 	it("should respond with a 200 status code", async () => {
 		const response = await request(app).get(
 			"http://localhost:5001/api/categories",

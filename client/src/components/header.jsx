@@ -1,14 +1,24 @@
+import Loader from "@/components/loader";
+import { getPageAndPath } from "@/utils/getPageAndPath";
+import { getLocalStorageItem, setLocalStorageItem } from "@/utils/localStorage";
 import { usePath } from "crossroad";
 import React, { lazy, Suspense, useState } from "react";
-import { getPageAndPath } from "../utils/getPageAndPath";
-import {
-	getLocalStorageItem,
-	setLocalStorageItem,
-} from "../utils/localStorage";
-import Loader from "./loader";
-const MenuLoggedIn = lazy(() => import("./menuLoggedIn"));
-const MenuLoggedOut = lazy(() => import("./menuLoggedOut"));
+const MenuLoggedIn = lazy(() => import("@/components/menuLoggedIn"));
+const MenuLoggedOut = lazy(() => import("@/components/menuLoggedOut"));
 
+/**
+ * Header component that displays a navigation header with login/logout functionality.
+ * It uses local storage to persist the login state and dynamically loads the appropriate menu
+ * based on the login state.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Header />
+ * )
+ *
+ * @returns {JSX.Element} The rendered header component.
+ */
 export default function Header() {
 	const path = usePath();
 	const { page } = getPageAndPath(path);
@@ -51,14 +61,11 @@ export default function Header() {
 					<Suspense fallback={<Loader />}>
 						{isLoggedIn ? (
 							<MenuLoggedIn
-								menuProps={{ single, simple, multi }}
+								menuProps={{ single, multi, simple }}
 								onChange={handleLogout}
 							/>
 						) : (
-							<MenuLoggedOut
-								menuProps={{ single, simple, multi }}
-								onChange={handleLogin}
-							/>
+							<MenuLoggedOut onChange={handleLogin} />
 						)}
 					</Suspense>
 				</div>

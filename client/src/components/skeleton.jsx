@@ -1,3 +1,16 @@
+/**
+ * Skeleton component that displays a loading animation.
+ *
+ * This component renders a series of div elements with different widths and heights
+ * to simulate the loading state of a page or a section of a page. It uses Tailwind CSS
+ * classes for styling and animations.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Skeleton />
+ * )
+ */
 export default function Skeleton() {
 	return (
 		<div role="status" className="max-w-sm animate-pulse animate-in">

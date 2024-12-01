@@ -1,8 +1,31 @@
+import { getPageAndPath } from "@/utils/getPageAndPath";
 import { usePath } from "crossroad";
-import { Helmet } from "react-helmet";
 
-import { getPageAndPath } from "../../utils/getPageAndPath";
-
+/**
+ * PageFive component displays the final review page of a multi-page form.
+ * It shows a summary of the entered details and allows the user to start the listing process.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Object} props.values - The values entered in the form.
+ * @param {Object} props.values.titleCategory - The title and category details.
+ * @param {string} props.values.titleCategory.listingTitle - The listing title.
+ * @param {string} props.values.titleCategory.category - The category.
+ * @param {string} props.values.titleCategory.subCategory - The sub-category.
+ * @param {string} props.values.titleCategory.subTitle - The sub-title.
+ * @param {Object} props.values.itemDetails - The item details.
+ * @param {string} props.values.itemDetails.description - The item description.
+ * @param {string} props.values.itemDetails.condition - The item condition.
+ * @param {Object} props.values.pricePayment - The price and payment details.
+ * @param {string} props.values.pricePayment.listingPrice - The listing price.
+ * @param {string} props.values.pricePayment.reservePrice - The reserve price.
+ * @param {string} props.values.pricePayment.paymentOptions - The payment options.
+ * @param {Object} props.values.shipping - The shipping and pick-up details.
+ * @param {string} props.values.shipping.pickUp - The pick-up option.
+ * @param {string} props.values.shipping.shippingOption - The shipping option.
+ * @param {Function} props.addListing - The function to start the listing process.
+ * @returns {JSX.Element} The rendered component.
+ */
 export default function PageFive({ values, addListing }) {
 	const path = usePath();
 	const { page, step } = getPageAndPath(path);

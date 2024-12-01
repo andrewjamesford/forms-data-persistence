@@ -1,21 +1,36 @@
-import React, { lazy, useState, Suspense, useEffect } from "react";
-import api from "../../api";
-import { getLocalStorageItem } from "../../utils/localStorage";
+import api from "@/api";
+import ErrorMessage from "@/components/errorMessage";
+import { getLocalStorageItem } from "@/utils/localStorage";
+import React, { useState, useEffect } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
-import BreadCrumbs from "../breadCrumbs";
+import BreadCrumbs from "@/components/breadCrumbs";
 // titleCategory
-import PageOne from "./page1";
+import PageOne from "@/components/multi-page-form/page1";
 // itemDetails
-import PageTwo from "./page2";
+import PageTwo from "@/components/multi-page-form/page2";
 // pricePayment
-import PageThree from "./page3";
+import PageThree from "@/components/multi-page-form/page3";
 // shipping
-import PageFour from "./page4";
+import PageFour from "@/components/multi-page-form/page4";
 // review
-import PageFive from "./page5";
+import PageFive from "@/components/multi-page-form/page5";
 
-import { listingSchema } from "../../models/listingSchema";
+import { listingSchema } from "@/models/listingSchema";
 
+/**
+ * MultiPageForm component handles the multi-step form for adding a listing.
+ * It manages the form state, draft saving/loading, and form submission.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.step - The current step of the form.
+ *
+ * @returns {JSX.Element} The rendered MultiPageForm component.
+ *
+ * @example
+ * <MultiPageForm step="1" />
+ */
 export default function MultiPageForm({ step }) {
 	const userID = getLocalStorageItem("userId");
 	// Add userId to formState
@@ -121,61 +136,68 @@ export default function MultiPageForm({ step }) {
 	console.log("Listing form state:", formState, step, draftAvailable);
 	return (
 		<>
-			<BreadCrumbs currentStep={step} />
-			{step === "1" && (
-				<PageOne
-					values={formState.titleCategory}
-					setFormState={(newTitleCategory) => {
-						setFormState({
-							...formState,
-							titleCategory: newTitleCategory,
-						});
-						saveDraft();
-					}}
-					draftAvailable={draftAvailable}
-					handleLoadDraft={handleLoadDraft}
-				/>
-			)}
-			{step === "2" && (
-				<PageTwo
-					values={formState.itemDetails}
-					setFormState={(newItemDetails) => {
-						setFormState({
-							...formState,
-							itemDetails: newItemDetails,
-						});
-						saveDraft();
-					}}
-					draftAvailable={draftAvailable}
-					handleLoadDraft={handleLoadDraft}
-				/>
-			)}
-			{step === "3" && (
-				<PageThree
-					values={formState.pricePayment}
-					setFormState={(newPricePayment) => {
-						setFormState({
-							...formState,
-							pricePayment: newPricePayment,
-						});
-						saveDraft();
-					}}
-				/>
-			)}
-			{step === "4" && (
-				<PageFour
-					values={formState.shipping}
-					setFormState={(newShipping) => {
-						setFormState({ ...formState, shipping: newShipping });
-						saveDraft();
-					}}
-					draftAvailable={draftAvailable}
-					handleLoadDraft={handleLoadDraft}
-				/>
-			)}
-			{step === "5" && (
-				<PageFive values={formState} addListing={handleAddListing} />
-			)}
+			<ErrorBoundary
+				fallback={
+					<ErrorMessage message="An error occured trying to load the form." />
+				}
+				onError={(error) => console.error(error)}
+			>
+				<BreadCrumbs currentStep={step} />
+				{step === "1" && (
+					<PageOne
+						values={formState.titleCategory}
+						setFormState={(newTitleCategory) => {
+							setFormState({
+								...formState,
+								titleCategory: newTitleCategory,
+							});
+							saveDraft();
+						}}
+						draftAvailable={draftAvailable}
+						handleLoadDraft={handleLoadDraft}
+					/>
+				)}
+				{step === "2" && (
+					<PageTwo
+						values={formState.itemDetails}
+						setFormState={(newItemDetails) => {
+							setFormState({
+								...formState,
+								itemDetails: newItemDetails,
+							});
+							saveDraft();
+						}}
+						draftAvailable={draftAvailable}
+						handleLoadDraft={handleLoadDraft}
+					/>
+				)}
+				{step === "3" && (
+					<PageThree
+						values={formState.pricePayment}
+						setFormState={(newPricePayment) => {
+							setFormState({
+								...formState,
+								pricePayment: newPricePayment,
+							});
+							saveDraft();
+						}}
+					/>
+				)}
+				{step === "4" && (
+					<PageFour
+						values={formState.shipping}
+						setFormState={(newShipping) => {
+							setFormState({ ...formState, shipping: newShipping });
+							saveDraft();
+						}}
+						draftAvailable={draftAvailable}
+						handleLoadDraft={handleLoadDraft}
+					/>
+				)}
+				{step === "5" && (
+					<PageFive values={formState} addListing={handleAddListing} />
+				)}
+			</ErrorBoundary>
 		</>
 	);
 }
